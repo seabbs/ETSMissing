@@ -1,0 +1,30 @@
+---
+title: ''
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Dear Editor,
+
+Please find attached our manuscript, entitled “” for consideration for publication in .
+
+In this paper ...
+
+We found ...
+
+We believe our manuscript will be of interest to you and the journal’s readership because ...
+
+We do not have any issues relating to the journal policies. All authors have approved this version of the manuscript for submission and the content of the manuscript has not been published or submitted elsewhere.
+
+With kind regards, on behalf of all the co-authors,
+
+Sam Abbott
+
+

@@ -1,0 +1,30 @@
+Package: ETSMissing
+Type: Package
+Title: Explore and Evaluate the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System
+Version: 0.1.0
+Authors@R: person("Sam", "Abbott", email = "contact@samabbott.co.uk", role = c("aut", "cre"))
+Description:  Explore and evaluate the mechanism for missing data in the Enhanced Tuberculosis Surveillance system.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    magrittr,
+    tbinenglanddataclean,
+    ggplot2
+Suggests:
+    testthat,
+    devtools,
+    pkgdown,
+    knitr,
+    rmarkdown,
+    tidyverse,
+    spelling,
+    prettypublisher
+Remotes: seabbs/tbinenglanddataclean,
+  seabbs/prettypublisher
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
+URL: http://www.samabbott.co.uk/ETSMissing,
+        https://github.com/seabbs/ETSMissing
+BugReports: https://github.com/seabbs/ETSMissing/issues
+VignetteBuilder: knitr

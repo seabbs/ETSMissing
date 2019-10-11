@@ -1,0 +1,43 @@
+---
+title: "Analysis Plan"
+author: "Sam Abbott"
+output: 
+      html_document:
+      word_document:
+vignette: >
+  %\VignetteIndexEntry{Analysis Plan}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: resources/library.bib  
+csl: resources/bmj.csl
+---
+
+# Title:
+
+## Introduction
+
+ 
+## Methods
+
+
+### Statistical analysis
+      
+
+## Results
+
+### Incorperating parameter uncertainty and updating parameter values
+
+
+## Discussion
+
+### Statement of primary findings
+
+### Strengths and limitations of the study
+
+    
+### Meaning of the study
+
+### Unanswered questions and future research
+
+
+

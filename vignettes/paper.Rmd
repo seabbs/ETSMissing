@@ -1,0 +1,133 @@
+---
+title: "Explore and Evaluate the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System"
+author: "Sam Abbott, Hannah Christensen, Ellen Brooks-Pollock"
+output: 
+      html_document:
+      word_document:
+        reference_docx: resources/style.docx
+vignette: >
+  %\VignetteIndexEntry{Explore and Evaluate the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+bibliography: resources/library.bib  
+csl: resources/bmj.csl
+---
+
+
+```{r setup, include=FALSE}
+rerun <- FALSE
+prefix <- "paper"
+
+if (!dir.exists("results")) {
+  dir.create("results")
+}
+
+if (!dir.exists(file.path("results", prefix)) | rerun) {
+  if (rerun) {
+    unlink(file.path("results", prefix), recursive = TRUE)
+  }
+  dir.create(file.path("results", prefix))
+}
+
+results_path <- file.path("results", prefix)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = FALSE,
+  cache.path = paste0("cache/",prefix,"/"),
+  fig.width = 8, 
+  fig.height = 6
+  )
+```
+
+
+```{r packages, include = FALSE}
+library(tidyverse)
+library(prettypublisher)
+library(ETSMissing)
+
+## Saving formatted results
+save_formated <- function(df, name) {
+  path <- file.path("results", "paper", paste0(name, ".rds"))
+  
+  saveRDS(df, path)
+}
+```
+
+**Authors:**
+
+Sam Abbott, Bristol Medical School: Population Health Sciences, University of Bristol, Bristol, UK
+
+Hannah Christensen, Bristol Medical School: Population Health Sciences, University of Bristol, Bristol, UK
+
+Ellen Brooks-Pollock, Bristol Medical School: Population Health Sciences, University of Bristol, Bristol, UK
+
+**Correspondence to:** Sam Abbott, Bristol Medical School: Population Health Sciences, University of Bristol, Bristol BS8 2BN, UK; sam.abbott@bristol.ac.uk; 01173310185
+
+**Words:** *Title:*  *Abstract:*  *Paper:*
+
+# Abstract
+
+## Objectives
+
+## Design
+
+
+## Setting 
+
+
+## Outcome measures
+
+## Results *Copy from bottom*
+
+## Conclusions
+
+# Strengths and limitations of this study
+
+
+# Introduction
+
+
+# Methods
+
+
+## Statistical analysis
+
+## Patient and public involvement
+
+We did not involve patients or the public in the design or planning of this study.
+
+# Results
+
+# Discussion
+
+
+**Acknowledgements**
+
+The authors thank the TB section at Public Health England (PHE) for maintaining the Enhanced Tuberculosis Surveillance (ETS) system; all the healthcare workers involved in data collection for the ETS.
+
+**Contributors**
+
+SA, HC, and EBP conceived and designed the work. SA undertook the analysis with advice from all other authors. All authors contributed to the interpretation of the data. SA wrote the first draft of the paper and all authors contributed to subsequent drafts. All authors approve the work for publication and agree to be accountable for the work.
+
+**Funding** 
+
+SEA, HC, and EBP are funded by the National Institute for Health Research Health Protection Research Unit (NIHR HPRU) in Evaluation of Interventions at University of Bristol in partnership with Public Health England (PHE). The views expressed are those of the author(s) and not necessarily those of the NHS, the NIHR, the Department of Health or Public Health England.
+
+**Conflicts of interest** 
+
+HC reports receiving honoraria from Sanofi Pasteur, and consultancy fees from AstraZeneca, GSK and IMS Health, all paid to her employer.
+
+**Accessibility of data and programming code**
+
+The code and data for the analysis contained in this paper can be found at: 
+
+
+# References
+
+<div id = 'refs'></div>
+
+## Results *Copy to top*
+
+
+# Supplementary Information: Explore and Evaluate the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System
+
+Sam Abbott, Hannah Christensen, Ellen Brooks-Pollock
+

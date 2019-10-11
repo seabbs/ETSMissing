@@ -1,0 +1,10 @@
+.Rprofile
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+inst/doc
+packrat/lib*/
+vignettes/old_drafts
+.DS_Store
+data-raw/tbinenglanddataclean

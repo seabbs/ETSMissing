@@ -1,0 +1,22 @@
+---
+title: "Reviewer Response"
+output:
+  word_document: default
+  html_document:
+    df_print: paged
+---
+
+
+Dear Editor,
+
+Thank you for sending review reports for our manuscript. The reviewer’s comments were useful and have greatly improved the paper.
+
+We enclose a revised version of the manuscript (clean and with tracked changes), which addresses the reviewer’s comments and suggestions. The reviewer’s comments are shown below with our response to each comment in italics.
+
+Yours sincerely,
+
+Sam Abbott
+
+## Authors' response to Editorial Requests
+
+## Authors' response to Reviewer #1:
