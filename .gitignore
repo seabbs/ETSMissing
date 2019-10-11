@@ -7,4 +7,5 @@ inst/doc
 packrat/lib*/
 vignettes/old_drafts
 .DS_Store
+data-raw/tb_data
 data-raw/tbinenglanddataclean

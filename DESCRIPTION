@@ -8,9 +8,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    magrittr,
-    tbinenglanddataclean,
-    ggplot2
+    magrittr
 Suggests:
     testthat,
     devtools,
