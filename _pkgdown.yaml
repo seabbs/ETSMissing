@@ -19,3 +19,15 @@ navbar:
     - icon: fa-github fa-lg
       text: "Github"
       href: https://github.com/seabbs/ETSMissing
+
+
+
+reference:
+    - title: Utilities
+      desc:  Tools and utilities used in the analysis or within other functions
+      contents:
+      - make_results_folder
+      - save_data
+      - read_data
+      - save_figure
+      - show_figure

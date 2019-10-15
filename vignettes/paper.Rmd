@@ -19,26 +19,10 @@ csl: resources/bmj.csl
 ## Run code that requires raw data - see data availability for details of how to access the data.
 regen_results <- FALSE
 
-if (!dir.exists("results")) {
-  dir.create("results")
-}
+## Make folders for data and fig storage and return as a path
+data_path <- ETSMissing::make_results_folder("paper/data")
+fig_path <- ETSMissing::make_results_folder("paper/figs")
 
-make_prefix_folder <- function(prefix) {
-  if (!dir.exists(file.path("results", prefix)) | regen_results) {
-  if (regen_results) {
-    unlink(file.path("results", prefix), recursive = TRUE)
-  }
-  dir.create(file.path("results", prefix))
-  }
-}
-
-## Make folders for data and fig storage
-make_prefix_folder("paper/data")
-make_prefix_folder("paper/figs")
-
-
-data_path <- file.path("results", "paper/data")
-fig_path <- file.path("results", "paper/figs")
 
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = FALSE,
   cache.path = paste0("cache/", "paper" ,"/"),
@@ -63,36 +47,11 @@ library(ETSMissing)
 
 
 ```{r utility, include = FALSE}
-## Saving results
-save_data <- function(df, name, path = data_path) {
-  
-  path <- file.path(path, paste0(name, ".rds"))
-  
-  saveRDS(df, path)
-}
-
-## Reading results
-read_data <- function(name, path = data_path) {
-  path <- file.path(path, paste0(name, ".rds"))
-  
-  readRDS(path)
-}
-
-## Saving figures
-save_figure <- function(fig, name, path = fig_path) {
-  
-   path <- file.path(path, paste0(name, ".png")) 
-   
-   ggsave(path, fig, dpi = 320, width = 8, height = 8)
-}
-
-## Show figure
-show_figure <- function(name, path = fig_path) {
-  path <- file.path(path, paste0(name, ".png")) 
-  plot <- knitr::include_graphics(path)
-  
-  return(plot)
-}
+## Set conveniance function paths using {purrr}
+save_data <- purrr::partial(ETSMissing::save_data, path = data_path)
+save_figure <- purrr::partial(ETSMissing::save_data, path = fig_path)
+read_data <- purrr::partial(ETSMissing::save_data, path = data_path)
+show_figure <- purrr::partial(ETSMissing::save_data, path = fig_path)
 
 ## Set theme
 PaperTheme <- theme_minimal() +
@@ -149,7 +108,7 @@ In this chapter I explore the epidemiology of TB in England using routine datase
 ## Data cleaning + munging is packaged seperately
 ## See here: 
 if (regen_results) {
-  ets <- readRDS(here("data-raw/tb_data/tbinenglanddataclean/clean_ets_2016.rds"))
+  ets <- ETSMissing::read_data("clean_ets_2016", path = here("data-raw/tb_data/tbinenglanddataclean"))
 }
 ```
 

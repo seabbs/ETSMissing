@@ -8,13 +8,14 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    magrittr
-Suggests:
+    magrittr,
     here,
+    ggplot2,
+    knitr
+Suggests:
     testthat,
     devtools,
     pkgdown,
-    knitr,
     rmarkdown,
     tidyverse,
     spelling,
