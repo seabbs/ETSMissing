@@ -23,6 +23,13 @@ navbar:
 
 
 reference:
+
+    - title: Nested missingness
+      desc: Functions that adjust for, plot or otherwise explored data that is missing due to nesting.
+      contents:
+      - account_for_nested_missing
+      - plot_nested_missing
+      - nested_missing_table
     - title: Utilities
       desc:  Tools and utilities used in the analysis or within other functions
       contents:

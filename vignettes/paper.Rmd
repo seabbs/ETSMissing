@@ -17,7 +17,7 @@ csl: resources/bmj.csl
 
 ```{r setup, include=FALSE}
 ## Run code that requires raw data - see data availability for details of how to access the data.
-regen_results <- FALSE
+regen_results <- TRUE
 
 ## Make folders for data and fig storage and return as a path
 data_path <- ETSMissing::make_results_folder("paper/data")
@@ -39,7 +39,6 @@ library(tidyverse)
 library(pander)
 library(knitr)
 library(kableExtra)
-library(naniar)
 library(broom)
 library(prettypublisher)
 library(ETSMissing)
@@ -52,7 +51,6 @@ save_data <- purrr::partial(ETSMissing::save_data, path = data_path)
 save_figure <- purrr::partial(ETSMissing::save_data, path = fig_path)
 read_data <- purrr::partial(ETSMissing::save_data, path = data_path)
 show_figure <- purrr::partial(ETSMissing::save_data, path = fig_path)
-
 ## Set theme
 PaperTheme <- theme_minimal() +
   theme(legend.position = "top", text = element_text(size = 12))
@@ -146,10 +144,39 @@ The ETS is in a wide format with each notification having a single row, and with
 #### Data completeness
 
 ```{r miss-dat-munge, include = FALSE}
+## See package docs (?ETSMissing::function) for further implementation details 
 if (regen_results) {
-  source(here("scripts/nested-missing-data.R"))
+  # Account for nested data -------------------------------------------------
+  nest_filt_ets <- ets %>%
+    ETSMissing::account_for_nested_missing()
+  
+  # Plot nested missing data ------------------------------------------------
+  missing_strut <- nest_filt_ets %>%
+    ETSMissing::plot_nested_missing()
+  
+  save_figure(missing_strut, "plot-missing-struct")
+  
+  # Estimate missing ness pre and post 2009 ---------------------------------
+  miss_ets_pre_2009 <- nest_filt_ets %>%
+    dplyr::filter(year < 2009) %>%
+    ETSMissing::nested_missing_table()
+  
+  miss_ets_post_2008 <- nest_filt_ets %>%
+    dplyr::filter(year > 2008) %>%
+    ETSMissing::nested_missing_table()
+  
+  save_data(miss_ets_pre_2009, "miss_ets_pre_2009")
+  save_data(miss_ets_post_2008, "miss_ets_post_2008")
+  
+  # Summary stats -----------------------------------------------------------
+  ## For nested variables an alternative measure of missing data is to consider the number of missing data
+  ## points when top level outcome is known
+  missing_stats <- ETSMissing::summarise_missingness(ets)
+  
+  save_data(missing_stats, "missing_stats")
+
 }else{
-  miss_ets_pre_2009 <- read_data("miss_ets_pre_2009")
+  miss_ets_pre_2009 <- read_data(name = "miss_ets_pre_2009")
   miss_ets_post_2008  <- read_data("miss_ets_post_2008")
   missing_stats <- read_data("missing_stats")
 }
@@ -208,7 +235,79 @@ For all outcomes considered I adjusted for the same set of demographic variables
 
 ```{r deep-dive-missing, include = FALSE}
 if (regen_results) {
-  source(here("scripts/explore-variable-missingness.R"))
+  
+    # Filter to only look at 2009 and move to year as factor ------------------
+   ets_post_2009 <- ets %>%
+     filter(year > 2009) %>%
+     mutate(year = factor(year))
+   
+    # Set default exploratory variables --------------------------------------
+    confounders_var <- c("year", "sex", "agegrp", "ethgrp", "ukborn", "natquintile")
+    confounder_names <- c("Year", "Sex", "Age", "Ethnic group", "UK birth status", "Socio-economic status")
+    
+    model_variable_missingness <- purrr::partial(model_variable_missingness, list(
+       confounders = confounders_var, confounder_names = confounder_names
+    ))
+   # BCG vac -----------------------------------------------------------------
+   
+   bcg_missingness <- ets_post_2009 %>%
+     model_var_missing(var = "bcgvacc")
+   
+   
+   
+   # Year of BCG -------------------------------------------------------------
+   
+   bcg_year_missingness <- ets_post_2009 %>%
+     filter(bcgvacc == "Yes") %>%
+     model_var_missing(var = "bcgvaccyr")
+   
+   
+   # Date of death -----------------------------------------------------------
+   death_date_missingness <- ets_post_2009 %>%
+     filter(overalloutcome == "Died") %>%
+     model_var_missing(var = "dateofdeath")
+   
+   # cause of death ----------------------------------------------------------
+   death_cause_missingness <- ets_post_2009 %>%
+     filter(overalloutcome == "Died") %>%
+     model_var_missing(var = "tomdeathrelat")
+   
+   
+   # date symptom onset ------------------------------------------------------
+   
+   date_symptoms_missingness <- ets_post_2009 %>%
+     model_var_missing(var = "symptonset")
+   
+   
+   # date of diag ------------------------------------------------------------
+   
+   date_diag_missingness <- ets_post_2009 %>%
+     model_var_missing(var = "datediag")
+   
+   
+   # date of starting treatment ----------------------------------------------
+   date_treat_start_missingness <- ets_post_2009 %>%
+     model_var_missing(var = "starttreatdate")
+   
+   
+   
+   # date of ending treatment ------------------------------------------------
+   date_treat_end_missingness <- ets_post_2009 %>%
+     filter(overalloutcome %in% c("Treatment completed")) %>%
+     model_var_missing(var = "txenddate")
+   
+   
+   
+   model_miss_results <- list(bcg_missingness, bcg_year_missingness,
+                              death_cause_missingness, date_symptoms_missingness,
+                              date_diag_missingness, death_date_missingness,
+                              date_treat_start_missingness, date_treat_end_missingness)
+   
+   names(model_miss_results) <- c("bcgvacc", "bvcvaccyr", "tomdeathrealat",
+                                  "symptonset", "datediag", "dateofdeath",
+                                  "starttreatdate", "txenddate")
+   
+   save_data(model_miss_results, "model_miss_results")
 }else{
    model_miss_results <- read_data("model_miss_results")
 }

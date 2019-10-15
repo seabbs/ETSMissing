@@ -11,7 +11,10 @@ Imports:
     magrittr,
     here,
     ggplot2,
-    knitr
+    knitr,
+    dplyr,
+    naniar,
+    prettypublisher
 Suggests:
     testthat,
     devtools,
@@ -22,8 +25,7 @@ Suggests:
     pander,
     naniar,
     kableExtra,
-    broom,
-    prettypublisher
+    broom
 Remotes: seabbs/tbinenglanddataclean,
   seabbs/prettypublisher
 Roxygen: list(markdown = TRUE)

@@ -20,6 +20,8 @@ save_data <- function(df, name, path = NULL) {
   path <- file.path(path, paste0(name, ".rds"))
 
   saveRDS(df, path)
+
+  invisible()
 }
 
 ## Reading results
@@ -60,6 +62,8 @@ save_figure <- function(fig, name, path = NULL) {
   path <- file.path(path, paste0(name, ".png"))
 
   ggplot2::ggsave(path, fig, dpi = 320, width = 8, height = 8)
+
+  invisible()
 }
 
 #' Load and Show Saved Figures
