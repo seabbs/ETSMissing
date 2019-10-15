@@ -10,6 +10,7 @@ LazyData: true
 Imports:
     magrittr
 Suggests:
+    here,
     testthat,
     devtools,
     pkgdown,
@@ -17,6 +18,10 @@ Suggests:
     rmarkdown,
     tidyverse,
     spelling,
+    pander,
+    naniar,
+    kableExtra,
+    broom,
     prettypublisher
 Remotes: seabbs/tbinenglanddataclean,
   seabbs/prettypublisher

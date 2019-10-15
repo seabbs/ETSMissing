@@ -9,8 +9,6 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "Analysis Plan"
-      href: articles/analysis_plan.html
     - text: "Paper + SI"
       href: articles/paper.html
 

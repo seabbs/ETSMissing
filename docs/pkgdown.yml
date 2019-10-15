@@ -2,7 +2,6 @@ pandoc: 2.3.1
 pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
-  analysis_plan: analysis_plan.html
   paper: paper.html
 urls:
   reference: https://samabbott.co.uk/ETSMissing/reference
