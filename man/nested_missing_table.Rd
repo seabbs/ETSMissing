@@ -14,7 +14,7 @@ A dataframe summarising missing data
 }
 \description{
 This function tabulates nested missing data using a slightly altered (for presentation) version of
-\code{\link[naniar](miss_var_summary)}.
+\code{\link[naniar]{miss_var_summary}}.
 }
 \examples{
 

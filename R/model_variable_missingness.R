@@ -1,17 +1,22 @@
 #' Model Variable Missingness
 #'
-#' @description
+#' @description This function models missingness within a binary variable using logistic regression, adjusted for a specified
+#' list of confounders (only categorical variables are supported). It returns a structured output that can be directly tabulated.
+#'  P values from Wald and Likelihood tests are also returned. Odds ratios are computed and presented with their 95% confidence
+#'   intervals.
 #' @param var A character string indicating the name of the variable
-#' to explore missingness within
+#' to explore missingness within.
 #' @param confounders A character vector containing the programmatic names of variables
-#' to use as confounders.
+#' to use as confounders. All variables must be categorical.
 #' @param confounder_names A character vector containing presentation names of variables. If not supplied will default
 #' to \code{confounders}.
+#' @param conf_int_sep A character string indicating the separator to use for confidence intervals
 #' @inheritParams account_for_nested_missing
 #' @return A dataframe containing data and model estimates for the specified variable and confounders.
 #' @export
-#' @importFrom dplyr select_at mutate_at case_when slice mutate select count add_count drop_na ungroup rename_if mutate_if group_by all_vars left_join
-#' @importFrom tidyr replace_na
+#' @importFrom dplyr select_at mutate_at filter_at case_when slice mutate select count add_count ungroup rename_if mutate_if group_by all_vars left_join funs n
+#' @importFrom tidyr replace_na drop_na
+#' @importFrom tidyselect contains
 #' @importFrom stringr str_replace
 #' @importFrom prettypublisher pretty_ci pretty_round
 #' @importFrom tibble tibble
@@ -22,7 +27,8 @@
 #' ## Code
 #' model_variable_missingness
 model_variable_missingness <- function(df = NULL, var = NULL,
-                                       confounders = NULL, confounder_names = NULL) {
+                                       confounders = NULL, confounder_names = NULL,
+                                       conf_int_sep = ", ") {
 
   if (is.null(confounder_names)) {
     confounder_names <- confounders
@@ -43,7 +49,7 @@ model_variable_missingness <- function(df = NULL, var = NULL,
     mutate_at(.vars = c("estimate", "conf.low", "conf.high"),
               exp) %>%
     slice(-1) %>%
-    mutate(`Odds Ratio` = pretty_ci(estimate, conf.low, conf.high, sep = ", "),
+    mutate(`Odds Ratio` = pretty_ci(estimate, conf.low, conf.high, sep = conf_int_sep),
            `P value (Wald)` = signif(p.value, 3)) %>%
     select(-estimate, -std.error, -statistic, -p.value, -conf.low, -conf.high)
 

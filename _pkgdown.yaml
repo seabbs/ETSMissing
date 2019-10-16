@@ -24,12 +24,17 @@ navbar:
 
 reference:
 
-    - title: Nested missingness
+    - title: Analysis
+      desc: Functions that are critical for the analysis.
+      contents:
+      - model_variable_missingness
+    - title: Nested Missingness Tools
       desc: Functions that adjust for, plot or otherwise explored data that is missing due to nesting.
       contents:
       - account_for_nested_missing
       - plot_nested_missing
       - nested_missing_table
+      - summarise_missingness
     - title: Utilities
       desc:  Tools and utilities used in the analysis or within other functions
       contents:
@@ -38,3 +43,4 @@ reference:
       - read_data
       - save_figure
       - show_figure
+      - pull_results

@@ -1,7 +1,7 @@
 #' Tabulate Nested Missing Data
 #'
 #' @description This function tabulates nested missing data using a slightly altered (for presentation) version of
-#' \code{\link[naniar](miss_var_summary)}.
+#' \code{\link[naniar]{miss_var_summary}}.
 #' @inheritParams plot_nested_missing
 #' @return A dataframe summarising missing data
 #' @export

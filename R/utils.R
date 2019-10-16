@@ -73,7 +73,7 @@ save_figure <- function(fig, name, path = NULL) {
 #'
 #' @return Prints a saved figure
 #' @export
-#' @inheritParams knitr include_graphics
+#' @importFrom knitr include_graphics
 #'
 #' @examples
 #'
@@ -85,4 +85,25 @@ show_figure <- function(name, path = fig_path) {
   plot <- knitr::include_graphics(path)
 
   return(plot)
+}
+
+#' Pull out Results by Variable
+#'
+#' @param df A dataframe containing an outcome variable (character) and a missing_table variable.
+#' @param var A character string identifying which variable to pull results for.
+#'
+#' @return A dataframe of results
+#' @export
+#'
+#' @importFrom dplyr filter pull first
+#' @examples
+#'
+#' ## Code
+#' pull_results
+pull_results <- function(df, var) {
+  df %>%
+    dplyr::filter(outcome %in% var) %>%
+    dplyr::pull(missing_table) %>%
+    dplyr::first()
+
 }

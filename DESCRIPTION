@@ -13,6 +13,12 @@ Imports:
     ggplot2,
     knitr,
     dplyr,
+    broom,
+    stringr, 
+    tibble,
+    tidyr,
+    purrr,
+    tidyselect,
     naniar,
     prettypublisher
 Suggests:
@@ -23,9 +29,10 @@ Suggests:
     tidyverse,
     spelling,
     pander,
-    naniar,
     kableExtra,
-    broom
+    broom,
+    future,
+    furrr
 Remotes: seabbs/tbinenglanddataclean,
   seabbs/prettypublisher
 Roxygen: list(markdown = TRUE)

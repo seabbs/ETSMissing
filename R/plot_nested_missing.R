@@ -2,7 +2,7 @@
 #'
 #'
 #' @description This function plots nested missing data using a slightly altered version of
-#' \code{\link[naniar](vis_miss)}.
+#' \code{\link[naniar]{vis_miss}}.
 #' @param df A dataframe as produced by \code{\link[ETSMissing]{account_for_nested_missing}}
 #' @param down_sample Numeric, the fraction by which to downsample the data. Defaults to 0.2.
 #'
@@ -19,7 +19,7 @@
 plot_nested_missing <- function(df, down_sample = 0.2) {
 
   df %>%
-  sample_frac(down_sample) %>%
+    sample_frac(down_sample) %>%
     arrange(desc(caserepdate)) %>%
     vis_miss(warn_large_data = FALSE, sort_miss = TRUE,
              show_perc = TRUE, cluster = FALSE) +

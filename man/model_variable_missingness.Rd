@@ -5,25 +5,30 @@
 \title{Model Variable Missingness}
 \usage{
 model_variable_missingness(df = NULL, var = NULL, confounders = NULL,
-  confounder_names = NULL)
+  confounder_names = NULL, conf_int_sep = ", ")
 }
 \arguments{
 \item{df}{A dataframe containing cleaned ETS data as produced by \code{tbinenglanddataclean}.}
 
 \item{var}{A character string indicating the name of the variable
-to explore missingness within}
+to explore missingness within.}
 
 \item{confounders}{A character vector containing the programmatic names of variables
-to use as confounders.}
+to use as confounders. All variables must be categorical.}
 
 \item{confounder_names}{A character vector containing presentation names of variables. If not supplied will default
 to \code{confounders}.}
+
+\item{conf_int_sep}{A character string indicating the separator to use for confidence intervals}
 }
 \value{
 A dataframe containing data and model estimates for the specified variable and confounders.
 }
 \description{
-Model Variable Missingness
+This function models missingness within a binary variable using logistic regression, adjusted for a specified
+list of confounders (only categorical variables are supported). It returns a structured output that can be directly tabulated.
+P values from Wald and Likelihood tests are also returned. Odds ratios are computed and presented with their 95% confidence
+intervals.
 }
 \examples{
 

@@ -16,7 +16,7 @@ A plot of nested missingness
 }
 \description{
 This function plots nested missing data using a slightly altered version of
-\code{\link[naniar](vis_miss)}.
+\code{\link[naniar]{vis_miss}}.
 }
 \examples{
 

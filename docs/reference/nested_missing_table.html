@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • Explore and Evaluate the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System</title>
+<title>Tabulate Nested Missing Data — nested_missing_table • Explore and Evaluate the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System</title>
 
 
 <!-- jquery -->
@@ -35,7 +35,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Tabulate Nested Missing Data — nested_missing_table" />
+<meta property="og:description" content="This function tabulates nested missing data using a slightly altered (for presentation) version of
+miss_var_summary." />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -54,7 +57,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -106,120 +109,53 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Tabulate Nested Missing Data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/seabbs/ETSMissing/blob/master/R/nested_missing_table.R'><code>R/nested_missing_table.R</code></a></small>
+    <div class="hidden name"><code>nested_missing_table.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>This function tabulates nested missing data using a slightly altered (for presentation) version of
+<code><a href='https://rdrr.io/pkg/naniar/man/miss_var_summary.html'>miss_var_summary</a></code>.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>nested_missing_table</span>(<span class='no'>df</span>)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-analysis" class="hasAnchor"><a href="#section-analysis" class="anchor"></a>Analysis</h2>
-          <p class="section-desc"><p>Functions that are critical for the analysis.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="model_variable_missingness.html">model_variable_missingness()</a></code> </p>
-        </td>
-        <td><p>Model Variable Missingness</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-nested-missingness-tools" class="hasAnchor"><a href="#section-nested-missingness-tools" class="anchor"></a>Nested Missingness Tools</h2>
-          <p class="section-desc"><p>Functions that adjust for, plot or otherwise explored data that is missing due to nesting.</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="account_for_nested_missing.html">account_for_nested_missing()</a></code> </p>
-        </td>
-        <td><p>Account for Data that is Missing Due to Nesting</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot_nested_missing.html">plot_nested_missing()</a></code> </p>
-        </td>
-        <td><p>Plot Nested Missing Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="nested_missing_table.html">nested_missing_table()</a></code> </p>
-        </td>
-        <td><p>Tabulate Nested Missing Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="summarise_missingness.html">summarise_missingness()</a></code> </p>
-        </td>
-        <td><p>Summarise Missingness by Variable</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-utilities" class="hasAnchor"><a href="#section-utilities" class="anchor"></a>Utilities</h2>
-          <p class="section-desc"><p>Tools and utilities used in the analysis or within other functions</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="make_results_folder.html">make_results_folder()</a></code> </p>
-        </td>
-        <td><p>Make a Results Folder</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="save_data.html">save_data()</a></code> </p>
-        </td>
-        <td><p>Save results</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="read_data.html">read_data()</a></code> </p>
-        </td>
-        <td><p>Read in results</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="save_figure.html">save_figure()</a></code> </p>
-        </td>
-        <td><p>Save Figures a PNGs</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="show_figure.html">show_figure()</a></code> </p>
-        </td>
-        <td><p>Load and Show Saved Figures</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pull_results.html">pull_results()</a></code> </p>
-        </td>
-        <td><p>Pull out Results by Variable</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>df</th>
+      <td><p>A dataframe as produced by <code><a href='account_for_nested_missing.html'>account_for_nested_missing</a></code></p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A dataframe summarising missing data</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='co'>## Code</span>
+<span class='no'>nested_missing_table</span></div><div class='output co'>#&gt; function (df) 
+#&gt; {
+#&gt;     df %&gt;% miss_var_summary %&gt;% mutate(percent = pretty_round(pct_miss, 
+#&gt;         digits = 1)) %&gt;% select(Variable = variable, `Missing (N)` = n_miss, 
+#&gt;         `Missing (%)` = percent)
+#&gt; }
+#&gt; &lt;bytecode: 0x55faa0d0a030&gt;
+#&gt; &lt;environment: namespace:ETSMissing&gt;</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-analysis">Analysis</a></li>
-      <li><a href="#section-nested-missingness-tools">Nested Missingness Tools</a></li>
-      <li><a href="#section-utilities">Utilities</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 
