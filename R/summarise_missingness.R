@@ -15,6 +15,9 @@
 #' ## Code
 #' summarise_missingness
 summarise_missingness <- function(df) {
+  starttreatdate <- NULL; startedtreat <- NULL; nn <- NULL;
+  per <- NULL; overalloutcome <- NULL; pretty_per <- NULL;
+  dateofdeath <- NULL; tomdeathrelat <- NULL; txenddate <- NULL;
   ## Started treatment date
   date_treatment <- df %>%
     filter(startedtreat %in% "Started") %>%

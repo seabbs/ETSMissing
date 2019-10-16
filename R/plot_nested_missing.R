@@ -8,7 +8,7 @@
 #'
 #' @return A plot of nested missingness
 #' @export
-#' @importFrom dplyr sample_frac arrange
+#' @importFrom dplyr sample_frac arrange desc
 #' @importFrom naniar vis_miss
 #' @importFrom ggplot2 coord_flip theme element_text
 #' @seealso account_for_nested_missing
@@ -17,6 +17,8 @@
 #' ## Code
 #' plot_nested_missing
 plot_nested_missing <- function(df, down_sample = 0.2) {
+
+  caserepdate <- NULL;
 
   df %>%
     sample_frac(down_sample) %>%

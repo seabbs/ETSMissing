@@ -166,6 +166,18 @@ to <code>confounders</code>.</p></td>
 <span class='no'>model_variable_missingness</span></div><div class='output co'>#&gt; function (df = NULL, var = NULL, confounders = NULL, confounder_names = NULL, 
 #&gt;     conf_int_sep = ", ") 
 #&gt; {
+#&gt;     estimate &lt;- NULL
+#&gt;     conf.low &lt;- NULL
+#&gt;     conf.high &lt;- NULL
+#&gt;     p.value &lt;- NULL
+#&gt;     std.error &lt;- NULL
+#&gt;     statistic &lt;- NULL
+#&gt;     key &lt;- NULL
+#&gt;     `Odds Ratio` &lt;- NULL
+#&gt;     Variable &lt;- NULL
+#&gt;     dummy &lt;- NULL
+#&gt;     `P value (LRT)` &lt;- NULL
+#&gt;     `P value (Wald)` &lt;- NULL
 #&gt;     if (is.null(confounder_names)) {
 #&gt;         confounder_names &lt;- confounders
 #&gt;     }
@@ -203,7 +215,7 @@ to <code>confounders</code>.</p></td>
 #&gt;         paste0("Notifications (", nrow(df), ")"))
 #&gt;     return(output)
 #&gt; }
-#&gt; &lt;bytecode: 0x55fa9e8e23e0&gt;
+#&gt; &lt;bytecode: 0x55e19595ac58&gt;
 #&gt; &lt;environment: namespace:ETSMissing&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

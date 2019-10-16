@@ -13,6 +13,11 @@
 #' ## Code
 #' nested_missing_table
 nested_missing_table <- function(df) {
+
+  pct_miss <- NULL; Variable <- NULL; variable <- NULL;
+  `Missing (N)` <- NULL; `Missing (%)` <- NULL; percent <- NULL;
+  n_miss <- NULL;
+
   df %>%
     miss_var_summary %>%
     mutate(percent = pretty_round(pct_miss, digits = 1)) %>%

@@ -141,11 +141,18 @@ miss_var_summary." />
 <span class='co'>## Code</span>
 <span class='no'>nested_missing_table</span></div><div class='output co'>#&gt; function (df) 
 #&gt; {
+#&gt;     pct_miss &lt;- NULL
+#&gt;     Variable &lt;- NULL
+#&gt;     variable &lt;- NULL
+#&gt;     `Missing (N)` &lt;- NULL
+#&gt;     `Missing (%)` &lt;- NULL
+#&gt;     percent &lt;- NULL
+#&gt;     n_miss &lt;- NULL
 #&gt;     df %&gt;% miss_var_summary %&gt;% mutate(percent = pretty_round(pct_miss, 
 #&gt;         digits = 1)) %&gt;% select(Variable = variable, `Missing (N)` = n_miss, 
 #&gt;         `Missing (%)` = percent)
 #&gt; }
-#&gt; &lt;bytecode: 0x55faa0d0a030&gt;
+#&gt; &lt;bytecode: 0x55e197e5ff90&gt;
 #&gt; &lt;environment: namespace:ETSMissing&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -79,7 +79,7 @@ save_figure <- function(fig, name, path = NULL) {
 #'
 #' ## Code
 #' show_figure
-show_figure <- function(name, path = fig_path) {
+show_figure <- function(name, path = NULL) {
   path <- file.path(path, paste0(name, ".png"))
 
   plot <- knitr::include_graphics(path)
@@ -101,6 +101,8 @@ show_figure <- function(name, path = fig_path) {
 #' ## Code
 #' pull_results
 pull_results <- function(df, var) {
+  outcome <- NULL; missing_table <- NULL;
+
   df %>%
     dplyr::filter(outcome %in% var) %>%
     dplyr::pull(missing_table) %>%

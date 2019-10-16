@@ -4,7 +4,7 @@
 \alias{show_figure}
 \title{Load and Show Saved Figures}
 \usage{
-show_figure(name, path = fig_path)
+show_figure(name, path = NULL)
 }
 \arguments{
 \item{name}{Character string identifying the figure}

@@ -15,6 +15,13 @@
 #' account_for_nested_missing
 account_for_nested_missing <- function(df) {
 
+  caserepdate <- NULL; year <- NULL; sex <- NULL; age <- NULL; phec <- NULL;
+  occat <- NULL; ethgrp <- NULL; ukborn <- NULL; timesinceent <- NULL;
+  symptonset <- NULL; datediag <- NULL; startedtreat <- NULL; starttreatdate <- NULL;
+  txenddate <- NULL; pulmextrapulm <- NULL; culture <- NULL; sputsmear <- NULL; anyres <- NULL;
+  prevdiag <- NULL; bcgvacc <- NULL; bcgvaccyr <- NULL; overalloutcome <- NULL; tomdeathrelat <- NULL;
+  dateofdeath <- NULL; txenddate <- NULL; natquintile <- NULL;
+
   # Select variables of interest --------------------------------------------
   filt_df <- df %>%
     select(caserepdate, year, sex, age, phec,

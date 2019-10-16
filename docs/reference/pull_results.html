@@ -143,10 +143,12 @@
 <span class='co'>## Code</span>
 <span class='no'>pull_results</span></div><div class='output co'>#&gt; function (df, var) 
 #&gt; {
+#&gt;     outcome &lt;- NULL
+#&gt;     missing_table &lt;- NULL
 #&gt;     df %&gt;% dplyr::filter(outcome %in% var) %&gt;% dplyr::pull(missing_table) %&gt;% 
 #&gt;         dplyr::first()
 #&gt; }
-#&gt; &lt;bytecode: 0x55faa137bda8&gt;
+#&gt; &lt;bytecode: 0x55e1984ca5e0&gt;
 #&gt; &lt;environment: namespace:ETSMissing&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

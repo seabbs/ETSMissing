@@ -22,6 +22,7 @@
 #' @importFrom tibble tibble
 #' @importFrom purrr map2_dfr map_dbl
 #' @importFrom broom tidy
+#' @importFrom stats as.formula binomial glm
 #' @examples
 #'
 #' ## Code
@@ -29,6 +30,10 @@
 model_variable_missingness <- function(df = NULL, var = NULL,
                                        confounders = NULL, confounder_names = NULL,
                                        conf_int_sep = ", ") {
+
+  estimate <- NULL; conf.low <- NULL; conf.high <- NULL; p.value <- NULL;
+  std.error <- NULL; statistic <- NULL; key <- NULL; `Odds Ratio` <- NULL;
+  Variable <- NULL; dummy <- NULL; `P value (LRT)` <- NULL; `P value (Wald)` <- NULL;
 
   if (is.null(confounder_names)) {
     confounder_names <- confounders
