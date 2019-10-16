@@ -30,8 +30,6 @@ Suggests:
     rmarkdown,
     tidyverse,
     spelling,
-    pander,
-    kableExtra,
     future,
     furrr
 Remotes: seabbs/tbinenglanddataclean,

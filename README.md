@@ -8,15 +8,9 @@
 [Sam Abbott](https://www.samabbott.co.uk), Hannah Christensen, Ellen
 Brooks-Pollock
 
-## Objectives
+## Background
 
-## Design
-
-## Setting
-
-England and Wales.
-
-## Outcome measures
+## Methods
 
 ## Results
 
