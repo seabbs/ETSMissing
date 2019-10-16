@@ -88,7 +88,7 @@
 <p>Hannah Christensen, Bristol Medical School: Population Health Sciences, University of Bristol, Bristol, UK</p>
 <p>Ellen Brooks-Pollock, Bristol Medical School: Population Health Sciences, University of Bristol, Bristol, UK</p>
 <p><strong>Correspondence to:</strong> Sam Abbott, Bristol Medical School: Population Health Sciences, University of Bristol, Bristol BS8 2BN, UK; <a href="mailto:sam.abbott@bristol.ac.uk" class="email">sam.abbott@bristol.ac.uk</a>; 01173310185</p>
-<p><strong>Words:</strong> <em>Title:</em> <em>Abstract:</em> <em>Paper:</em></p>
+<p><strong>Words:</strong> <em>Title:</em> 12 <em>Abstract:</em> 202 <em>Paper:</em> 3196</p>
 <div id="abstract" class="section level1">
 <h1 class="hasAnchor">
 <a href="#abstract" class="anchor"></a>Abstract</h1>
@@ -163,11 +163,10 @@
 <div id="drivers-of-variable-completeness" class="section level3">
 <h3 class="hasAnchor">
 <a href="#drivers-of-variable-completeness" class="anchor"></a>Drivers of Variable completeness</h3>
+<p><strong>Overview</strong></p>
 <p>Missing data may be MAR or MNAR, which may introduce biases into any analyses based on these data. Unfortunately MNAR data cannot be detected, so bias from this source cannot be discounted. However, it is possible to detect potential MAR mechanisms from observed variables that would not necessarily be included in a model used for analysis. Here we develop a method for this and apply it to several key outcomes including: BCG status, year of BCG vaccination, date of death, cause of death, date of symptom onset, date of diagnosis, date of starting treatment and date of ending treatment.</p>
 <p>We reformulated the problem as a logistic regression for each variable of interest, with the outcome being data completeness (complete/missing). This allows variables that are hypothesised to be related to missing data to be adjusted for and their independent impact on data completeness to be estimated. This approach does not account for missingness within exploratory variables.</p>
-<div id="method" class="section level4">
-<h4 class="hasAnchor">
-<a href="#method" class="anchor"></a>Method</h4>
+<p><strong>Statistical details</strong></p>
 <p>In order to reformulate missing data as a logistic regression we took the following steps:</p>
 <ol style="list-style-type: decimal">
 <li><p>For the variable of interest create a new temporary binary variable, called data status, that is “Missing” when the variable of interest is missing and “Complete” when it is not. Specify “Complete” as the baseline.</p></li>
@@ -179,7 +178,6 @@
 <li><p>Interpret the results, using the estimated size of the effect, the width of the confidence intervals and the size of the Wald and likelihood ratio test p values to determine which variables are related to missingness for the variable of interest. Evidence should be interpreted on a spectrum, rather than using arbitrary significance cut-offs.<span class="citation">[5]</span> To avoid issues of multiple testing the level of evidence should be weighted based on the number of variables adjusted for and the number of outcomes explored.</p></li>
 </ol>
 <p>For all outcomes considered we adjusted for the same set of demographic variables that were both highly complete, plausibly linked to missingness for all outcomes considered, and likely to be present in other comparable surveillance datasets. These were: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Complete case analysis has been used, with the dataset limited to notifications from 2010 and on-wards as socio-economic status was not collected prior to this. The code this approach is available as an R package online (<a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a>).</p>
-</div>
 </div>
 </div>
 <div id="patient-and-public-involvement" class="section level2">
