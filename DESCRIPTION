@@ -1,6 +1,6 @@
 Package: ETSMissing
 Type: Package
-Title: Explore and Evaluate the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System
+Title: Evaluating the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System
 Version: 0.1.0
 Authors@R: person("Sam", "Abbott", email = "contact@samabbott.co.uk", role = c("aut", "cre"))
 Description:  Explore and evaluate the mechanism for missing data in the Enhanced Tuberculosis Surveillance system.

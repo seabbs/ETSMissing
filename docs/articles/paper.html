@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Explore and Evaluate the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System • Explore and Evaluate the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System</title>
+<title>Evaluating the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System • Evaluating the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/lumen/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Explore and Evaluate the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Evaluating the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -30,7 +30,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">Explore and Evaluate the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System</a>
+        <a class="navbar-link" href="../index.html">Evaluating the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
@@ -72,7 +72,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Explore and Evaluate the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System</h1>
+      <h1>Evaluating the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System</h1>
                         <h4 class="author">Sam Abbott, Hannah Christensen, Ellen Brooks-Pollock</h4>
             
       
@@ -123,7 +123,7 @@
 <ul>
 <li>Surveillance data is likely to have a high degree of misising data. In the ETS missing for key outcomes is associated with demographic factors such as….</li>
 <li>To avoid biasing analysis studies should make use of imputed data - rather than complete case analysis - and extend their imputation models to other demographic variables that may not be included in the analysis model.</li>
-<li>This analysis should be repeated in other datasets - for this reason the code is available as an R package.</li>
+<li>This analysis should be repeated in other datasets - for this reason the code is available as an R package (<a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a>).</li>
 </ul>
 </div>
 </div>
@@ -178,7 +178,7 @@
 <li><p>Refit the model, dropping each variable in turn and then comparing the updated model with the full model using a likelihood ratio test.</p></li>
 <li><p>Interpret the results, using the estimated size of the effect, the width of the confidence intervals and the size of the Wald and likelihood ratio test p values to determine which variables are related to missingness for the variable of interest. Evidence should be interpreted on a spectrum, rather than using arbitrary significance cut-offs.<span class="citation">[5]</span> To avoid issues of multiple testing the level of evidence should be weighted based on the number of variables adjusted for and the number of outcomes explored.</p></li>
 </ol>
-<p>For all outcomes considered we adjusted for the same set of demographic variables that were both highly complete, plausibly linked to missingness for all outcomes considered, and likely to be present in other comparable surveillance datasets. These were: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Complete case analysis has been used, with the dataset limited to notifications from 2010 and on-wards as socio-economic status was not collected prior to this.</p>
+<p>For all outcomes considered we adjusted for the same set of demographic variables that were both highly complete, plausibly linked to missingness for all outcomes considered, and likely to be present in other comparable surveillance datasets. These were: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Complete case analysis has been used, with the dataset limited to notifications from 2010 and on-wards as socio-economic status was not collected prior to this. The code this approach is available as an R package online (<a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a>).</p>
 </div>
 </div>
 </div>
@@ -2586,10 +2586,17 @@ Figure 1: Summary plot of missing data in the extract of the ETS data used in th
 <div id="meaning-of-the-study" class="section level3">
 <h3 class="hasAnchor">
 <a href="#meaning-of-the-study" class="anchor"></a>Meaning of the study</h3>
+<ul>
+<li>Surveillance data is likely to have a high degree of missing data. In the ETS missing for key outcomes is associated with demographic factors such as….</li>
+<li>To avoid biasing analysis studies should make use of imputed data - rather than complete case analysis - and extend their imputation models to other demographic variables that may not be included in the analysis model.</li>
+</ul>
 </div>
 <div id="unanswered-questions-and-future-research" class="section level3">
 <h3 class="hasAnchor">
 <a href="#unanswered-questions-and-future-research" class="anchor"></a>Unanswered questions and future research</h3>
+<ul>
+<li>This analysis should be repeated in other datasets - for this reason the code is available as an R package (<a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a>).</li>
+</ul>
 <p><strong>Acknowledgements</strong></p>
 <p>The authors thank the TB section at Public Health England (PHE) for maintaining the Enhanced Tuberculosis Surveillance (ETS) system; all the healthcare workers involved in data collection for the ETS.</p>
 <p><strong>Contributors</strong></p>
@@ -2598,8 +2605,8 @@ Figure 1: Summary plot of missing data in the extract of the ETS data used in th
 <p>SEA, HC, and EBP are funded by the National Institute for Health Research Health Protection Research Unit (NIHR HPRU) in Evaluation of Interventions at University of Bristol in partnership with Public Health England (PHE). The views expressed are those of the author(s) and not necessarily those of the NHS, the NIHR, the Department of Health or Public Health England.</p>
 <p><strong>Conflicts of interest</strong></p>
 <p>HC reports receiving honoraria from Sanofi Pasteur, and consultancy fees from AstraZeneca, GSK and IMS Health, all paid to her employer.</p>
-<p><strong>Accessibility of data and programming code</strong></p>
-<p>The code and data for the analysis contained in this paper can be found at:</p>
+<p><strong>Accessibility of programming code</strong></p>
+<p>The code for the analysis contained in this paper can be found at: <a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a></p>
 </div>
 </div>
 <div id="references" class="section level1">

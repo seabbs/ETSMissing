@@ -1,5 +1,5 @@
 ---
-title: "Explore and Evaluate the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System"
+title: "Evaluating the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System"
 author: "Sam Abbott, Hannah Christensen, Ellen Brooks-Pollock"
 output: 
       html_document:
@@ -91,7 +91,7 @@ The Enhanced Tuberculosis Surveillance (ETS) system is a routine surveillance sy
 
 * Surveillance data is likely to have a high degree of misising data. In the ETS missing for key outcomes is associated with demographic factors such as....
 * To avoid biasing analysis studies should make use of imputed data - rather than complete case analysis - and extend their imputation models to other demographic variables that may not be included in the analysis model. 
-* This analysis should be repeated in other datasets - for this reason the code is available as an R package. 
+* This analysis should be repeated in other datasets - for this reason the code is available as an R package (https://doi.org/10.5281/zenodo.3492200). 
 
 # Introduction
 
@@ -196,7 +196,7 @@ In order to reformulate missing data as a logistic regression we took the follow
 
 1. Interpret the results, using the estimated size of the effect, the width of the confidence intervals and the size of the Wald and likelihood ratio test p values to determine which variables are related to missingness for the variable of interest. Evidence should be interpreted on a spectrum, rather than using arbitrary significance cut-offs.[@Sterne2001] To avoid issues of multiple testing the level of evidence should be weighted based on the number of variables adjusted for and the number of outcomes explored.
 
-For all outcomes considered we adjusted for the same set of demographic variables that were both highly complete, plausibly linked to missingness for all outcomes considered, and likely to be present in other comparable surveillance datasets. These were: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Complete case analysis has been used, with the dataset limited to notifications from 2010 and on-wards as socio-economic status was not collected prior to this.
+For all outcomes considered we adjusted for the same set of demographic variables that were both highly complete, plausibly linked to missingness for all outcomes considered, and likely to be present in other comparable surveillance datasets. These were: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Complete case analysis has been used, with the dataset limited to notifications from 2010 and on-wards as socio-economic status was not collected prior to this. The code this approach is available as an R package online (https://doi.org/10.5281/zenodo.3492200).
 
 ```{r deep-dive-missing, include = FALSE, eval = regen_results}
 if (regen_results) {
@@ -432,7 +432,12 @@ Unlike classic approaches to missing data, such as multiple imputation by chaine
     
 ### Meaning of the study
 
+* Surveillance data is likely to have a high degree of missing data. In the ETS missing for key outcomes is associated with demographic factors such as....
+* To avoid biasing analysis studies should make use of imputed data - rather than complete case analysis - and extend their imputation models to other demographic variables that may not be included in the analysis model. 
+
 ### Unanswered questions and future research
+
+* This analysis should be repeated in other datasets - for this reason the code is available as an R package (https://doi.org/10.5281/zenodo.3492200). 
 
 
 **Acknowledgements**
@@ -451,9 +456,9 @@ SEA, HC, and EBP are funded by the National Institute for Health Research Health
 
 HC reports receiving honoraria from Sanofi Pasteur, and consultancy fees from AstraZeneca, GSK and IMS Health, all paid to her employer.
 
-**Accessibility of data and programming code**
+**Accessibility of programming code**
 
-The code and data for the analysis contained in this paper can be found at: 
+The code for the analysis contained in this paper can be found at: https://doi.org/10.5281/zenodo.3492200
 
 
 # References

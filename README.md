@@ -1,9 +1,9 @@
 
-# Explore and Evaluate the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System
+# Evaluating the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System
 
 [![badge](https://img.shields.io/badge/Launch-Analysis-lightblue.svg)](https://mybinder.org/v2/gh/seabbs/ETSMissing/master?urlpath=rstudio)
 [![Documentation](https://img.shields.io/badge/Documentation-click%20here!-lightgrey.svg?style=flat)](https://www.samabbott.co.uk/ETSMissing)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2635687.svg)](https://doi.org/10.5281/zenodo.2635687)
+[![DOI](https://zenodo.org/badge/214470301.svg)](https://zenodo.org/badge/latestdoi/214470301)
 
 [Sam Abbott](https://www.samabbott.co.uk), Hannah Christensen, Ellen
 Brooks-Pollock
