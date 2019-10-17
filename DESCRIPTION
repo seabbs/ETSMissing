@@ -22,6 +22,7 @@ Imports:
     purrr,
     tidyselect,
     naniar,
+    lubridate,
     prettypublisher
 Suggests:
     testthat,

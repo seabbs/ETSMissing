@@ -143,22 +143,24 @@ also overwrite old results if required. Returns a path to the results folder.</p
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Code</span>
-<span class='no'>make_results_folder</span></div><div class='output co'>#&gt; function (prefix, regen = FALSE) 
-#&gt; {
-#&gt;     if (!dir.exists("results")) {
-#&gt;         dir.create(here("vignettes", "results"))
+<span class='no'>make_results_folder</span></div><div class='output co'>#&gt; function(prefix, regen = FALSE) {
+#&gt; 
+#&gt;   if (!dir.exists("results")) {
+#&gt;     dir.create(here("vignettes", "results"))
+#&gt;   }
+#&gt; 
+#&gt;   if (!dir.exists(file.path("results", prefix)) | regen) {
+#&gt;     if (regen) {
+#&gt;       unlink(here(file.path("vignettes/results", prefix)), recursive = TRUE)
 #&gt;     }
-#&gt;     if (!dir.exists(file.path("results", prefix)) | regen) {
-#&gt;         if (regen) {
-#&gt;             unlink(here(file.path("vignettes/results", prefix)), 
-#&gt;                 recursive = TRUE)
-#&gt;         }
-#&gt;         dir.create(here(file.path("vignettes", "results", prefix)))
-#&gt;     }
-#&gt;     path &lt;- here(file.path("vignettes", "results", prefix))
-#&gt;     return(path)
+#&gt;     dir.create(here(file.path("vignettes", "results", prefix)))
+#&gt;   }
+#&gt; 
+#&gt;   path &lt;- here(file.path("vignettes", "results", prefix))
+#&gt; 
+#&gt;   return(path)
 #&gt; }
-#&gt; &lt;bytecode: 0x55b1ad2464c8&gt;
+#&gt; &lt;bytecode: 0x5578b9c01518&gt;
 #&gt; &lt;environment: namespace:ETSMissing&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

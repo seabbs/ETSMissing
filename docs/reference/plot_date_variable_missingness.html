@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Summarise Missingness by Variable — summarise_missingness • Evaluating the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System</title>
+<title>Plot Missingness for a Date Variable — plot_date_variable_missingness • Evaluating the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System</title>
 
 
 <!-- jquery -->
@@ -35,9 +35,8 @@
 
 
 
-<meta property="og:title" content="Summarise Missingness by Variable — summarise_missingness" />
-<meta property="og:description" content="This function filters the ETS so that only entries that could have been missing are
-evaluated for each variable." />
+<meta property="og:title" content="Plot Missingness for a Date Variable — plot_date_variable_missingness" />
+<meta property="og:description" content="Plot Missingness for a Date Variable" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,17 +110,17 @@ evaluated for each variable." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Summarise Missingness by Variable</h1>
-    <small class="dont-index">Source: <a href='https://github.com/seabbs/ETSMissing/blob/master/R/summarise_missingness.R'><code>R/summarise_missingness.R</code></a></small>
-    <div class="hidden name"><code>summarise_missingness.Rd</code></div>
+    <h1>Plot Missingness for a Date Variable</h1>
+    <small class="dont-index">Source: <a href='https://github.com/seabbs/ETSMissing/blob/master/R/plot_date_variable_missingness.R'><code>R/plot_date_variable_missingness.R</code></a></small>
+    <div class="hidden name"><code>plot_date_variable_missingness.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function filters the ETS so that only entries that could have been missing are
-evaluated for each variable.</p>
+    <p>Plot Missingness for a Date Variable</p>
     </div>
 
-    <pre class="usage"><span class='fu'>summarise_missingness</span>(<span class='no'>df</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_date_variable_missingness</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>end_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -130,63 +129,29 @@ evaluated for each variable.</p>
       <th>df</th>
       <td><p>A dataframe containing cleaned ETS data as produced by <code>tbinenglanddataclean</code>.</p></td>
     </tr>
+    <tr>
+      <th>var</th>
+      <td><p>A character string indicating the name of the date variable
+to explore missingness within.</p></td>
+    </tr>
+    <tr>
+      <th>start_date</th>
+      <td><p>A date indicating when to include data from (inclusive)</p></td>
+    </tr>
+    <tr>
+      <th>end_date</th>
+      <td><p>A date indicating when to exclude data from (exclusive)</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A named list summarising missing data for the following variables: date of starting treatment,
-date of ending treatment, date of death, and cause of death.</p>
+    <p>A list of plots including: missing data by month and by day.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Code</span>
-<span class='no'>summarise_missingness</span></div><div class='output co'>#&gt; function(df) {
-#&gt;   starttreatdate &lt;- NULL; startedtreat &lt;- NULL; nn &lt;- NULL;
-#&gt;   per &lt;- NULL; overalloutcome &lt;- NULL; pretty_per &lt;- NULL;
-#&gt;   dateofdeath &lt;- NULL; tomdeathrelat &lt;- NULL; txenddate &lt;- NULL;
-#&gt;   ## Started treatment date
-#&gt;   date_treatment &lt;- df %&gt;%
-#&gt;     filter(startedtreat %in% "Started") %&gt;%
-#&gt;     count(starttreatdate) %&gt;%
-#&gt;     add_count(wt = n, name = "nn") %&gt;%
-#&gt;     filter(is.na(starttreatdate)) %&gt;%
-#&gt;     mutate(per = pretty_percentage(n, nn, 1)) %&gt;%
-#&gt;     pull(per)
-#&gt; 
-#&gt;   ## Ended treatment
-#&gt;   date_treatment_end &lt;- df %&gt;%
-#&gt;     filter(startedtreat %in% "Started") %&gt;%
-#&gt;     filter(overalloutcome %in% "Treatment completed") %&gt;%
-#&gt;     count(txenddate) %&gt;%
-#&gt;     add_count(wt = n, name = "nn") %&gt;%
-#&gt;     filter(is.na(txenddate)) %&gt;%
-#&gt;     mutate(per = pretty_percentage(n, nn, 1)) %&gt;%
-#&gt;     pull(per)
-#&gt; 
-#&gt;   ## Date of death
-#&gt;   date_death_missing &lt;- df %&gt;%
-#&gt;     filter(overalloutcome == "Died") %&gt;%
-#&gt;     summarise(missing = sum(is.na(dateofdeath)), n = n()) %&gt;%
-#&gt;     mutate(per = pretty_percentage(missing, n, 1)) %&gt;%
-#&gt;     pull(per)
-#&gt; 
-#&gt;   ## Cause of death proportion missing
-#&gt;   tomdeathrelat_missing &lt;- df %&gt;%
-#&gt;     filter(overalloutcome == "Died") %&gt;%
-#&gt;     count(tomdeathrelat) %&gt;%
-#&gt;     add_count(wt = n, name = "nn") %&gt;%
-#&gt;     mutate(pretty_per = pretty_percentage(n, nn, 1)) %&gt;%
-#&gt;     filter(is.na(tomdeathrelat)) %&gt;%
-#&gt;     pull(pretty_per)
-#&gt; 
-#&gt;   missing_stats &lt;- c(date_treatment, date_death_missing, tomdeathrelat_missing,
-#&gt;                      date_treatment_end)
-#&gt;   names(missing_stats) &lt;- c("date_treat", "date_death", "cause_death", "date_treat_end")
-#&gt; 
-#&gt;   return(missing_stats)
-#&gt; }
-#&gt; &lt;bytecode: 0x5578bd062d10&gt;
-#&gt; &lt;environment: namespace:ETSMissing&gt;</div></pre>
+<span class='no'>plot_date_variable_missingness</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'plot_date_variable_missingness' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

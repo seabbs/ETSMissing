@@ -25,9 +25,10 @@ navbar:
 reference:
 
     - title: Analysis
-      desc: Functions that are critical for the analysis.
+      desc: Functions that are used for the primary analysis.
       contents:
       - model_variable_missingness
+      - plot_date_variable_missingness
     - title: Nested Missingness Tools
       desc: Functions that adjust for, plot or otherwise explored data that is missing due to nesting.
       contents:
