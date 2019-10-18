@@ -2,8 +2,8 @@
 #'
 #' @param var A character string indicating the name of the date variable
 #' to explore missingness within.
-#' @param start_date A date indicating when to include data from (inclusive)
-#' @param end_date A date indicating when to exclude data from (exclusive)
+#' @param start_year Numeric, indicating which year to start including data from (inclusive)
+#' @param end_year Numeric, indicating which year to stop including data from (exclusive)
 #' @param facet_by_year Logical defaults to \code{TRUE}. Should the plots be facetted by a year midpoint
 #' @param split_year The year to use as a splitting point when facetting. By default uses the mean year.
 #' @inheritParams account_for_nested_missing
@@ -13,7 +13,7 @@
 #' @importFrom dplyr count mutate add_count filter group_by
 #' @importFrom tidyr replace_na drop_na
 #' @importFrom lubridate floor_date year month mday
-#' @importFrom ggplot2 ggplot aes geom_violin geom_jitter scale_y_continuous theme_minimal labs facet_wrap
+#' @importFrom ggplot2 ggplot aes geom_violin geom_jitter scale_y_sqrt scale_x_continuous theme_minimal labs facet_wrap
 #' @importFrom scales percent
 #' @importFrom purrr map
 #' @examples
@@ -21,28 +21,33 @@
 #' ## Code
 #' plot_date_variable_missingness
 plot_date_variable_missingness <- function(df = NULL, var = NULL,
-                                           start_date = NULL, end_date = NULL,
+                                           start_year = NULL, end_year = NULL,
                                            split_year = NULL,
                                            facet_by_year = TRUE) {
 
 
-  year_facet <- NULL;
+  year_facet <- NULL; notifications <- NULL; year_strat <- NULL;
+  nn <- NULL;
 
   ## Add default variable for standardised programming use
   df$date <- df[[var]]
 
 
   ## Specify date filters if not given
-  if (is.null(start_date)) {
-    start_date <- min(df$date, na.rm = TRUE)
+  if (is.null(start_year)) {
+    start_year <- df$date %>%
+      year %>%
+      min(na.rm = TRUE)
   }
 
-  if (is.null(end_date)) {
-    end_date <- max(df$date, na.rm = TRUE)
+  if (is.null(end_year)) {
+    end_year <- df$date %>%
+      year %>%
+      max(na.rm = TRUE)
   }
   ## Count by day adding in zero counts when none detected
   df_count <- df %>%
-    filter(date >= start_date, year <= end_date) %>%
+    filter(year(date) >= start_year, year(date) <= end_year) %>%
     drop_na(date) %>%
     count(date, .drop = FALSE,
           name = "notifications") %>%
@@ -66,7 +71,7 @@ plot_date_variable_missingness <- function(df = NULL, var = NULL,
 
   df_count <- df_count %>%
     dplyr::mutate(year_strat = cut(year(date) %>% as.integer,
-                                   breaks = c(min(years_of_data),
+                                   breaks = c(min(years_of_data) - 1,
                                               split_year,
                                               max(years_of_data) + 1),
                                    labels = c(
@@ -118,7 +123,7 @@ plot_date_variable_missingness <- function(df = NULL, var = NULL,
 
   if (facet_by_year) {
     plots <- plots %>%
-      map(~ . + facet_wrap(~ year_strat))
+      map(~ . + facet_wrap(~year_strat, scales = "free_y"))
   }
 
 

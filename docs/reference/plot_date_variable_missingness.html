@@ -120,7 +120,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>plot_date_variable_missingness</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>end_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>split_year</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>start_year</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>end_year</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>split_year</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>facet_by_year</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -136,12 +136,12 @@
 to explore missingness within.</p></td>
     </tr>
     <tr>
-      <th>start_date</th>
-      <td><p>A date indicating when to include data from (inclusive)</p></td>
+      <th>start_year</th>
+      <td><p>Numeric, indicating which year to start including data from (inclusive)</p></td>
     </tr>
     <tr>
-      <th>end_date</th>
-      <td><p>A date indicating when to exclude data from (exclusive)</p></td>
+      <th>end_year</th>
+      <td><p>Numeric, indicating which year to stop including data from (exclusive)</p></td>
     </tr>
     <tr>
       <th>split_year</th>
@@ -160,20 +160,24 @@ to explore missingness within.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Code</span>
-<span class='no'>plot_date_variable_missingness</span></div><div class='output co'>#&gt; function (df = NULL, var = NULL, start_date = NULL, end_date = NULL, 
+<span class='no'>plot_date_variable_missingness</span></div><div class='output co'>#&gt; function (df = NULL, var = NULL, start_year = NULL, end_year = NULL, 
 #&gt;     split_year = NULL, facet_by_year = TRUE) 
 #&gt; {
 #&gt;     year_facet &lt;- NULL
+#&gt;     notifications &lt;- NULL
+#&gt;     year_strat &lt;- NULL
+#&gt;     nn &lt;- NULL
 #&gt;     df$date &lt;- df[[var]]
-#&gt;     if (is.null(start_date)) {
-#&gt;         start_date &lt;- min(df$date, na.rm = TRUE)
+#&gt;     if (is.null(start_year)) {
+#&gt;         start_year &lt;- df$date %&gt;% year %&gt;% min(na.rm = TRUE)
 #&gt;     }
-#&gt;     if (is.null(end_date)) {
-#&gt;         end_date &lt;- max(df$date, na.rm = TRUE)
+#&gt;     if (is.null(end_year)) {
+#&gt;         end_year &lt;- df$date %&gt;% year %&gt;% max(na.rm = TRUE)
 #&gt;     }
-#&gt;     df_count &lt;- df %&gt;% filter(date &gt;= start_date, year &lt;= end_date) %&gt;% 
-#&gt;         drop_na(date) %&gt;% count(date, .drop = FALSE, name = "notifications") %&gt;% 
-#&gt;         mutate(notifications = notifications %&gt;% replace_na(0))
+#&gt;     df_count &lt;- df %&gt;% filter(year(date) &gt;= start_year, year(date) &lt;= 
+#&gt;         end_year) %&gt;% drop_na(date) %&gt;% count(date, .drop = FALSE, 
+#&gt;         name = "notifications") %&gt;% mutate(notifications = notifications %&gt;% 
+#&gt;         replace_na(0))
 #&gt;     years_of_data &lt;- df_count$date %&gt;% year() %&gt;% unique() %&gt;% 
 #&gt;         as.numeric()
 #&gt;     if (is.null(split_year)) {
@@ -181,7 +185,7 @@ to explore missingness within.</p></td>
 #&gt;             floor
 #&gt;     }
 #&gt;     df_count &lt;- df_count %&gt;% dplyr::mutate(year_strat = cut(year(date) %&gt;% 
-#&gt;         as.integer, breaks = c(min(years_of_data), split_year, 
+#&gt;         as.integer, breaks = c(min(years_of_data) - 1, split_year, 
 #&gt;         max(years_of_data) + 1), labels = c(paste0(min(years_of_data), 
 #&gt;         "-", split_year - 1), paste0(split_year, "-", max(years_of_data))), 
 #&gt;         right = FALSE))
@@ -205,12 +209,12 @@ to explore missingness within.</p></td>
 #&gt;         y = "Percentage of monthly notifications (sqrt)")
 #&gt;     plots &lt;- list(month_plot, day_plot)
 #&gt;     if (facet_by_year) {
-#&gt;         plots &lt;- plots %&gt;% map(~. + facet_wrap(~year_strat))
+#&gt;         plots &lt;- plots %&gt;% map(~. + facet_wrap(~year_strat, scales = "free_y"))
 #&gt;     }
 #&gt;     names(plots) &lt;- c("by_month", "by_day")
 #&gt;     return(plots)
 #&gt; }
-#&gt; &lt;bytecode: 0x55eb7432d9e8&gt;
+#&gt; &lt;bytecode: 0x5582153d0848&gt;
 #&gt; &lt;environment: namespace:ETSMissing&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

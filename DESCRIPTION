@@ -34,7 +34,8 @@ Suggests:
     spelling,
     future,
     furrr,
-    gridExtra
+    gridExtra,
+    forcats
 Remotes: seabbs/tbinenglanddataclean,
   seabbs/prettypublisher
 Roxygen: list(markdown = TRUE)

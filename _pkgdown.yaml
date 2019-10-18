@@ -45,3 +45,4 @@ reference:
       - save_figure
       - show_figure
       - pull_results
+      - map_variable_names

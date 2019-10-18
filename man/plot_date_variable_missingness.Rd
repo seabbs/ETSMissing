@@ -5,7 +5,7 @@
 \title{Plot Missingness for a Date Variable}
 \usage{
 plot_date_variable_missingness(df = NULL, var = NULL,
-  start_date = NULL, end_date = NULL, split_year = NULL,
+  start_year = NULL, end_year = NULL, split_year = NULL,
   facet_by_year = TRUE)
 }
 \arguments{
@@ -14,9 +14,9 @@ plot_date_variable_missingness(df = NULL, var = NULL,
 \item{var}{A character string indicating the name of the date variable
 to explore missingness within.}
 
-\item{start_date}{A date indicating when to include data from (inclusive)}
+\item{start_year}{Numeric, indicating which year to start including data from (inclusive)}
 
-\item{end_date}{A date indicating when to exclude data from (exclusive)}
+\item{end_year}{Numeric, indicating which year to stop including data from (exclusive)}
 
 \item{split_year}{The year to use as a splitting point when facetting. By default uses the mean year.}
 

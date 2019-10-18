@@ -15,11 +15,12 @@
 nested_missing_table <- function(df) {
 
   pct_miss <- NULL; Variable <- NULL; variable <- NULL;
-  `Missing (N)` <- NULL; `Missing (%)` <- NULL; percent <- NULL;
+  missing <- NULL; percent <- NULL; reported <- NULL;
   n_miss <- NULL;
 
   df %>%
     miss_var_summary %>%
-    mutate(percent = pretty_round(pct_miss, digits = 1)) %>%
-    select(Variable = variable, `Missing (N)` = n_miss, `Missing (%)` = percent)
+    dplyr::mutate(percent = pretty_round(pct_miss, digits = 1),
+                  reported = paste0(percent, " (", n_miss, ")")) %>%
+    dplyr::select(variable, percent, n_miss, reported)
 }

@@ -35,11 +35,12 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = FA
 library(here)
 library(tidyverse)
 library(knitr)
-library(prettypublisher)
 library(future)
 library(purrr)
 library(furrr)
+library(forcats)
 library(gridExtra)
+library(prettypublisher)
 library(ETSMissing)
 ```
 
@@ -191,24 +192,26 @@ In order to reformulate missing data as a logistic regression we took the follow
 
 For all outcomes considered we adjusted for the same set of demographic variables that were both highly complete, plausibly linked to missingness for all outcomes considered, and likely to be present in other comparable surveillance datasets. These were: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Complete case analysis has been used, with the dataset limited to notifications from 2010 and on-wards as socio-economic status was not collected prior to this. The code this approach is available as an R package online (https://doi.org/10.5281/zenodo.3492200).
 
-```{r missing-associations, include = FALSE, eval = regen_results}
+```{r missing-associations, include = FALSE}
 if (regen_results) {
    # Filter to only look at 2009 and move to year as factor ------------------
 ets_post_2009 <- ets %>%
-  filter(year > 2009) %>%
-  mutate(year = factor(year))
+  filter(year > 2009, year <= 2015) %>%
+  mutate(year = factor(year)) %>% 
+  mutate(phec = phec %>% 
+           forcats::fct_infreq(ordered = TRUE))
  # Outcome list -----------------------------------------------------------
  
  ## List out outcomes to explore
  outcomes <- tibble(outcome = c("bcgvacc", "bcgvaccyr", "dateofdeath",
                                   "tomdeathrelat", "symptonset", "datediag",
-                                  "starttreatdate", "txenddate"))
+                                  "starttreatdate", "txenddate", "anyres"))
  
  ## Outcome specific data cleaning to deal with nesting issues etc.
  outcomes <- outcomes %>% 
    ## First no outcomes for which no cleaning is needed
    dplyr::mutate(cleaning = case_when(outcome %in% c("bcgvacc", "symptonset", "datediag",
-                                                      "starttreatdate", "caserepdate") ~ c(function(df){
+                                                      "starttreatdate", "anyres") ~ c(function(df){
                                                         return(df)
                                                         }),
    ## Then variables for which cases must have died for there to be data
@@ -229,8 +232,8 @@ ets_post_2009 <- ets %>%
  ))
 
  ## Set default exploratory variables --------------------------------------
- confounders_var <- c("year", "sex", "agegrp", "ethgrp", "ukborn", "natquintile")
- confounder_names <- c("Year", "Sex", "Age", "Ethnic group", "UK birth status", "Socio-economic status")
+ confounders_var <- c("year", "sex", "agegrp", "ethgrp", "ukborn", "natquintile", "phec")
+ confounder_names <- c("Year", "Sex", "Age", "Ethnic group", "UK birth status", "Socio-economic status", "Public Health England centre")
  
  ## Run analysis  -----------------------------------------------------------
  ## See ?model_variable_missingness for details of model implementation.
@@ -245,16 +248,13 @@ ets_post_2009 <- ets %>%
  
  ## Save analysis
  save_data(results, "results")
+}else{
+## Read in results if not computed
+results <- read_data("results")
 }
 ```
 
-
-```{r, eval = !regen_results}
-## Read in results if not computed
-results <- read_data("results")
-```
-
-### Temporal trends in variable completeness
+### Assessing potential biases in reporting
 
 ```{r explore-detection-time-variables, eval = regen_results, include = FALSE}
 if (regen_results) {
@@ -265,12 +265,12 @@ if (regen_results) {
   dplyr::mutate(trends = furrr::future_map2(outcome, cleaning, ~
                                                      ETSMissing::plot_date_variable_missingness(
                                                        df = .y(df = ets), var = .x,
-                                                       start_date = "2000-01-01", end_date = "2015-12-31",
+                                                       start_year = 2000, end_year = 2015,
                                                        split_year = 2009),
                                                  .progress = TRUE)) %>% 
   dplyr::mutate(type = map(trends, names)) %>% 
-  unnest(type, trends) %>% 
-  pivot_wider(names_from = "type",
+  tidyr::unnest(type, trends) %>% 
+  tidyr::pivot_wider(names_from = "type",
               names_prefix = "trends_",
               values_from = "trends")
 
@@ -297,12 +297,7 @@ We did not involve patients or the public in the design or planning of this stud
 
 ## Data completeness
 
-We found high completeness for common demographic variables such as sex, age, ethnic group and UK birth status (`r pretty_figref("plot-missing-struct")`, `r pretty_tabref("missing-var-tabs")`). More problematically, BCG status and year of BCG status had a high percentage missing, even after accounting for the introduction of national collection of these variables in 2008.[@PHE2017] Socio-economic status (as national quintiles) was not collected until 2010 but after this point is highly complete.[@PHE2017] Comparing pre 2009 and post 2008 in `r pretty_tabref("missing-var-tabs")` (`r pretty_figref("plot-missing-struct")`) we see completeness changes over time.[@PHE2016; @PHE2017] `r pretty_figref("plot-missing-struct")` also indicates that there are multiple groups of variables that share a correlated pattern of missing data.
-
-```{r plot-missing-struct, fig.cap = pretty_figref("plot-missing-struct", "Summary plot of missing data in the extract of the ETS data used in this thesis. Due to the large size of the dataset, the data has been sub-sampled with only 20\\% of the data shown in this figure. Notifications have been ordered by date of notification from left to right. The following subset of variables are shown: year (year), sex (sex), age (age), PHE Centre (phec), Occupation (occat), Ethnic group (ethgrp), UK birth status (ukborn), Time since entry (timesinceent), date of symptom onset (symptonset), date of diagnosis (datediag), started treatment (startedtreat), date of starting treatment (starttreatdate), treatment end date (txenddate), pulmonary or extra-pulmonary TB (pulmextrapulm), culture (culture), sputum smear status (sputsmear), drug resistance (anyres), previous diagnosis (prevdiag), BCG status(bcgvacc), Year of BCG vaccination (bcgvaccyr), overall outcome (overalloutcome), cause of death (tomdeathrelate), socio-economic status quintiles (natquintile), and date of death (dateofdeath). Nested variables have been accounted for (i.e date of death has had an entry added for cases that are known to have not died), so that true missingness for all variables is estimated."), out.width = "60%", out.extra = ""}
-show_figure("plot-missing-struct")
-```
-
+We found high completeness for common demographic variables such as sex, age, ethnic group and UK birth status (`r prettypublisher::pretty_supfigref("plot-missing-struct")`, `r prettypublisher::pretty_tabref("missing-var-tabs")`). More problematically, BCG status and year of BCG status had a high percentage missing, even after accounting for the introduction of national collection of these variables in 2008.[@PHE2017] Socio-economic status (as national quintiles) was not collected until 2010 but after this point is highly complete.[@PHE2017] Comparing pre 2009 and post 2008 in `r prettypublisher::pretty_tabref("missing-var-tabs")` (`r prettypublisher::pretty_supfigref("plot-missing-struct")`) we see completeness changes over time.[@PHE2016; @PHE2017] There was some evidence that groups of variables had correlated missing data (`r prettypublisher::pretty_supfigref("plot-missing-struct")`).
 
 ```{r missing-var-tabs}
 ## Read in results
@@ -312,13 +307,16 @@ missing_stats <- read_data("missing_stats")
 
 ## Tabulate
 miss_ets <- miss_ets_pre_2009 %>% 
-  left_join(miss_ets_post_2008, by = "Variable")
+  dplyr::select(variable, `2000-2008` = reported) %>% 
+  dplyr::left_join(miss_ets_post_2008 %>% 
+                     dplyr::select(variable, `2009-2015` = reported), by = "variable") %>% 
+  map_variable_names() %>% 
+  rename(Variable = variable)
+                     
+                     
 
-colnames(miss_ets) <- c("Variable", 
-                        rep(c("Missing (N)"," Missing (%)"), 2))
-  
 knitr::kable(miss_ets,
-      caption = pretty_tabref("missing-var-tabs", "Breakdown of missing data from the ETS prior to the web based system (pre 2009) and post (post 2008) by variable, ordered by the  percentage missing for a subset of variables. The following subset of variables are shown year (year), sex (sex), age (age), PHE Centre (phec), Occupation (occat), Ethnic group (ethgrp), UK birth status (ukborn), Time since entry (timesinceent), date of symptom onset (symptonset), date of diagnosis (datediag), started treatment (startedtreat), date of starting treatment (starttreatdate), treatment end date (txenddate), pulmonary or extra-pulmonary TB (pulmextrapulm), culture (culture), sputum smear status (sputsmear), drug resistance (anyres), previous diagnosis (prevdiag), BCG status(bcgvacc), Year of BCG vaccination (bcgvaccyr), overall outcome (overalloutcome), cause of death (tomdeathrelate), socio-economic status quintiles (natquintile), and date of death (dateofdeath). Nested variables have been accounted for (i.e data of death has had an entry added for cases that are known to have not died), so that true missingness for all variables is estimated."))
+      caption = prettypublisher::pretty_tabref("missing-var-tabs", "Percentage of missing data from the ETS for a subset of variables, prior to the web based system (pre 2009) and post (post 2008) by variable, ordered by the  percentage missing for a subset of variables. Nested variables have been accounted for (i.e data of death has had an entry added for cases that are known to have not died), so that true missingness for all variables is estimated."))
 ```
 
 By filtering nested variables - rather than by using replacement -  we found the date of starting treatment was `r missing_stats[["date_treat"]]` missing, which is more complete than previously estimated. For cases that were known to have completed treatment `r missing_stats[["date_treat_end"]]` were missing a date for the end of treatment. In notifications that were known to have died, `r missing_stats[["date_death"]]` were missing the date of death and `r missing_stats[["cause_death"]]` were missing the cause of death. 
@@ -327,12 +325,12 @@ By filtering nested variables - rather than by using replacement -  we found the
 
 ### BCG status
 
-There was evidence that BCG status was missing with a MAR mechanism for qll variables considered `r pretty_tabref("bcgvacc-miss")`. BCG data missingness is strongly associated with year of notification, sex age, ethnic group, and socio-economic status. After adjusting for other variables data completeness increased from 2010 until 2012 but has since showed no clear trend. Men appeared to be more likely than women to have a missing BCG status, with the non-UK born also being more likely than the UK born to be missing BCG status. The proportion of those missing BCG status increased with age, with those aged 65+ being over 4 times more likely to be missing BCG status than those aged 0-14 years old. There was also evidence to suggest that notifications in the lowest socio-economic group were more likely to have a missing BCG status but there was no clear evidence of a trend across socio-economic quintiles. The White ethnic group was more likely to have a missing BCG status than any other ethnic group.
+There was evidence that BCG status was missing with a MAR mechanism for qll variables considered `r prettypublisher::pretty_tabref("bcgvacc-miss")`. BCG data missingness is strongly associated with year of notification, sex age, ethnic group, and socio-economic status. After adjusting for other variables data completeness increased from 2010 until 2012 but has since showed no clear trend. Men appeared to be more likely than women to have a missing BCG status, with the non-UK born also being more likely than the UK born to be missing BCG status. The proportion of those missing BCG status increased with age, with those aged 65+ being over 4 times more likely to be missing BCG status than those aged 0-14 years old. There was also evidence to suggest that notifications in the lowest socio-economic group were more likely to have a missing BCG status but there was no clear evidence of a trend across socio-economic quintiles. The White ethnic group was more likely to have a missing BCG status than any other ethnic group.
 
 ```{r bcgvacc-miss}
 ETSMissing::pull_results(results, "bcgvacc") %>% 
   knitr::kable(
-        caption = pretty_tabref("bcgvacc-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for BCG vaccination as an outcome, adjusted for: year, sex, age (grouped as 0-14 
+        caption = prettypublisher::pretty_tabref("bcgvacc-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for BCG vaccination as an outcome, adjusted for: year, sex, age (grouped as 0-14 
                                 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. 
                                 Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all 
                                 explanatory variables. The model indicates that BCG status is missing at random for the variables considered."))
@@ -340,16 +338,16 @@ ETSMissing::pull_results(results, "bcgvacc") %>%
 
 ### Year of BCG vaccination
 
-As for BCG status, year of BCG vaccination was also clearly missing with MAR mechanisms for the variables considered (`r pretty_suptabref("bcgvaccyr-miss")`). As for BCG status men were more likely to have a missing year of BCG vaccination as were the non-UK born. Older notifications were again more likely to have missing data, with those aged 65+ being more than 2 times more likely to have a missing year of vaccination. However, unlike BCG vaccination status, year of notification showed a clear trend of increasing data completeness from 2010 until 2015. Additionally, for year of BCG vaccination the White ethnic group was more likely to have complete data than any other ethnic group, with those of Black-Caribbean descent being over 3 times more likely to have a missing year of BCG vaccination. Socio-economic status was highly associated with year of vaccination being missing but there was little clear evidence of a trend. The second, and third, poorest quintiles were more likely to have a missing year of vaccination. Whilst the richest, and second richest quintiles were less likely to have a missing year of vaccination.
+As for BCG status, year of BCG vaccination was also clearly missing with MAR mechanisms for the variables considered (`r prettypublisher::pretty_suptabref("bcgvaccyr-miss")`). As for BCG status men were more likely to have a missing year of BCG vaccination as were the non-UK born. Older notifications were again more likely to have missing data, with those aged 65+ being more than 2 times more likely to have a missing year of vaccination. However, unlike BCG vaccination status, year of notification showed a clear trend of increasing data completeness from 2010 until 2015. Additionally, for year of BCG vaccination the White ethnic group was more likely to have complete data than any other ethnic group, with those of Black-Caribbean descent being over 3 times more likely to have a missing year of BCG vaccination. Socio-economic status was highly associated with year of vaccination being missing but there was little clear evidence of a trend. The second, and third, poorest quintiles were more likely to have a missing year of vaccination. Whilst the richest, and second richest quintiles were less likely to have a missing year of vaccination.
 
 ### Date of symptom onset
 
-For date of symptom onset there was strong evidence of an MAR mechanism for all variables considered, except for sex (`r pretty_tabref("symptonset-miss")`). The likelihood of date of symptom onset being missing reduced with year of notification. Children (0-14 years old) were more likely to have a missing date of symptom onset than any other age group as were those in any socio-economic quintile when compared to the poorest group. UK born cases were more likely to have a complete date of symptom onset than non-UK born cases, with the White ethnic group being more likely to have a missing date of symptom onset than most other ethnic groups.
+For date of symptom onset there was strong evidence of an MAR mechanism for all variables considered, except for sex (`r prettypublisher::pretty_tabref("symptonset-miss")`). The likelihood of date of symptom onset being missing reduced with year of notification. Children (0-14 years old) were more likely to have a missing date of symptom onset than any other age group as were those in any socio-economic quintile when compared to the poorest group. UK born cases were more likely to have a complete date of symptom onset than non-UK born cases, with the White ethnic group being more likely to have a missing date of symptom onset than most other ethnic groups.
 
 ```{r symptonset-miss}
 ETSMissing::pull_results(results, "symptonset") %>% 
   knitr::kable(
-        caption = pretty_tabref("symptonset-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of symptom onset as an outcome, adjusted for: 
+        caption = prettypublisher::pretty_tabref("symptonset-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of symptom onset as an outcome, adjusted for: 
                                 year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For 
                                 socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before 
                                 this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. The model indicates that date of symptom onset is missing 
@@ -358,21 +356,50 @@ ETSMissing::pull_results(results, "symptonset") %>%
 
 ### Date of diagnosis
 
-For date of diagnosis there was again strong evidence for an MAR mechanism for all variables considered, except for sex for which there was very weak evidence (`r pretty_suptabref("datediag-miss")`). Increasing completeness was found for year of notification as seen previously, as was an increased likelihood of missing data in males and the non-UK born. The White ethnic group was less likely to be missing data on the data of diagnosis as compared to the majority of other ethnic groups, as were the poorest socio-economic group compared to all other socio-economic quintiles. Children (0-14 years old) were again more likely to be missing data than adults in any age group.
+For date of diagnosis there was again strong evidence for an MAR mechanism for all variables considered, except for sex for which there was very weak evidence (`r prettypublisher::pretty_suptabref("datediag-miss")`). Increasing completeness was found for year of notification as seen previously, as was an increased likelihood of missing data in males and the non-UK born. The White ethnic group was less likely to be missing data on the data of diagnosis as compared to the majority of other ethnic groups, as were the poorest socio-economic group compared to all other socio-economic quintiles. Children (0-14 years old) were again more likely to be missing data than adults in any age group.
 
 ### Date of starting treatment and ending treatment
 
-For date of starting treatment there was little evidence that missing data is associated with any variable considered, except for year of notification (`r pretty_suptabref("starttreatdate-miss")`). Variable completeness improved year-on-year with a 96% drop in missing data in 2015 compared to 2010. Missing data for  the date of ending treatment had a comparable association with the year of notification but also had weak evidence of an association with ethnic group and socio-economic status (`r pretty_suptabref("txenddate-miss")`). There was some evidence that the poorest socio-economic group was more likely to be missing the date of ending treatment but the evidence for this was mixed. The White ethnic group was slightly more likely to be missing the date of treatment ending than most other ethnic groups. 
+For date of starting treatment there was little evidence that missing data is associated with any variable considered, except for year of notification (`r prettypublisher::pretty_suptabref("starttreatdate-miss")`). Variable completeness improved year-on-year with a 96% drop in missing data in 2015 compared to 2010. Missing data for  the date of ending treatment had a comparable association with the year of notification but also had weak evidence of an association with ethnic group and socio-economic status (`r prettypublisher::pretty_suptabref("txenddate-miss")`). There was some evidence that the poorest socio-economic group was more likely to be missing the date of ending treatment but the evidence for this was mixed. The White ethnic group was slightly more likely to be missing the date of treatment ending than most other ethnic groups. 
 
 ### Date of death
 
-For date of death there was some evidence that data was missing with an MAR mechanism for ethnic group and socio-economic status with little evidence for any other association (`r pretty_suptabref("dateofdeath-miss")`). These associations should be interpreted carefully due to the strength of the evidence when compared to the number of tests conducted. Whilst the confidence intervals were wide for all ethnic groups there was some weak indication that the White ethnic group were more likely to have a complete date of death than other ethnic groups. Similarly, those in the lowest socio-economic group were somewhat more likely to have a complete date of death than other quintiles. The reduction in the levels of evidence found for case of death may be linked to the reduction in power for this outcome, as mortality is a rare outcome.
+For date of death there was some evidence that data was missing with an MAR mechanism for ethnic group and socio-economic status with little evidence for any other association (`r prettypublisher::pretty_suptabref("dateofdeath-miss")`). These associations should be interpreted carefully due to the strength of the evidence when compared to the number of tests conducted. Whilst the confidence intervals were wide for all ethnic groups there was some weak indication that the White ethnic group were more likely to have a complete date of death than other ethnic groups. Similarly, those in the lowest socio-economic group were somewhat more likely to have a complete date of death than other quintiles. The reduction in the levels of evidence found for case of death may be linked to the reduction in power for this outcome, as mortality is a rare outcome.
 
 ### Cause of death
 
-For cause of death there was less evidence of an MAR mechanism, with little evidence of an association for year, sex, age, or socio-economic group (`r pretty_suptabref("tomdeathrealat-miss")`). However, there was evidence of an association with ethnic group and very weak evidence of an association with UK birth status. The White ethnic group was less likely to have an incomplete cause of death when compared to the majority of other identified ethnic groups but there was weak evidence to suggest that cause of death was in fact less likely to be missing in those identifying as being of Black-Caribbean, Black-Other, Indian and Bangladeshi descent. The confidence intervals for these estimates were wide, indicating that these estimates may not be reliable. There was again some weak evidence to suggest that the UK born were more likely to be missing a cause of death than the non-UK born, which reverses the trend observed in the other variables explored. As for the date of death cause of death had a small sample size and this may mean that this analysis was underpowered. 
+For cause of death there was less evidence of an MAR mechanism, with little evidence of an association for year, sex, age, or socio-economic group (`r prettypublisher::pretty_suptabref("tomdeathrealat-miss")`). However, there was evidence of an association with ethnic group and very weak evidence of an association with UK birth status. The White ethnic group was less likely to have an incomplete cause of death when compared to the majority of other identified ethnic groups but there was weak evidence to suggest that cause of death was in fact less likely to be missing in those identifying as being of Black-Caribbean, Black-Other, Indian and Bangladeshi descent. The confidence intervals for these estimates were wide, indicating that these estimates may not be reliable. There was again some weak evidence to suggest that the UK born were more likely to be missing a cause of death than the non-UK born, which reverses the trend observed in the other variables explored. As for the date of death cause of death had a small sample size and this may mean that this analysis was underpowered. 
 
-## Temporal trends in variable completeness
+## Assessing potential biases in reporting
+
+* Describe pattern in notifications by month and within months. 
+* Describe which variables also follow this pattern.
+* Discuss variables with potential recall bias. 
+
+
+It is also likely that some of the dates recorded are inaccurate or systematically biased. 
+
+date of notification can be used as a baseline on which to judge other date variables
+
+There is some evidence of a seasonal trend in notifications, with a higher proportion of cases notified in the May, June and July than in the rest of the year. This seasonality would have to be accounted for if conducting analysis on a monthly scale and date of notification was being used as the date of first contact with the health system. There is little evidence that date of notification varies by day of the month.
+
+date of symptom onset, this represents the closest approximation to the date when a case became infectious. Unfortunately there are multiple issues with this measure, the first of which being is that it is only complete across the data extract.
+
+The date of symptom onset is highly susceptible to recall bias with the majority of cases becoming symptomatic on the first of each month, with some evidence that a greater number of cases occur in January than would be expected. 
+
+Another possible measure of the number of cases is the date of diagnosis, this should be a more reliable variable than the date of symptom onset, as it does not rely on the recall of the case. 
+
+The date of starting treatment should be a more reliable contact date as it records an official contact with the health system. As for the data of notification there is some evidence of a seasonal trend for date of starting treatment, with a peak of cases starting treatment in May, June and July. However, this seasonal trend is difficult to identify when cases starting treatment are visualised by month over time. Unlike the date of symptom onset there is little evidence of recall bias by month, or by day. 
+
+The date of ending treatment does not appear to display similar seasonality. This maybe because treatment time varies between individuals and this dilutes the seasonality observed for the date of starting treatment. As noted previously, there was some evidence of recall bias when the proportion of those ending treatment was examined on a day of the month basis, with a larger proportion ending treatment on the first of the month than on any other day. The date of ending treatment was not recorded in 2000, or 2001, and was highly missing for the first several years after collection began.
+
+```{r plot-trends-caserepdate, fig.cap = prettypublisher::pretty_figref("plot-trends-caserepdate", "a.) Shows the proportion of cases finishing treatment in a given month for each year, with little evidence of a seasonal trend. b.) Shows the proportion of cases finishing treatment on a given day for each month, with a much higher proportion of cases finishing treatment on the first of the month than would be expected. On the scale of months there is some evidence of recall bias, with the first day reporting higher proportions of cases than would be expected. Data is only shown from 2001 until 2015 and prior to 2001 this variable was not recorded and it is not complete for 2015."), out.width = "60%", out.extra = ""}
+show_figure("trends-for-caserepdate")
+```
+
+```{r plot-trends-symptonset, fig.cap = prettypublisher::pretty_figref("plot-trends-symptonset", "a.) Shows the proportion of cases finishing treatment in a given month for each year, with little evidence of a seasonal trend. b.) Shows the proportion of cases finishing treatment on a given day for each month, with a much higher proportion of cases finishing treatment on the first of the month than would be expected. On the scale of months there is some evidence of recall bias, with the first day reporting higher proportions of cases than would be expected. Data is only shown from 2001 until 2015 and prior to 2001 this variable was not recorded and it is not complete for 2015."), out.width = "60%", out.extra = ""}
+show_figure("trends-for-symptonset")
+```
 
 # Discussion
 
@@ -437,15 +464,21 @@ The code for the analysis contained in this paper can be found at: https://doi.o
 
 Sam Abbott, Hannah Christensen, Ellen Brooks-Pollock
 
+## Data completeness
 
-## Data completeness - additional results tables
+```{r plot-missing-struct, fig.cap = prettypublisher::pretty_supfigref("plot-missing-struct", "Summary plot of missing data in the extract of the ETS data used in this thesis. Due to the large size of the dataset, the data has been sub-sampled with only 20\\% of the data shown in this figure. Notifications have been ordered by date of notification from left to right. The following subset of variables are shown: year (year), sex (sex), age (age), PHE Centre (phec), Occupation (occat), Ethnic group (ethgrp), UK birth status (ukborn), Time since entry (timesinceent), date of symptom onset (symptonset), date of diagnosis (datediag), started treatment (startedtreat), date of starting treatment (starttreatdate), treatment end date (txenddate), pulmonary or extra-pulmonary TB (pulmextrapulm), culture (culture), sputum smear status (sputsmear), drug resistance (anyres), previous diagnosis (prevdiag), BCG status(bcgvacc), Year of BCG vaccination (bcgvaccyr), overall outcome (overalloutcome), cause of death (tomdeathrelate), socio-economic status quintiles (natquintile), and date of death (dateofdeath). Nested variables have been accounted for (i.e date of death has had an entry added for cases that are known to have not died), so that true missingness for all variables is estimated."), out.width = "60%", out.extra = ""}
+show_figure("plot-missing-struct")
+```
+
+
+## Drivers of data completeness - additional results tables
 
 ### Year of BCG vaccination
 
 ```{r bcgvaccyr-miss}
 ETSMissing::pull_results(results, "bcgvaccyr") %>% 
   knitr::kable(
-        caption = pretty_suptabref("bcgvaccyr-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for year of BCG vaccination as an outcome, adjusted for: year, sex, age (grouped 
+        caption = prettypublisher::pretty_suptabref("bcgvaccyr-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for year of BCG vaccination as an outcome, adjusted for: year, sex, age (grouped 
                                 as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived 
                                 quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all 
                                 explanatory variables. The model indicates that year of BCG vaccination is missing at random for the variables considered."))
@@ -456,7 +489,7 @@ ETSMissing::pull_results(results, "bcgvaccyr") %>%
 ```{r datediag-miss}
 ETSMissing::pull_results(results, "datediag") %>% 
   knitr::kable(
-        caption = pretty_suptabref("datediag-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of diagnosis onset as an 
+        caption = prettypublisher::pretty_suptabref("datediag-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of diagnosis onset as an 
                                 outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status 
                                 (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic 
                                 status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. The model indicates that 
@@ -469,7 +502,7 @@ ETSMissing::pull_results(results, "datediag") %>%
 ```{r starttreatdate-miss}
 ETSMissing::pull_results(results, "starttreatdate") %>% 
   knitr::kable(
-      caption =  pretty_suptabref("starttreatdate-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of starting
+      caption =  prettypublisher::pretty_suptabref("starttreatdate-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of starting
                                treatment as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth
                                status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications
                                from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios
@@ -481,7 +514,7 @@ ETSMissing::pull_results(results, "starttreatdate") %>%
 ```{r txenddate-miss}
 ETSMissing::pull_results(results, "txenddate") %>% 
   knitr::kable(
-        caption = pretty_suptabref("txenddate-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of starting treatment
+        caption = prettypublisher::pretty_suptabref("txenddate-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of starting treatment
                                 as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and
                                 socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010
                                 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are
@@ -495,7 +528,7 @@ ETSMissing::pull_results(results, "txenddate") %>%
 ```{r dateofdeath-miss}
 ETSMissing::pull_results(results, "dateofdeath") %>% 
   knitr::kable(
-        caption = pretty_suptabref("dateofdeath-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of death as an outcome, adjusted for: year, sex, age (grouped as 
+        caption = prettypublisher::pretty_suptabref("dateofdeath-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of death as an outcome, adjusted for: year, sex, age (grouped as 
                                 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived 
                                 quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for 
                                 all explanatory variables. The model indicates that there is some evidence that date of death is missing at random for ethnic group, with weaker evidence for all other variables."))
@@ -507,9 +540,35 @@ ETSMissing::pull_results(results, "dateofdeath") %>%
 ```{r tomdeathrealat-miss}
 ETSMissing::pull_results(results, "tomdeathrelat") %>% 
   knitr::kable(
-        caption = pretty_suptabref("tomdeathrealat-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for cause of death as an outcome, adjusted for: year, 
+        caption = prettypublisher::pretty_suptabref("tomdeathrealat-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for cause of death as an outcome, adjusted for: year, 
                                 sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates 
                                 the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios 
                                 shown are adjusted for all explanatory variables. The model indicates that cause of death is missing at random for ethnic group and UK birth status, with little evidence for any 
                                 other variables"))
+```
+
+
+### Assessing potential biases in reporting
+
+
+```{r plot-trends-datediag, fig.cap = prettypublisher::pretty_supfigref("plot-trends-datediag", "a.) Shows the proportion of cases finishing treatment in a given month for each year, with little evidence of a seasonal trend. b.) Shows the proportion of cases finishing treatment on a given day for each month, with a much higher proportion of cases finishing treatment on the first of the month than would be expected. On the scale of months there is some evidence of recall bias, with the first day reporting higher proportions of cases than would be expected. Data is only shown from 2001 until 2015 and prior to 2001 this variable was not recorded and it is not complete for 2015."), out.width = "60%", out.extra = ""}
+show_figure("trends-for-datediag")
+```
+
+
+```{r plot-trends-dateofdeath, fig.cap = prettypublisher::pretty_supfigref("plot-trends-dateofdeath", "a.) Shows the proportion of cases finishing treatment in a given month for each year, with little evidence of a seasonal trend. b.) Shows the proportion of cases finishing treatment on a given day for each month, with a much higher proportion of cases finishing treatment on the first of the month than would be expected. On the scale of months there is some evidence of recall bias, with the first day reporting higher proportions of cases than would be expected. Data is only shown from 2001 until 2015 and prior to 2001 this variable was not recorded and it is not complete for 2015."), out.width = "60%", out.extra = ""}
+show_figure("trends-for-dateofdeath")
+```
+
+
+
+```{r plot-trends-starttreatdate, fig.cap = prettypublisher::pretty_supfigref("plot-trends-starttreatdate", "a.) Shows the proportion of cases finishing treatment in a given month for each year, with little evidence of a seasonal trend. b.) Shows the proportion of cases finishing treatment on a given day for each month, with a much higher proportion of cases finishing treatment on the first of the month than would be expected. On the scale of months there is some evidence of recall bias, with the first day reporting higher proportions of cases than would be expected. Data is only shown from 2001 until 2015 and prior to 2001 this variable was not recorded and it is not complete for 2015."), out.width = "60%", out.extra = ""}
+show_figure("trends-for-starttreatdate")
+```
+
+
+
+
+```{r plot-trends-txenddate, fig.cap = prettypublisher::pretty_supfigref("plot-trends-txenddate", "a.) Shows the proportion of cases finishing treatment in a given month for each year, with little evidence of a seasonal trend. b.) Shows the proportion of cases finishing treatment on a given day for each month, with a much higher proportion of cases finishing treatment on the first of the month than would be expected. On the scale of months there is some evidence of recall bias, with the first day reporting higher proportions of cases than would be expected. Data is only shown from 2001 until 2015 and prior to 2001 this variable was not recorded and it is not complete for 2015."), out.width = "60%", out.extra = ""}
+show_figure("trends-for-txenddate")
 ```
