@@ -5,7 +5,8 @@
 \title{Plot Missingness for a Date Variable}
 \usage{
 plot_date_variable_missingness(df = NULL, var = NULL,
-  start_date = NULL, end_date = NULL)
+  start_date = NULL, end_date = NULL, split_year = NULL,
+  facet_by_year = TRUE)
 }
 \arguments{
 \item{df}{A dataframe containing cleaned ETS data as produced by \code{tbinenglanddataclean}.}
@@ -16,6 +17,10 @@ to explore missingness within.}
 \item{start_date}{A date indicating when to include data from (inclusive)}
 
 \item{end_date}{A date indicating when to exclude data from (exclusive)}
+
+\item{split_year}{The year to use as a splitting point when facetting. By default uses the mean year.}
+
+\item{facet_by_year}{Logical defaults to \code{TRUE}. Should the plots be facetted by a year midpoint}
 }
 \value{
 A list of plots including: missing data by month and by day.

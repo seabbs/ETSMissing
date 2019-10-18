@@ -37,7 +37,9 @@ library(tidyverse)
 library(knitr)
 library(prettypublisher)
 library(future)
+library(purrr)
 library(furrr)
+library(gridExtra)
 library(ETSMissing)
 ```
 
@@ -206,7 +208,7 @@ ets_post_2009 <- ets %>%
  outcomes <- outcomes %>% 
    ## First no outcomes for which no cleaning is needed
    dplyr::mutate(cleaning = case_when(outcome %in% c("bcgvacc", "symptonset", "datediag",
-                                                      "starttreatdate") ~ c(function(df){
+                                                      "starttreatdate", "caserepdate") ~ c(function(df){
                                                         return(df)
                                                         }),
    ## Then variables for which cases must have died for there to be data
@@ -254,116 +256,38 @@ results <- read_data("results")
 
 ### Temporal trends in variable completeness
 
-```{r explore-detection-time-variables, eval = FALSE}
-# Miss data ---------------------------------------------------------------
-complete_per = function(var, digits=0)
-{
-  tmp <- sum(!is.na(var))
-  tmp2 <- length(var)
-  
-  per <- pretty_percentage(tmp, tmp2, 1)
-  
-  return(per) 
+```{r explore-detection-time-variables, eval = regen_results, include = FALSE}
+if (regen_results) {
+  plots <- results %>% 
+  add_case(outcome = "caserepdate", cleaning = c(function(df){return(df)})) %>% 
+  dplyr::select(-missing_table) %>% 
+  dplyr::filter(grepl("date", outcome) | outcome %in% c("symptonset")) %>% 
+  dplyr::mutate(trends = furrr::future_map2(outcome, cleaning, ~
+                                                     ETSMissing::plot_date_variable_missingness(
+                                                       df = .y(df = ets), var = .x,
+                                                       start_date = "2000-01-01", end_date = "2015-12-31",
+                                                       split_year = 2009),
+                                                 .progress = TRUE)) %>% 
+  dplyr::mutate(type = map(trends, names)) %>% 
+  unnest(type, trends) %>% 
+  pivot_wider(names_from = "type",
+              names_prefix = "trends_",
+              values_from = "trends")
+
+
+ ## Save plots
+ save_data(plots, "plots")
+ 
+ ## Munge together and save as pngs
+plots %>% 
+  dplyr::mutate(munged_plots = purrr::map2(trends_by_month, trends_by_day, 
+                             ~ gridExtra::grid.arrange(.x + labs(title = "a.)"),
+                                            .y + labs(title = "b.)"))
+                             )) %>% 
+  dplyr::mutate(tmp = purrr::walk2(munged_plots, outcome,
+                                   ~ save_figure(.x, paste0("trends-for-", .y))))
 }
-
-
-
-
-# basic-completeness reporting --------------------------------------------
-
-complete_sym_year <- ets %>%
-  group_by(Year = year) %>% 
-  summarise(Complete = pretty_percentage(sum(!is.na(symptonset)),
-                                         length(symptonset), digits = 1))
-
-saveRDS(complete_sym_year, file = "chapters/tb-epi-england/data/complete_sym_year.rds")
-
-complete_diag_year <- ets %>%
-  group_by(Year = year) %>% 
-  summarise(Complete = pretty_percentage(sum(!is.na(datediag)),
-                                         length(datediag), digits = 1))
-
-
-saveRDS(complete_diag_year, file = "chapters/tb-epi-england/data/complete_diag_year.rds")
-
-complete_treatstart_year <- ets %>%
-  group_by(Year = year) %>% 
-  filter(startedtreat == "Started" | is.na(startedtreat)) %>% 
-  summarise(Complete = pretty_percentage(sum(!is.na(starttreatdate)),
-                                         length(starttreatdate), digits = 1))
-
-
-saveRDS(complete_treatstart_year, file = "chapters/tb-epi-england/data/complete_treatstart_year.rds")
-
-complete_treatend_year <- ets %>%
-  group_by(Year = year) %>% 
-  filter(overalloutcome %in% c("Treatment completed", "Not Evaluated")) %>% 
-  summarise(Complete = pretty_percentage(sum(!is.na(txenddate)),
-                                         length(txenddate), digits = 1))
-
-
-saveRDS(complete_treatend_year, file = "chapters/tb-epi-england/data/complete_treatend_year.rds")
-
-complete_dateofdeath_year <- ets %>%
-  group_by(Year = year) %>% 
-  filter(overalloutcome %in% c("Died", "Not Evaluated")) %>% 
-  summarise(Complete = pretty_percentage(sum(!is.na(dateofdeath)),
-                                         length(dateofdeath), digits = 1))
-
-
-saveRDS(complete_dateofdeath_year, file = "chapters/tb-epi-england/data/complete_dateofdeath_year.rds")
-
-
-symptonset_complete <- complete_per(ets$symptonset)
-
-saveRDS(symptonset_complete, file = "chapters/tb-epi-england/data/symptonset_complete.rds")
-
-datediag_complete <- complete_per(ets$datediag)
-
-saveRDS(datediag_complete, file = "chapters/tb-epi-england/data/datediag_complete.rds")
-
-# Plot-detection-metric ---------------------------------------------------
-
-plot_not_detection <- plot_detection_metric(ets, "caserepdate")
-
-ggsave("chapters/tb-epi-england/figures/plot-detection-not.png", 
-       plot_not_detection, dpi = 320, width = 8, height = 8)
-
-plot_sym_detection <- plot_detection_metric(ets, "symptonset")
-
-ggsave("chapters/tb-epi-england/figures/plot-detection-sympton.png", 
-       plot_sym_detection, dpi = 320, width = 8, height = 8)
-
-plot_starttreatdate_detection <- ets %>% 
-  filter(year(starttreatdate) < 2015,
-         year(starttreatdate) > 2000 ) %>% 
-  plot_detection_metric("starttreatdate")
-
-ggsave("chapters/tb-epi-england/figures/plot-detection-starttreatdate.png", 
-       plot_starttreatdate_detection, dpi = 320, width = 8, height = 8)
-
-plot_treatend_detection <- ets %>% 
-  filter(year(txenddate) < 2015,
-         year(txenddate) > 2000) %>% 
-  filter(overalloutcome == "Treatment completed") %>% 
-  plot_detection_metric("txenddate")
-
-ggsave("chapters/tb-epi-england/figures/plot-detection-treatend.png", 
-       plot_treatend_detection, dpi = 320, width = 8, height = 8)
-
-
-plot_dateofdeath_detection <- ets %>% 
-  filter(year(dateofdeath) < 2015,
-         year(dateofdeath) > 2000) %>% 
-  filter(overalloutcome == "Died") %>% 
-  plot_detection_metric("dateofdeath")
-
-ggsave("chapters/tb-epi-england/figures/plot-detection-dateofdeath.png", 
-       plot_dateofdeath_detection, dpi = 320, width = 8, height = 8)
-
-
 ```
-
 
 ## Patient and public involvement
 

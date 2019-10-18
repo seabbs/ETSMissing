@@ -142,49 +142,52 @@ treatment end date, year of BCG vaccination, and time since entry.</p>
     <pre class="examples"><div class='input'>
 
 <span class='co'>## Code</span>
-<span class='no'>account_for_nested_missing</span></div><div class='output co'>#&gt; function(df) {
-#&gt; 
-#&gt;   caserepdate &lt;- NULL; year &lt;- NULL; sex &lt;- NULL; age &lt;- NULL; phec &lt;- NULL;
-#&gt;   occat &lt;- NULL; ethgrp &lt;- NULL; ukborn &lt;- NULL; timesinceent &lt;- NULL;
-#&gt;   symptonset &lt;- NULL; datediag &lt;- NULL; startedtreat &lt;- NULL; starttreatdate &lt;- NULL;
-#&gt;   txenddate &lt;- NULL; pulmextrapulm &lt;- NULL; culture &lt;- NULL; sputsmear &lt;- NULL; anyres &lt;- NULL;
-#&gt;   prevdiag &lt;- NULL; bcgvacc &lt;- NULL; bcgvaccyr &lt;- NULL; overalloutcome &lt;- NULL; tomdeathrelat &lt;- NULL;
-#&gt;   dateofdeath &lt;- NULL; txenddate &lt;- NULL; natquintile &lt;- NULL;
-#&gt; 
-#&gt;   # Select variables of interest --------------------------------------------
-#&gt;   filt_df &lt;- df %&gt;%
-#&gt;     select(caserepdate, year, sex, age, phec,
-#&gt;            occat, ethgrp, ukborn, timesinceent,
-#&gt;            symptonset, datediag, startedtreat, starttreatdate,
-#&gt;            txenddate, pulmextrapulm, culture, sputsmear, anyres,
-#&gt;            prevdiag, bcgvacc, bcgvaccyr, overalloutcome, tomdeathrelat,
-#&gt;            dateofdeath, txenddate, natquintile)
-#&gt; 
-#&gt; 
-#&gt;   # Account for nested data -------------------------------------------------
-#&gt;   nest_filt_df &lt;- filt_df %&gt;%
-#&gt;     mutate(tomdeathrelat = ifelse(overalloutcome == 'Died',
-#&gt;                                   tomdeathrelat %&gt;% as.character,
-#&gt;                                   overalloutcome %&gt;% as.character) %&gt;%
-#&gt;              factor) %&gt;%
-#&gt;     mutate(dateofdeath = ifelse(overalloutcome == 'Died',
-#&gt;                                 dateofdeath, 100000)) %&gt;%
-#&gt;     mutate(starttreatdate = ifelse(startedtreat == 'Started',
-#&gt;                                    starttreatdate,
-#&gt;                                    startedtreat)) %&gt;%
-#&gt;     mutate(txenddate = ifelse(overalloutcome == 'Treatment completed',
-#&gt;                               txenddate,
-#&gt;                               overalloutcome)) %&gt;%
-#&gt;     mutate(bcgvaccyr = ifelse(bcgvacc == 'Yes',
-#&gt;                               bcgvaccyr %&gt;% as.character,
-#&gt;                               bcgvacc) %&gt;% factor)  %&gt;%
-#&gt;     mutate(dateofdeath = ifelse(overalloutcome %in% "Died",
-#&gt;                                 dateofdeath,
-#&gt;                                 "N/A") %&gt;%
-#&gt;              as.factor) %&gt;%
-#&gt;     mutate(timesinceent = ifelse(ukborn %in% "UK born", "N/A", timesinceent))
+<span class='no'>account_for_nested_missing</span></div><div class='output co'>#&gt; function (df) 
+#&gt; {
+#&gt;     caserepdate &lt;- NULL
+#&gt;     year &lt;- NULL
+#&gt;     sex &lt;- NULL
+#&gt;     age &lt;- NULL
+#&gt;     phec &lt;- NULL
+#&gt;     occat &lt;- NULL
+#&gt;     ethgrp &lt;- NULL
+#&gt;     ukborn &lt;- NULL
+#&gt;     timesinceent &lt;- NULL
+#&gt;     symptonset &lt;- NULL
+#&gt;     datediag &lt;- NULL
+#&gt;     startedtreat &lt;- NULL
+#&gt;     starttreatdate &lt;- NULL
+#&gt;     txenddate &lt;- NULL
+#&gt;     pulmextrapulm &lt;- NULL
+#&gt;     culture &lt;- NULL
+#&gt;     sputsmear &lt;- NULL
+#&gt;     anyres &lt;- NULL
+#&gt;     prevdiag &lt;- NULL
+#&gt;     bcgvacc &lt;- NULL
+#&gt;     bcgvaccyr &lt;- NULL
+#&gt;     overalloutcome &lt;- NULL
+#&gt;     tomdeathrelat &lt;- NULL
+#&gt;     dateofdeath &lt;- NULL
+#&gt;     txenddate &lt;- NULL
+#&gt;     natquintile &lt;- NULL
+#&gt;     filt_df &lt;- df %&gt;% select(caserepdate, year, sex, age, phec, 
+#&gt;         occat, ethgrp, ukborn, timesinceent, symptonset, datediag, 
+#&gt;         startedtreat, starttreatdate, txenddate, pulmextrapulm, 
+#&gt;         culture, sputsmear, anyres, prevdiag, bcgvacc, bcgvaccyr, 
+#&gt;         overalloutcome, tomdeathrelat, dateofdeath, txenddate, 
+#&gt;         natquintile)
+#&gt;     nest_filt_df &lt;- filt_df %&gt;% mutate(tomdeathrelat = ifelse(overalloutcome == 
+#&gt;         "Died", tomdeathrelat %&gt;% as.character, overalloutcome %&gt;% 
+#&gt;         as.character) %&gt;% factor) %&gt;% mutate(dateofdeath = ifelse(overalloutcome == 
+#&gt;         "Died", dateofdeath, 1e+05)) %&gt;% mutate(starttreatdate = ifelse(startedtreat == 
+#&gt;         "Started", starttreatdate, startedtreat)) %&gt;% mutate(txenddate = ifelse(overalloutcome == 
+#&gt;         "Treatment completed", txenddate, overalloutcome)) %&gt;% 
+#&gt;         mutate(bcgvaccyr = ifelse(bcgvacc == "Yes", bcgvaccyr %&gt;% 
+#&gt;             as.character, bcgvacc) %&gt;% factor) %&gt;% mutate(dateofdeath = ifelse(overalloutcome %in% 
+#&gt;         "Died", dateofdeath, "N/A") %&gt;% as.factor) %&gt;% mutate(timesinceent = ifelse(ukborn %in% 
+#&gt;         "UK born", "N/A", timesinceent))
 #&gt; }
-#&gt; &lt;bytecode: 0x5578bc099370&gt;
+#&gt; &lt;bytecode: 0x55eb73154700&gt;
 #&gt; &lt;environment: namespace:ETSMissing&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

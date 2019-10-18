@@ -120,7 +120,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>plot_date_variable_missingness</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>end_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>end_date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>split_year</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_by_year</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,6 +143,14 @@ to explore missingness within.</p></td>
       <th>end_date</th>
       <td><p>A date indicating when to exclude data from (exclusive)</p></td>
     </tr>
+    <tr>
+      <th>split_year</th>
+      <td><p>The year to use as a splitting point when facetting. By default uses the mean year.</p></td>
+    </tr>
+    <tr>
+      <th>facet_by_year</th>
+      <td><p>Logical defaults to <code>TRUE</code>. Should the plots be facetted by a year midpoint</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -151,7 +160,58 @@ to explore missingness within.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Code</span>
-<span class='no'>plot_date_variable_missingness</span></div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'plot_date_variable_missingness' not found</span></div></pre>
+<span class='no'>plot_date_variable_missingness</span></div><div class='output co'>#&gt; function (df = NULL, var = NULL, start_date = NULL, end_date = NULL, 
+#&gt;     split_year = NULL, facet_by_year = TRUE) 
+#&gt; {
+#&gt;     year_facet &lt;- NULL
+#&gt;     df$date &lt;- df[[var]]
+#&gt;     if (is.null(start_date)) {
+#&gt;         start_date &lt;- min(df$date, na.rm = TRUE)
+#&gt;     }
+#&gt;     if (is.null(end_date)) {
+#&gt;         end_date &lt;- max(df$date, na.rm = TRUE)
+#&gt;     }
+#&gt;     df_count &lt;- df %&gt;% filter(date &gt;= start_date, year &lt;= end_date) %&gt;% 
+#&gt;         drop_na(date) %&gt;% count(date, .drop = FALSE, name = "notifications") %&gt;% 
+#&gt;         mutate(notifications = notifications %&gt;% replace_na(0))
+#&gt;     years_of_data &lt;- df_count$date %&gt;% year() %&gt;% unique() %&gt;% 
+#&gt;         as.numeric()
+#&gt;     if (is.null(split_year)) {
+#&gt;         split_year &lt;- years_of_data %&gt;% mean(na.rm = TRUE) %&gt;% 
+#&gt;             floor
+#&gt;     }
+#&gt;     df_count &lt;- df_count %&gt;% dplyr::mutate(year_strat = cut(year(date) %&gt;% 
+#&gt;         as.integer, breaks = c(min(years_of_data), split_year, 
+#&gt;         max(years_of_data) + 1), labels = c(paste0(min(years_of_data), 
+#&gt;         "-", split_year - 1), paste0(split_year, "-", max(years_of_data))), 
+#&gt;         right = FALSE))
+#&gt;     if (facet_by_year) {
+#&gt;         df_count &lt;- df_count %&gt;% group_by(year_strat)
+#&gt;     }
+#&gt;     month_plot &lt;- df_count %&gt;% mutate(date = floor_date(date, 
+#&gt;         "month")) %&gt;% count(date, wt = notifications) %&gt;% add_count(year(date), 
+#&gt;         wt = n, name = "nn") %&gt;% mutate(n = n/nn) %&gt;% mutate(month = month(date, 
+#&gt;         label = TRUE)) %&gt;% ggplot(aes(x = month, y = n)) + geom_violin(draw_quantiles = c(0.25, 
+#&gt;         0.5, 0.75)) + geom_jitter(alpha = 0.2) + scale_y_sqrt(labels = percent) + 
+#&gt;         theme_minimal() + labs(x = "Month", y = "Percentage of annual notifications (sqrt)")
+#&gt;     day_plot &lt;- df_count %&gt;% mutate(date = floor_date(date, "day")) %&gt;% 
+#&gt;         count(date, wt = notifications) %&gt;% add_count(floor_date(date, 
+#&gt;         "month"), wt = n, name = "nn") %&gt;% mutate(n = n/nn) %&gt;% 
+#&gt;         mutate(mday = mday(date)) %&gt;% ggplot(aes(x = mday, y = n, 
+#&gt;         group = mday)) + geom_violin(draw_quantiles = c(0.25, 
+#&gt;         0.5, 0.75)) + geom_jitter(alpha = 0.05) + scale_y_sqrt(labels = percent) + 
+#&gt;         scale_x_continuous(minor_breaks = NULL, breaks = seq(1, 
+#&gt;             31, 2)) + theme_minimal() + labs(x = "Day of the month", 
+#&gt;         y = "Percentage of monthly notifications (sqrt)")
+#&gt;     plots &lt;- list(month_plot, day_plot)
+#&gt;     if (facet_by_year) {
+#&gt;         plots &lt;- plots %&gt;% map(~. + facet_wrap(~year_strat))
+#&gt;     }
+#&gt;     names(plots) &lt;- c("by_month", "by_day")
+#&gt;     return(plots)
+#&gt; }
+#&gt; &lt;bytecode: 0x55eb7432d9e8&gt;
+#&gt; &lt;environment: namespace:ETSMissing&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
