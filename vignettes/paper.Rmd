@@ -199,7 +199,7 @@ ets_post_2009 <- ets %>%
   filter(year > 2009, year <= 2015) %>%
   mutate(year = factor(year)) %>% 
   mutate(phec = phec %>% 
-           forcats::fct_infreq(ordered = TRUE))
+           forcats::fct_infreq())
  # Outcome list -----------------------------------------------------------
  
  ## List out outcomes to explore
@@ -322,6 +322,17 @@ knitr::kable(miss_ets,
 By filtering nested variables - rather than by using replacement -  we found the date of starting treatment was `r missing_stats[["date_treat"]]` missing, which is more complete than previously estimated. For cases that were known to have completed treatment `r missing_stats[["date_treat_end"]]` were missing a date for the end of treatment. In notifications that were known to have died, `r missing_stats[["date_death"]]` were missing the date of death and `r missing_stats[["cause_death"]]` were missing the cause of death. 
 
 ## Drivers of Variable completeness
+
+
+### Drug resistance
+
+`r prettypublisher::pretty_tabref("anyres-miss")`
+
+```{r anyres-miss}
+ETSMissing::pull_results(results, "anyres") %>% 
+  knitr::kable(
+        caption = prettypublisher::pretty_tabref("anyres-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for drug resistance (to any treatment) as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables."))
+```
 
 ### BCG status
 

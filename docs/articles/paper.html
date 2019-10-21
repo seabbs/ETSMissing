@@ -327,12 +327,364 @@
 <div id="drivers-of-variable-completeness-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#drivers-of-variable-completeness-1" class="anchor"></a>Drivers of Variable completeness</h2>
+<div id="drug-resistance" class="section level3">
+<h3 class="hasAnchor">
+<a href="#drug-resistance" class="anchor"></a>Drug resistance</h3>
+<p>Table 2</p>
+<table class="table">
+<caption>Table 2: Results from a logistic regression model with data completeness (Complete/Missing) for drug resistance (to any treatment) as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables.</caption>
+<thead><tr class="header">
+<th align="left">Variable</th>
+<th align="left">Category</th>
+<th align="left">Missing (N)</th>
+<th align="right">Notifications (41659)</th>
+<th align="left">Odds Ratio</th>
+<th align="left">P value (Wald)</th>
+<th align="left">P value (LRT)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Year</td>
+<td align="left">2010</td>
+<td align="left">40.7% (2905)</td>
+<td align="right">7143</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0.844</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">2011</td>
+<td align="left">40.2% (3126)</td>
+<td align="right">7781</td>
+<td align="left">0.97 (0.91, 1.04)</td>
+<td align="left">0.428</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">2012</td>
+<td align="left">40.1% (3107)</td>
+<td align="right">7755</td>
+<td align="left">0.96 (0.90, 1.03)</td>
+<td align="left">0.278</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">2013</td>
+<td align="left">40.4% (2839)</td>
+<td align="right">7034</td>
+<td align="left">0.98 (0.92, 1.05)</td>
+<td align="left">0.625</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">2014</td>
+<td align="left">39.8% (2519)</td>
+<td align="right">6327</td>
+<td align="left">0.96 (0.90, 1.03)</td>
+<td align="left">0.29</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">2015</td>
+<td align="left">40.3% (2267)</td>
+<td align="right">5619</td>
+<td align="left">1.00 (0.93, 1.07)</td>
+<td align="left">0.896</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Sex</td>
+<td align="left">Female</td>
+<td align="left">43.1% (7613)</td>
+<td align="right">17664</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">4.81e-21</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Male</td>
+<td align="left">38.1% (9150)</td>
+<td align="right">23995</td>
+<td align="left">0.82 (0.79, 0.86)</td>
+<td align="left">4.67e-21</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Age</td>
+<td align="left">0-14</td>
+<td align="left">76.1% (1365)</td>
+<td align="right">1793</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">2.95e-229</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">15-44</td>
+<td align="left">36.0% (9096)</td>
+<td align="right">25235</td>
+<td align="left">0.18 (0.16, 0.21)</td>
+<td align="left">6e-180</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">45-64</td>
+<td align="left">43.9% (3961)</td>
+<td align="right">9026</td>
+<td align="left">0.26 (0.23, 0.29)</td>
+<td align="left">2.07e-105</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">65+</td>
+<td align="left">41.8% (2341)</td>
+<td align="right">5605</td>
+<td align="left">0.23 (0.20, 0.26)</td>
+<td align="left">1.48e-112</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Ethnic group</td>
+<td align="left">White</td>
+<td align="left">40.2% (3364)</td>
+<td align="right">8359</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">8.17e-29</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Black-Caribbean</td>
+<td align="left">40.1% (372)</td>
+<td align="right">928</td>
+<td align="left">0.99 (0.85, 1.14)</td>
+<td align="left">0.854</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Black-African</td>
+<td align="left">38.5% (2775)</td>
+<td align="right">7204</td>
+<td align="left">1.07 (0.98, 1.16)</td>
+<td align="left">0.133</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Black-Other</td>
+<td align="left">42.5% (157)</td>
+<td align="right">369</td>
+<td align="left">1.20 (0.96, 1.49)</td>
+<td align="left">0.105</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Indian</td>
+<td align="left">40.7% (4412)</td>
+<td align="right">10848</td>
+<td align="left">1.24 (1.15, 1.34)</td>
+<td align="left">1.58e-08</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Pakistani</td>
+<td align="left">42.4% (2885)</td>
+<td align="right">6806</td>
+<td align="left">1.31 (1.21, 1.41)</td>
+<td align="left">2.7e-11</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Bangladeshi</td>
+<td align="left">47.1% (791)</td>
+<td align="right">1680</td>
+<td align="left">1.67 (1.48, 1.88)</td>
+<td align="left">9.74e-18</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Chinese</td>
+<td align="left">34.6% (171)</td>
+<td align="right">494</td>
+<td align="left">0.97 (0.80, 1.18)</td>
+<td align="left">0.787</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Mixed / Other</td>
+<td align="left">36.9% (1836)</td>
+<td align="right">4971</td>
+<td align="left">1.01 (0.92, 1.10)</td>
+<td align="left">0.911</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">UK birth status</td>
+<td align="left">Non-UK Born</td>
+<td align="left">38.6% (11913)</td>
+<td align="right">30880</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">3.1e-08</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">UK Born</td>
+<td align="left">45.0% (4850)</td>
+<td align="right">10779</td>
+<td align="left">1.19 (1.12, 1.26)</td>
+<td align="left">3e-08</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Socio-economic status</td>
+<td align="left">1</td>
+<td align="left">40.0% (6454)</td>
+<td align="right">16131</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0.000369</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">2</td>
+<td align="left">39.7% (5005)</td>
+<td align="right">12621</td>
+<td align="left">1.02 (0.97, 1.07)</td>
+<td align="left">0.487</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">3</td>
+<td align="left">40.3% (2633)</td>
+<td align="right">6530</td>
+<td align="left">1.06 (1.00, 1.13)</td>
+<td align="left">0.0563</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">4</td>
+<td align="left">41.1% (1561)</td>
+<td align="right">3796</td>
+<td align="left">1.10 (1.02, 1.19)</td>
+<td align="left">0.0125</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">5</td>
+<td align="left">43.0% (1110)</td>
+<td align="right">2581</td>
+<td align="left">1.21 (1.10, 1.32)</td>
+<td align="left">4.57e-05</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Public Health England centre</td>
+<td align="left">London</td>
+<td align="left">40.4% (7135)</td>
+<td align="right">17658</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">6.46e-15</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">West Midlands</td>
+<td align="left">43.6% (2274)</td>
+<td align="right">5217</td>
+<td align="left">1.07 (1.00, 1.15)</td>
+<td align="left">0.0416</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">North West</td>
+<td align="left">39.2% (1597)</td>
+<td align="right">4075</td>
+<td align="left">0.87 (0.81, 0.94)</td>
+<td align="left">0.000464</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">South East</td>
+<td align="left">38.2% (1542)</td>
+<td align="right">4037</td>
+<td align="left">0.87 (0.81, 0.94)</td>
+<td align="left">0.000287</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Yorkshire and the Humber</td>
+<td align="left">40.9% (1257)</td>
+<td align="right">3077</td>
+<td align="left">0.91 (0.84, 0.99)</td>
+<td align="left">0.027</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">East of England</td>
+<td align="left">38.3% (1019)</td>
+<td align="right">2662</td>
+<td align="left">0.87 (0.80, 0.95)</td>
+<td align="left">0.00171</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">East Midlands</td>
+<td align="left">40.2% (1025)</td>
+<td align="right">2548</td>
+<td align="left">0.95 (0.87, 1.04)</td>
+<td align="left">0.27</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">South West</td>
+<td align="left">42.3% (674)</td>
+<td align="right">1595</td>
+<td align="left">1.06 (0.95, 1.18)</td>
+<td align="left">0.3</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">North East</td>
+<td align="left">30.4% (240)</td>
+<td align="right">790</td>
+<td align="left">0.60 (0.51, 0.70)</td>
+<td align="left">3.43e-10</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div id="bcg-status" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bcg-status" class="anchor"></a>BCG status</h3>
-<p>There was evidence that BCG status was missing with a MAR mechanism for qll variables considered Table 2. BCG data missingness is strongly associated with year of notification, sex age, ethnic group, and socio-economic status. After adjusting for other variables data completeness increased from 2010 until 2012 but has since showed no clear trend. Men appeared to be more likely than women to have a missing BCG status, with the non-UK born also being more likely than the UK born to be missing BCG status. The proportion of those missing BCG status increased with age, with those aged 65+ being over 4 times more likely to be missing BCG status than those aged 0-14 years old. There was also evidence to suggest that notifications in the lowest socio-economic group were more likely to have a missing BCG status but there was no clear evidence of a trend across socio-economic quintiles. The White ethnic group was more likely to have a missing BCG status than any other ethnic group.</p>
+<p>There was evidence that BCG status was missing with a MAR mechanism for qll variables considered Table 3. BCG data missingness is strongly associated with year of notification, sex age, ethnic group, and socio-economic status. After adjusting for other variables data completeness increased from 2010 until 2012 but has since showed no clear trend. Men appeared to be more likely than women to have a missing BCG status, with the non-UK born also being more likely than the UK born to be missing BCG status. The proportion of those missing BCG status increased with age, with those aged 65+ being over 4 times more likely to be missing BCG status than those aged 0-14 years old. There was also evidence to suggest that notifications in the lowest socio-economic group were more likely to have a missing BCG status but there was no clear evidence of a trend across socio-economic quintiles. The White ethnic group was more likely to have a missing BCG status than any other ethnic group.</p>
 <table class="table">
-<caption>Table 2: Results from a logistic regression model with data completeness (Complete/Missing) for BCG vaccination as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. The model indicates that BCG status is missing at random for the variables considered.</caption>
+<caption>Table 3: Results from a logistic regression model with data completeness (Complete/Missing) for BCG vaccination as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. The model indicates that BCG status is missing at random for the variables considered.</caption>
 <thead><tr class="header">
 <th align="left">Variable</th>
 <th align="left">Category</th>
@@ -609,8 +961,8 @@
 <td align="left">West Midlands</td>
 <td align="left">22.4% (1171)</td>
 <td align="right">5217</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">1.08 (0.99, 1.16)</td>
+<td align="left">0.066</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -618,8 +970,8 @@
 <td align="left">North West</td>
 <td align="left">51.8% (2112)</td>
 <td align="right">4075</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">4.16 (3.85, 4.49)</td>
+<td align="left">4.44e-286</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -627,8 +979,8 @@
 <td align="left">South East</td>
 <td align="left">26.6% (1074)</td>
 <td align="right">4037</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">1.33 (1.23, 1.45)</td>
+<td align="left">7.73e-12</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -636,8 +988,8 @@
 <td align="left">Yorkshire and the Humber</td>
 <td align="left">37.0% (1138)</td>
 <td align="right">3077</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">2.24 (2.05, 2.44)</td>
+<td align="left">1.35e-72</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -645,8 +997,8 @@
 <td align="left">East of England</td>
 <td align="left">36.4% (969)</td>
 <td align="right">2662</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">2.12 (1.94, 2.32)</td>
+<td align="left">6.4e-61</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -654,8 +1006,8 @@
 <td align="left">East Midlands</td>
 <td align="left">45.3% (1154)</td>
 <td align="right">2548</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">3.20 (2.93, 3.50)</td>
+<td align="left">4.07e-145</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -663,8 +1015,8 @@
 <td align="left">South West</td>
 <td align="left">41.2% (657)</td>
 <td align="right">1595</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">2.55 (2.28, 2.85)</td>
+<td align="left">5.96e-62</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -672,8 +1024,8 @@
 <td align="left">North East</td>
 <td align="left">26.5% (209)</td>
 <td align="right">790</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">1.31 (1.11, 1.55)</td>
+<td align="left">0.0013</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -687,9 +1039,9 @@
 <div id="date-of-symptom-onset" class="section level3">
 <h3 class="hasAnchor">
 <a href="#date-of-symptom-onset" class="anchor"></a>Date of symptom onset</h3>
-<p>For date of symptom onset there was strong evidence of an MAR mechanism for all variables considered, except for sex (Table 3). The likelihood of date of symptom onset being missing reduced with year of notification. Children (0-14 years old) were more likely to have a missing date of symptom onset than any other age group as were those in any socio-economic quintile when compared to the poorest group. UK born cases were more likely to have a complete date of symptom onset than non-UK born cases, with the White ethnic group being more likely to have a missing date of symptom onset than most other ethnic groups.</p>
+<p>For date of symptom onset there was strong evidence of an MAR mechanism for all variables considered, except for sex (Table 4). The likelihood of date of symptom onset being missing reduced with year of notification. Children (0-14 years old) were more likely to have a missing date of symptom onset than any other age group as were those in any socio-economic quintile when compared to the poorest group. UK born cases were more likely to have a complete date of symptom onset than non-UK born cases, with the White ethnic group being more likely to have a missing date of symptom onset than most other ethnic groups.</p>
 <table class="table">
-<caption>Table 3: Results from a logistic regression model with data completeness (Complete/Missing) for date of symptom onset as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. The model indicates that date of symptom onset is missing not at random for the variables for all variables considered, except for sex.</caption>
+<caption>Table 4: Results from a logistic regression model with data completeness (Complete/Missing) for date of symptom onset as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. The model indicates that date of symptom onset is missing not at random for the variables for all variables considered, except for sex.</caption>
 <thead><tr class="header">
 <th align="left">Variable</th>
 <th align="left">Category</th>
@@ -966,8 +1318,8 @@
 <td align="left">West Midlands</td>
 <td align="left">12.0% (627)</td>
 <td align="right">5217</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.30 (0.27, 0.33)</td>
+<td align="left">8.63e-137</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -975,8 +1327,8 @@
 <td align="left">North West</td>
 <td align="left">20.6% (841)</td>
 <td align="right">4075</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.56 (0.51, 0.61)</td>
+<td align="left">5.62e-36</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -984,8 +1336,8 @@
 <td align="left">South East</td>
 <td align="left">9.0% (363)</td>
 <td align="right">4037</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.20 (0.18, 0.23)</td>
+<td align="left">7.15e-156</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -993,8 +1345,8 @@
 <td align="left">Yorkshire and the Humber</td>
 <td align="left">13.2% (407)</td>
 <td align="right">3077</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.32 (0.28, 0.35)</td>
+<td align="left">4.19e-83</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1002,8 +1354,8 @@
 <td align="left">East of England</td>
 <td align="left">26.5% (705)</td>
 <td align="right">2662</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.80 (0.72, 0.88)</td>
+<td align="left">4.54e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1011,8 +1363,8 @@
 <td align="left">East Midlands</td>
 <td align="left">19.2% (488)</td>
 <td align="right">2548</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.52 (0.47, 0.58)</td>
+<td align="left">2.21e-32</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1020,8 +1372,8 @@
 <td align="left">South West</td>
 <td align="left">10.9% (174)</td>
 <td align="right">1595</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.27 (0.23, 0.32)</td>
+<td align="left">6.79e-53</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1029,8 +1381,8 @@
 <td align="left">North East</td>
 <td align="left">14.7% (116)</td>
 <td align="right">790</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.39 (0.31, 0.47)</td>
+<td align="left">1.9e-19</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -1467,8 +1819,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">West Midlands</td>
 <td align="left">39.3% (1010)</td>
 <td align="right">2568</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.06 (0.05, 0.07)</td>
+<td align="left">0</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1476,8 +1828,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">North West</td>
 <td align="left">9.2% (116)</td>
 <td align="right">1260</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.01 (0.01, 0.01)</td>
+<td align="left">0</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1485,8 +1837,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">South East</td>
 <td align="left">13.0% (293)</td>
 <td align="right">2261</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.01 (0.01, 0.02)</td>
+<td align="left">0</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1494,8 +1846,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Yorkshire and the Humber</td>
 <td align="left">45.2% (528)</td>
 <td align="right">1167</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.08 (0.07, 0.09)</td>
+<td align="left">2.85e-255</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1503,8 +1855,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">East of England</td>
 <td align="left">19.9% (260)</td>
 <td align="right">1305</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.02 (0.02, 0.03)</td>
+<td align="left">0</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1512,8 +1864,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">East Midlands</td>
 <td align="left">3.1% (33)</td>
 <td align="right">1066</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.00 (0.00, 0.00)</td>
+<td align="left">2.6e-224</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1521,8 +1873,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">South West</td>
 <td align="left">38.4% (175)</td>
 <td align="right">456</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.06 (0.05, 0.08)</td>
+<td align="left">4.24e-153</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1530,8 +1882,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">North East</td>
 <td align="left">26.6% (105)</td>
 <td align="right">394</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.03 (0.03, 0.04)</td>
+<td align="left">2.87e-172</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -1818,8 +2170,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">West Midlands</td>
 <td align="left">3.6% (190)</td>
 <td align="right">5217</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.08 (0.07, 0.10)</td>
+<td align="left">4.97e-226</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1827,8 +2179,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">North West</td>
 <td align="left">7.6% (308)</td>
 <td align="right">4075</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.18 (0.15, 0.20)</td>
+<td align="left">6.15e-159</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1836,8 +2188,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">South East</td>
 <td align="left">3.9% (157)</td>
 <td align="right">4037</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.08 (0.07, 0.09)</td>
+<td align="left">4e-193</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1845,8 +2197,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Yorkshire and the Humber</td>
 <td align="left">3.2% (99)</td>
 <td align="right">3077</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.07 (0.06, 0.09)</td>
+<td align="left">1.51e-137</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1854,8 +2206,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">East of England</td>
 <td align="left">11.3% (302)</td>
 <td align="right">2662</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.26 (0.23, 0.30)</td>
+<td align="left">2.32e-93</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1863,8 +2215,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">East Midlands</td>
 <td align="left">18.9% (482)</td>
 <td align="right">2548</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.51 (0.46, 0.57)</td>
+<td align="left">2.4e-33</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1872,8 +2224,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">South West</td>
 <td align="left">2.8% (45)</td>
 <td align="right">1595</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.06 (0.05, 0.08)</td>
+<td align="left">8.96e-73</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1881,8 +2233,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">North East</td>
 <td align="left">5.2% (41)</td>
 <td align="right">790</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.12 (0.09, 0.17)</td>
+<td align="left">5.45e-38</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -2169,8 +2521,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">West Midlands</td>
 <td align="left">3.8% (198)</td>
 <td align="right">5217</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">1.11 (0.93, 1.32)</td>
+<td align="left">0.229</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2178,8 +2530,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">North West</td>
 <td align="left">4.3% (176)</td>
 <td align="right">4075</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">1.27 (1.05, 1.52)</td>
+<td align="left">0.0112</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2187,8 +2539,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">South East</td>
 <td align="left">3.0% (121)</td>
 <td align="right">4037</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.87 (0.71, 1.07)</td>
+<td align="left">0.194</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2196,8 +2548,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Yorkshire and the Humber</td>
 <td align="left">6.6% (202)</td>
 <td align="right">3077</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">2.03 (1.70, 2.43)</td>
+<td align="left">8.5e-15</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2205,8 +2557,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">East of England</td>
 <td align="left">3.3% (88)</td>
 <td align="right">2662</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.97 (0.77, 1.22)</td>
+<td align="left">0.815</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2214,8 +2566,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">East Midlands</td>
 <td align="left">3.2% (82)</td>
 <td align="right">2548</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.93 (0.73, 1.17)</td>
+<td align="left">0.542</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2223,8 +2575,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">South West</td>
 <td align="left">6.9% (110)</td>
 <td align="right">1595</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">1.94 (1.54, 2.41)</td>
+<td align="left">5.75e-09</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2232,8 +2584,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">North East</td>
 <td align="left">5.1% (40)</td>
 <td align="right">790</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">1.44 (1.01, 1.99)</td>
+<td align="left">0.0342</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -2516,8 +2868,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">West Midlands</td>
 <td align="left">4.2% (177)</td>
 <td align="right">4240</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">6.68 (5.16, 8.69)</td>
+<td align="left">2e-46</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2525,8 +2877,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">North West</td>
 <td align="left">2.7% (88)</td>
 <td align="right">3208</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">4.16 (3.07, 5.63)</td>
+<td align="left">2.21e-20</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2534,8 +2886,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">South East</td>
 <td align="left">2.5% (79)</td>
 <td align="right">3213</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">3.57 (2.62, 4.84)</td>
+<td align="left">3.41e-16</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2543,8 +2895,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Yorkshire and the Humber</td>
 <td align="left">2.8% (67)</td>
 <td align="right">2361</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">4.34 (3.12, 6.01)</td>
+<td align="left">1.06e-18</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2552,8 +2904,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">East of England</td>
 <td align="left">4.0% (83)</td>
 <td align="right">2098</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">5.88 (4.35, 7.94)</td>
+<td align="left">6.86e-31</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2561,8 +2913,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">East Midlands</td>
 <td align="left">3.1% (63)</td>
 <td align="right">2039</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">4.77 (3.44, 6.58)</td>
+<td align="left">2.87e-21</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2570,8 +2922,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">South West</td>
 <td align="left">2.9% (32)</td>
 <td align="right">1122</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">4.22 (2.76, 6.29)</td>
+<td align="left">6.37e-12</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2579,8 +2931,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">North East</td>
 <td align="left">4.3% (25)</td>
 <td align="right">578</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">6.73 (4.19, 10.44)</td>
+<td align="left">2.16e-16</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -2867,8 +3219,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">West Midlands</td>
 <td align="left">2.3% (7)</td>
 <td align="right">305</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.04 (0.02, 0.07)</td>
+<td align="left">1.61e-16</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2876,8 +3228,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">North West</td>
 <td align="left">7.0% (16)</td>
 <td align="right">228</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.12 (0.07, 0.21)</td>
+<td align="left">5.23e-13</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2885,8 +3237,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">South East</td>
 <td align="left">4.8% (10)</td>
 <td align="right">208</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.08 (0.04, 0.15)</td>
+<td align="left">2.25e-13</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2894,8 +3246,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Yorkshire and the Humber</td>
 <td align="left">3.6% (6)</td>
 <td align="right">168</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.06 (0.02, 0.12)</td>
+<td align="left">4.81e-11</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2903,8 +3255,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">East of England</td>
 <td align="left">8.5% (11)</td>
 <td align="right">130</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.14 (0.07, 0.26)</td>
+<td align="left">6.32e-09</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2912,8 +3264,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">East Midlands</td>
 <td align="left">1.9% (3)</td>
 <td align="right">156</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.03 (0.01, 0.08)</td>
+<td align="left">2.58e-09</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2921,8 +3273,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">South West</td>
 <td align="left">6.7% (7)</td>
 <td align="right">105</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.11 (0.04, 0.23)</td>
+<td align="left">7.77e-08</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2930,8 +3282,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">North East</td>
 <td align="left">2.0% (1)</td>
 <td align="right">49</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">0.03 (0.00, 0.15)</td>
+<td align="left">0.000694</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -3218,8 +3570,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">West Midlands</td>
 <td align="left">48.9% (149)</td>
 <td align="right">305</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">3.01 (2.19, 4.14)</td>
+<td align="left">1.17e-11</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3227,8 +3579,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">North West</td>
 <td align="left">61.8% (141)</td>
 <td align="right">228</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">4.82 (3.39, 6.91)</td>
+<td align="left">5.11e-18</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3236,8 +3588,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">South East</td>
 <td align="left">46.6% (97)</td>
 <td align="right">208</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">2.36 (1.65, 3.37)</td>
+<td align="left">2.23e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3245,8 +3597,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Yorkshire and the Humber</td>
 <td align="left">44.0% (74)</td>
 <td align="right">168</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">2.23 (1.52, 3.26)</td>
+<td align="left">3.55e-05</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3254,8 +3606,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">East of England</td>
 <td align="left">46.2% (60)</td>
 <td align="right">130</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">2.36 (1.56, 3.55)</td>
+<td align="left">4e-05</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3263,8 +3615,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">East Midlands</td>
 <td align="left">60.3% (94)</td>
 <td align="right">156</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">4.56 (3.09, 6.77)</td>
+<td align="left">3.07e-14</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3272,8 +3624,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">South West</td>
 <td align="left">53.3% (56)</td>
 <td align="right">105</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">3.09 (1.97, 4.88)</td>
+<td align="left">1.06e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3281,8 +3633,8 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">North East</td>
 <td align="left">49.0% (24)</td>
 <td align="right">49</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">2.84 (1.54, 5.25)</td>
+<td align="left">0.000831</td>
 <td align="left"></td>
 </tr>
 </tbody>

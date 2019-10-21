@@ -182,8 +182,8 @@ to <code>confounders</code>.</p></td>
 #&gt;         confounder_names &lt;- confounders
 #&gt;     }
 #&gt;     df &lt;- df %&gt;% select_at(.vars = c(var, confounders)) %&gt;% mutate_at(.vars = var, 
-#&gt;         funs(case_when(is.na(.) ~ "Missing", TRUE ~ "Complete") %&gt;% 
-#&gt;             factor(levels = c("Complete", "Missing")))) %&gt;% drop_na()
+#&gt;         ~case_when(is.na(.) ~ "Missing", TRUE ~ "Complete") %&gt;% 
+#&gt;             factor(levels = c("Complete", "Missing"))) %&gt;% drop_na()
 #&gt;     model &lt;- glm(as.formula(paste0(var, " ~ .")), data = df, 
 #&gt;         family = binomial(link = "logit"))
 #&gt;     table &lt;- model %&gt;% tidy(conf.int = TRUE) %&gt;% mutate_at(.vars = c("estimate", 
@@ -195,7 +195,7 @@ to <code>confounders</code>.</p></td>
 #&gt;         .dots = c(.x, var)) %&gt;% count %&gt;% group_by(.dots = .x) %&gt;% 
 #&gt;         add_count(wt = n, name = "nn") %&gt;% filter_at(.vars = var, 
 #&gt;         all_vars(. == "Missing")) %&gt;% select(-contains(var)) %&gt;% 
-#&gt;         drop_na %&gt;% ungroup %&gt;% rename_if(is.factor, funs(paste0("Category"))) %&gt;% 
+#&gt;         drop_na %&gt;% ungroup %&gt;% rename_if(is.factor, ~paste0("Category")) %&gt;% 
 #&gt;         mutate_if(is.factor, as.character) %&gt;% mutate(Variable = .y) %&gt;% 
 #&gt;         mutate(key = paste0(.x, Category)) %&gt;% mutate(Missing = pretty_round(n/nn * 
 #&gt;         100, 1)) %&gt;% mutate(Missing = paste0(Missing, "% (", 
@@ -215,7 +215,7 @@ to <code>confounders</code>.</p></td>
 #&gt;         paste0("Notifications (", nrow(df), ")"))
 #&gt;     return(output)
 #&gt; }
-#&gt; &lt;bytecode: 0x5582176a6898&gt;
+#&gt; &lt;bytecode: 0x5600e8f538f0&gt;
 #&gt; &lt;environment: namespace:ETSMissing&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

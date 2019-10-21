@@ -14,7 +14,7 @@
 #' @inheritParams account_for_nested_missing
 #' @return A dataframe containing data and model estimates for the specified variable and confounders.
 #' @export
-#' @importFrom dplyr select_at mutate_at filter_at case_when slice mutate select count add_count ungroup rename_if mutate_if group_by all_vars left_join funs n
+#' @importFrom dplyr select_at mutate_at filter_at case_when slice mutate select count add_count ungroup rename_if mutate_if group_by all_vars left_join n
 #' @importFrom tidyr replace_na drop_na
 #' @importFrom tidyselect contains
 #' @importFrom stringr str_replace
@@ -41,9 +41,9 @@ model_variable_missingness <- function(df = NULL, var = NULL,
 
   df <- df %>%
     select_at(.vars = c(var, confounders)) %>%
-    mutate_at(.vars = var, funs(case_when(is.na(.) ~ "Missing",
+    mutate_at(.vars = var, ~ case_when(is.na(.) ~ "Missing",
                                           TRUE ~ "Complete") %>%
-                                  factor(levels = c("Complete", "Missing")))) %>%
+                                  factor(levels = c("Complete", "Missing"))) %>%
     drop_na()
 
   model <- glm(as.formula(paste0(var, " ~ .")), data = df, family = binomial(link="logit"))
@@ -68,7 +68,7 @@ model_variable_missingness <- function(df = NULL, var = NULL,
                      select(-contains(var)) %>%
                      drop_na %>%
                      ungroup %>%
-                     rename_if(is.factor, funs(paste0("Category"))) %>%
+                     rename_if(is.factor, ~paste0("Category")) %>%
                      mutate_if(is.factor, as.character) %>%
                      mutate(Variable = .y) %>%
                      mutate(key = paste0(.x, Category)) %>%
