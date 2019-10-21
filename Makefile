@@ -33,6 +33,8 @@ check_package:
 #build pkgdown site
 build_site:
 		Rscript -e 'pkgdown::build_site()'
+		mkdir -p docs/articles/results/paper/figs
+		cp -r vignettes/results/paper/figs docs/articles/results/paper/
 
 
 #Commit updates
