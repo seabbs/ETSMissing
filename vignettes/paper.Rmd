@@ -196,7 +196,7 @@ For all outcomes considered we adjusted for the same set of demographic variable
 if (regen_results) {
    # Filter to only look at 2009 and move to year as factor ------------------
 ets_post_2009 <- ets %>%
-  filter(year > 2009, year <= 2015) %>%
+  filter(year > 2009) %>%
   mutate(year = factor(year)) %>% 
   mutate(phec = phec %>% 
            forcats::fct_infreq())
@@ -256,7 +256,7 @@ results <- read_data("results")
 
 ### Assessing temporal biases in reporting
 
-In addition to data being MAR there may be other biases present. For date variables this is a particular issue with recall bias, reporting bias etc. potentially distorting temporal trends. We explore this by summarising the distribution of all date variables by month and then by day of the month, stratified by the introduction of the web based ETS system (2009). The date of notification is then used as a baseline for what inherent seasonal or monthly reporting structure may be present in the date. This approach allows potential biases to be identified and compared across the current and pre-web ETS. 
+In addition to data being MAR there may be other biases present. For date variables this is a particular issue with recall bias, reporting bias etc. potentially distorting temporal trends. We explore this by summarising the distribution of all date variables by month and then by day of the month, stratified by the introduction of the web based ETS system (2009). The date of notification is then used as a baseline for the inherent seasonal or monthly reporting structure. This approach allows potential biases to be identified and compared across the current and pre-web ETS. For each date data was restricted with only data from 2000 until 2015 being used. 
 
 
 ```{r explore-detection-time-variables, eval = regen_results, include = FALSE}
@@ -341,7 +341,7 @@ ETSMissing::pull_results(results, "anyres") %>%
 
 Similarly to drug resistance there was evidence that BCG status was missing with a MAR mechanism for all variables considered (`r prettypublisher::pretty_tabref("bcgvacc-miss")`) with the  stronger evidence for an association with year but reduced evidence of an association with socio-economic status. After adjusting for other variables data completeness increased from 2010 until 2012 but has since showed no clear trend. Men appeared to be more likely than women to have a missing BCG status, with the non-UK born also being more likely than the UK born to be missing BCG status. The proportion of those missing BCG status increased with age, with those aged 65+ being over 4 times more likely to be missing BCG status than those aged 0-14 years old. The White ethnic group was more likely to have a missing BCG status than any other ethnic group. London was associated with less reduced missingness for BCG status compated to other PHE centres. 
 
-Missingness for year of BC vaccination had similar associations as BCG status. However, there was less evidence of an assoicaiton with sex, the white ethnic group were less likely to have a missing status than other ethnic groups, and there was strong evidence of an association with socio-economic status with those in the lowest quintile being more likely to have a missing year of BCG vaccination. London was much more likely to be missing BCG status than any other PHE centre, a reversal of the relationship observed for BCG status 
+Missingness for year of BC vaccination had similar associations as BCG status. However, there was less evidence of an association with sex, the white ethnic group were less likely to have a missing status than other ethnic groups, and there was strong evidence of an association with socio-economic status with those in the lowest quintile being more likely to have a missing year of BCG vaccination. London was much more likely to be missing BCG status than any other PHE centre, a reversal of the relationship observed for BCG status 
 
 ```{r bcgvacc-miss}
 ETSMissing::pull_results(results, "bcgvacc") %>% 
@@ -380,32 +380,11 @@ For date of death there was little evidence of any association, except for PHE c
 
 ## Assessing temporal biases in reporting
 
-* Describe pattern in notifications by month and within months. 
-* Describe which variables also follow this pattern.
-* Discuss variables with potential recall bias. 
+Notifications showed evidence of a strong seasonal trend with a peak in the number of notifications in May-July each year but had a near uniform distribution within each month (`r prettypublisher::pretty_suptabref("plot-trends-caserepdate")`). There was little evidence of strong biases in this reporting and there was little evidence to suggest that the introduction of the web based ETS impacted the distribution of notifications or the levels of bias. The date of symptom onset showed evidence of an inverted seasonal trend - in comparison to notifications (`r prettypublisher::pretty_tabref("plot-trends-symptonset")`) . There was evidence that reporting in January may be biased with a much greater proportion of cases reported as having symptoms starting in this month than in any other. There was also evidence that cases were more likely to have symptoms start on the first and the 14th of each month, again indicating bias. Both of these apparent biases were reduced by the introduction of the web based ETS but were still present. The date of ending treatment also showed some evidence of these biases and had the same inverted seasonal trend as the date of sympton onset (`r prettypublisher::pretty_suptabref("plot-trends-txenddate")`). The date of diagnosis, date of starting treatment and date of death showed a similar reporting structure to notifications although the strength of the seasonal trend was reduced (see the supplementary information). There was little clear evidence of biases in reporting either by month, or by day for these variables.
 
 
-It is also likely that some of the dates recorded are inaccurate or systematically biased. 
 
-date of notification can be used as a baseline on which to judge other date variables
-
-There is some evidence of a seasonal trend in notifications, with a higher proportion of cases notified in the May, June and July than in the rest of the year. This seasonality would have to be accounted for if conducting analysis on a monthly scale and date of notification was being used as the date of first contact with the health system. There is little evidence that date of notification varies by day of the month.
-
-date of symptom onset, this represents the closest approximation to the date when a case became infectious. Unfortunately there are multiple issues with this measure, the first of which being is that it is only complete across the data extract.
-
-The date of symptom onset is highly susceptible to recall bias with the majority of cases becoming symptomatic on the first of each month, with some evidence that a greater number of cases occur in January than would be expected. 
-
-Another possible measure of the number of cases is the date of diagnosis, this should be a more reliable variable than the date of symptom onset, as it does not rely on the recall of the case. 
-
-The date of starting treatment should be a more reliable contact date as it records an official contact with the health system. As for the data of notification there is some evidence of a seasonal trend for date of starting treatment, with a peak of cases starting treatment in May, June and July. However, this seasonal trend is difficult to identify when cases starting treatment are visualised by month over time. Unlike the date of symptom onset there is little evidence of recall bias by month, or by day. 
-
-The date of ending treatment does not appear to display similar seasonality. This maybe because treatment time varies between individuals and this dilutes the seasonality observed for the date of starting treatment. As noted previously, there was some evidence of recall bias when the proportion of those ending treatment was examined on a day of the month basis, with a larger proportion ending treatment on the first of the month than on any other day. The date of ending treatment was not recorded in 2000, or 2001, and was highly missing for the first several years after collection began.
-
-```{r plot-trends-caserepdate, fig.cap = prettypublisher::pretty_figref("plot-trends-caserepdate", "a.) Shows the proportion of cases finishing treatment in a given month for each year, with little evidence of a seasonal trend. b.) Shows the proportion of cases finishing treatment on a given day for each month, with a much higher proportion of cases finishing treatment on the first of the month than would be expected. On the scale of months there is some evidence of recall bias, with the first day reporting higher proportions of cases than would be expected. Data is only shown from 2001 until 2015 and prior to 2001 this variable was not recorded and it is not complete for 2015."), out.width = "60%", out.extra = ""}
-show_figure("trends-for-caserepdate")
-```
-
-```{r plot-trends-symptonset, fig.cap = prettypublisher::pretty_figref("plot-trends-symptonset", "a.) Shows the proportion of cases finishing treatment in a given month for each year, with little evidence of a seasonal trend. b.) Shows the proportion of cases finishing treatment on a given day for each month, with a much higher proportion of cases finishing treatment on the first of the month than would be expected. On the scale of months there is some evidence of recall bias, with the first day reporting higher proportions of cases than would be expected. Data is only shown from 2001 until 2015 and prior to 2001 this variable was not recorded and it is not complete for 2015."), out.width = "60%", out.extra = ""}
+```{r plot-trends-symptonset, fig.cap = prettypublisher::pretty_figref("plot-trends-symptonset", "a.) Shows the proportion of cases with symptons starting in a given month for each year with some evidence of bias in January and reduced evidence of a seasonal trend. b.) Shows the proportion of cases with symptons starting on a given day for each month with a strong evidence of biased reporting on the first of the month and the 14th. Stratifying both figures based on the introduction of the web based ETS indicates that the web based ETS may have reduced these biases."), out.width = "60%", out.extra = ""}
 show_figure("trends-for-symptonset")
 ```
 
@@ -474,7 +453,7 @@ Sam Abbott, Hannah Christensen, Ellen Brooks-Pollock
 
 ## Data completeness
 
-```{r plot-missing-struct, fig.cap = prettypublisher::pretty_supfigref("plot-missing-struct", "Summary plot of missing data in the extract of the ETS data used in this thesis. Due to the large size of the dataset, the data has been sub-sampled with only 20\\% of the data shown in this figure. Notifications have been ordered by date of notification from left to right. The following subset of variables are shown: year (year), sex (sex), age (age), PHE Centre (phec), Occupation (occat), Ethnic group (ethgrp), UK birth status (ukborn), Time since entry (timesinceent), date of symptom onset (symptonset), date of diagnosis (datediag), started treatment (startedtreat), date of starting treatment (starttreatdate), treatment end date (txenddate), pulmonary or extra-pulmonary TB (pulmextrapulm), culture (culture), sputum smear status (sputsmear), drug resistance (anyres), previous diagnosis (prevdiag), BCG status(bcgvacc), Year of BCG vaccination (bcgvaccyr), overall outcome (overalloutcome), cause of death (tomdeathrelate), socio-economic status quintiles (natquintile), and date of death (dateofdeath). Nested variables have been accounted for (i.e date of death has had an entry added for cases that are known to have not died), so that true missingness for all variables is estimated."), out.width = "60%", out.extra = ""}
+```{r plot-missing-struct, fig.cap = prettypublisher::pretty_supfigref("plot-missing-struct", "Summary plot of missing data in the extract of the ETS data used in this thesis. Due to the large size of the dataset, the data has been sub-sampled with only 20\\% of the data shown in this figure. Notifications have been ordered by date of notification from left to right. The following subset of variables are shown: year (year), sex (sex), age (age), PHE Centre (phec), Occupation (occat), Ethnic group (ethgrp), UK birth status (ukborn), Time since entry (timesinceent), date of symptom onset (symptonset), date of diagnosis (datediag), started treatment (startedtreat), date of starting treatment (starttreatdate), treatment end date (txenddate), pulmonary or extra-pulmonary TB (pulmextrapulm), culture (culture), sputum smear status (sputsmear), drug resistance (anyres), previous diagnosis (prevdiag), BCG status(bcgvacc), Year of BCG vaccination (bcgvaccyr), overall outcome (overalloutcome), cause of death (tomdeathrelate), socio-economic status quintiles (natquintile), and date of death (dateofdeath). Nested variables have been accounted for (i.e date of death has had an entry added for cases that are known to have not died)."), out.width = "60%", out.extra = ""}
 show_figure("plot-missing-struct")
 ```
 
@@ -558,25 +537,28 @@ ETSMissing::pull_results(results, "tomdeathrelat") %>%
 
 ### Assessing temporal biases in reporting
 
+```{r plot-trends-caserepdate, fig.cap = prettypublisher::pretty_supfigref("plot-trends-caserepdate", "a.) Shows the proportion of cases notified in a given month for each year with evidence of a seasonal peak in June. b.) Shows the proportion of cases notified on a given day for each month with a near uniform distribution. Stratifying both figures based on the introduction of the web based ETS gives little evidence for any change in these trends."), out.width = "60%", out.extra = ""}
+show_figure("trends-for-caserepdate")
+```
 
-```{r plot-trends-datediag, fig.cap = prettypublisher::pretty_supfigref("plot-trends-datediag", "a.) Shows the proportion of cases finishing treatment in a given month for each year, with little evidence of a seasonal trend. b.) Shows the proportion of cases finishing treatment on a given day for each month, with a much higher proportion of cases finishing treatment on the first of the month than would be expected. On the scale of months there is some evidence of recall bias, with the first day reporting higher proportions of cases than would be expected. Data is only shown from 2001 until 2015 and prior to 2001 this variable was not recorded and it is not complete for 2015."), out.width = "60%", out.extra = ""}
+```{r plot-trends-datediag, fig.cap = prettypublisher::pretty_supfigref("plot-trends-datediag", "a.) Shows the proportion of cases with a diagnosis in a given month for each year. b.) Shows the proportion of cases with a diagnosis on a given day for each month. Trends for the date of diagnosis were similar to those seen for notifications."), out.width = "60%", out.extra = ""}
 show_figure("trends-for-datediag")
 ```
 
 
-```{r plot-trends-dateofdeath, fig.cap = prettypublisher::pretty_supfigref("plot-trends-dateofdeath", "a.) Shows the proportion of cases finishing treatment in a given month for each year, with little evidence of a seasonal trend. b.) Shows the proportion of cases finishing treatment on a given day for each month, with a much higher proportion of cases finishing treatment on the first of the month than would be expected. On the scale of months there is some evidence of recall bias, with the first day reporting higher proportions of cases than would be expected. Data is only shown from 2001 until 2015 and prior to 2001 this variable was not recorded and it is not complete for 2015."), out.width = "60%", out.extra = ""}
+```{r plot-trends-dateofdeath, fig.cap = prettypublisher::pretty_supfigref("plot-trends-dateofdeath", "a.) Shows the proportion of cases that died in a given month for each year. b.) Shows the proportion of cases that died on a given day for each month. Trends for the date of death were similar to those seen for notifications but there was a reduction in the strength of the observed seasonality."), out.width = "60%", out.extra = ""}
 show_figure("trends-for-dateofdeath")
 ```
 
 
 
-```{r plot-trends-starttreatdate, fig.cap = prettypublisher::pretty_supfigref("plot-trends-starttreatdate", "a.) Shows the proportion of cases finishing treatment in a given month for each year, with little evidence of a seasonal trend. b.) Shows the proportion of cases finishing treatment on a given day for each month, with a much higher proportion of cases finishing treatment on the first of the month than would be expected. On the scale of months there is some evidence of recall bias, with the first day reporting higher proportions of cases than would be expected. Data is only shown from 2001 until 2015 and prior to 2001 this variable was not recorded and it is not complete for 2015."), out.width = "60%", out.extra = ""}
+```{r plot-trends-starttreatdate, fig.cap = prettypublisher::pretty_supfigref("plot-trends-starttreatdate", "a.) Shows the proportion of cases starting treatment in a given month for each year. b.) Shows the proportion of cases starting treatment on a given day for each month. Trends for the date of starting treatment were similar to those seen for notifications."), out.width = "60%", out.extra = ""}
 show_figure("trends-for-starttreatdate")
 ```
 
 
 
 
-```{r plot-trends-txenddate, fig.cap = prettypublisher::pretty_supfigref("plot-trends-txenddate", "a.) Shows the proportion of cases finishing treatment in a given month for each year, with little evidence of a seasonal trend. b.) Shows the proportion of cases finishing treatment on a given day for each month, with a much higher proportion of cases finishing treatment on the first of the month than would be expected. On the scale of months there is some evidence of recall bias, with the first day reporting higher proportions of cases than would be expected. Data is only shown from 2001 until 2015 and prior to 2001 this variable was not recorded and it is not complete for 2015."), out.width = "60%", out.extra = ""}
+```{r plot-trends-txenddate, fig.cap = prettypublisher::pretty_supfigref("plot-trends-txenddate", "a.) Shows the proportion of cases ending treatment in a given month for each year with a peak in December. b.) Shows the proportion of cases ending treatment on a given day for each month with some evidence of a bias in reporting on the first of the month. Uncertainty reduced after the introduction of the web based ETS and the level of bias on the first of the month reduced."), out.width = "60%", out.extra = ""}
 show_figure("trends-for-txenddate")
 ```

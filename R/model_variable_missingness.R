@@ -89,7 +89,7 @@ model_variable_missingness <- function(df = NULL, var = NULL,
   output <- data %>%
     left_join(table, by = c("key" = "term")) %>%
     select(-key) %>%
-    mutate(`Odds Ratio` = `Odds Ratio` %>% replace_na("")) %>%
+    mutate(`Odds Ratio` = `Odds Ratio` %>% replace_na("\\*Reference\\*")) %>%
     mutate(dummy = Variable) %>%
     group_by(dummy) %>%
     mutate(Variable = c(Variable[1], rep("", n() - 1))) %>%
