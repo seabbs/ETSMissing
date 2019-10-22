@@ -206,7 +206,7 @@ to <code>confounders</code>.</p></td>
 #&gt;         signif(3))
 #&gt;     output &lt;- data %&gt;% left_join(table, by = c(key = "term")) %&gt;% 
 #&gt;         select(-key) %&gt;% mutate(`Odds Ratio` = `Odds Ratio` %&gt;% 
-#&gt;         replace_na("\\*Reference\\*")) %&gt;% mutate(dummy = Variable) %&gt;% 
+#&gt;         replace_na("Reference")) %&gt;% mutate(dummy = Variable) %&gt;% 
 #&gt;         group_by(dummy) %&gt;% mutate(Variable = c(Variable[1], 
 #&gt;         rep("", n() - 1))) %&gt;% ungroup %&gt;% select(-dummy) %&gt;% 
 #&gt;         left_join(lik_tests, by = "Variable") %&gt;% mutate(`P value (LRT)` = `P value (LRT)` %&gt;% 
@@ -216,7 +216,7 @@ to <code>confounders</code>.</p></td>
 #&gt;         paste0("Notifications (", nrow(df), ")"))
 #&gt;     return(output)
 #&gt; }
-#&gt; &lt;bytecode: 0x558381816b98&gt;
+#&gt; &lt;bytecode: 0x55aca7e39830&gt;
 #&gt; &lt;environment: namespace:ETSMissing&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
