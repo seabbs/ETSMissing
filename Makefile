@@ -1,6 +1,6 @@
 default: all
 
-all: build_data  build_package build_vignettes README.md build_site check_package  git_commit
+all: build_data  build_package build_vignettes README.md build_site build_review check_package git_commit
 
 #Update data
 .PHONY: build_data
@@ -24,6 +24,12 @@ README.md: README.Rmd
 .PHONY: build_vignettes
 build_vignettes:
 		cd vignettes && make
+
+
+#Update peer review
+.PHONY: build_review
+build_review:
+		cd peer-review && make
 
 ## Check package locally
 .PHONY: check_package

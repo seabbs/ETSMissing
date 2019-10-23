@@ -1,0 +1,30 @@
+---
+title: ''
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+ 
+Dear Editor,
+
+Please find attached our manuscript, entitled “Exploring Missing Data in the Enhanced Tuberculosis Surveillance System” for consideration for publication in Eurosurveillance.
+
+In this paper we explore missing data in the Enhanced Tuberculosis Surveillance (ETS) system. The ETS contains data on all notified Tuberculosis cases in England and is representative of surveillance data-sets more broadly. We assessed the impact of the introduction of the web-based ETS on missing data across a subset of variables. We then explored associations between missing data for several key outcomes and demographic variables. Finally, we identified potential biases due to issues with reporting in date variables by month and by day of the month. 
+
+We found that whilst data collection improved with the launch of the web-based ETS there was still substantial missing data. There was evidence of associations between missingness for multiple outcomes and all demographics variables considered. These associations differed in strength and direction between the outcomes considered indicating that the mechanisms driving missingness differed across outcomes. We found that several date variables showed evidence of reporting bias in January and on the first and 14th day of each month.
+
+We believe our manuscript will be of interest to you and the journal’s readership because surveillance data is commonly used in analysis by authors published in your journal. Missing data is common in surveillance data and current common practice may not be sufficient to account for potential biases. 
+
+We do not have any issues relating to the journal policies. All authors have approved this version of the manuscript for submission and the content of the manuscript has not been published or submitted elsewhere.
+
+With kind regards, on behalf of all the co-authors,
+
+Sam Abbott
+
+
