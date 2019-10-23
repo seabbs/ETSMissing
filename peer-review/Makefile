@@ -1,6 +1,6 @@
 default: all
 
-all: $(COVER) review_response.html
+all: $(COVER) $(REVIEW)
 
 COVER=cover_letter/cover_letter.html
 
