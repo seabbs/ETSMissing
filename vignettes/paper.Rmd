@@ -98,6 +98,13 @@ Tuberculosis, surveillance, missingness, imputation
 
 ## Key messages
 
+* Missing data may induce biases into analyses conducted using surveillance data and needs to be properly accounted for. 
+
+* Common practice is to use complete case analysis or multiple imputation. We show that common demographic variables are often associated with key outcomes and hence may induce bias if complete case analysis is used.
+
+* Our findings also indicate that variables outside the analysis model should be considered when defining the multiple imputation model - this may require domain specific expertise.
+
+* Finally we found that date variables were potentially at risk of bias due to the presence of a higher than expected proportion of cases in January, and on the 1st and 14th day of each month for multiple variables. 
 
 # Introduction
 
