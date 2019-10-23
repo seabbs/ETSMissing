@@ -88,14 +88,19 @@
 <p>Hannah Christensen, Bristol Medical School: Population Health Sciences, University of Bristol, Bristol, UK</p>
 <p>Ellen Brooks-Pollock, Bristol Medical School: Population Health Sciences, University of Bristol, Bristol, UK</p>
 <p><strong>Correspondence to:</strong> Sam Abbott, Bristol Medical School: Population Health Sciences, University of Bristol, Bristol BS8 2BN, UK; <a href="mailto:sam.abbott@bristol.ac.uk" class="email">sam.abbott@bristol.ac.uk</a>; 01173310185</p>
-<p><strong>Words:</strong> <em>Title:</em> 12 <em>Abstract:</em> 299 <em>Paper:</em> 3196</p>
+<p><strong>Words:</strong> <em>Title:</em> 12 <em>Abstract:</em> 291 <em>Paper:</em> 3196</p>
 <div id="abstract" class="section level1">
 <h1 class="hasAnchor">
 <a href="#abstract" class="anchor"></a>Abstract</h1>
 <div id="background" class="section level2">
 <h2 class="hasAnchor">
 <a href="#background" class="anchor"></a>Background</h2>
-<p>The Enhanced Tuberculosis Surveillance (ETS) system is a routine surveillance system that collects data on all notified tuberculosis (TB) cases in England and is routinely used in research. Routine data often has a large amount of missing data which may introduce bias to analyses. This study explores the evidence for associations between missingness in several outcomes and demographic variables. Any such associations may introduce bias if not accounted for.</p>
+<p>The Enhanced Tuberculosis Surveillance (ETS) system is a routine surveillance system that collects data on all notified tuberculosis (TB) cases in England and is routinely used in research. Routine data often has a large amount of missing data which may introduce bias to analyses.</p>
+</div>
+<div id="aim" class="section level2">
+<h2 class="hasAnchor">
+<a href="#aim" class="anchor"></a>Aim</h2>
+<p>Explore potential sources of bias from missing data for key outcomes in the ETS system.</p>
 </div>
 <div id="methods" class="section level2">
 <h2 class="hasAnchor">
@@ -129,7 +134,7 @@
 <p>The Enhanced Tuberculosis Surveillance (ETS) system is a routine surveillance system - with a similar structure to other such systems - that collects data on all notified tuberculosis (TB) cases in England. It is routinely used to study the epidemiology of TB. Routine data often has a large amount of missing data which may not be fully accounted for when used in analyses.</p>
 <p><em>Detail</em></p>
 <p><em>Describe the ETS and use cases</em></p>
-<p>Missing data can take several forms, data that are missing completely at random (MCAR), data that are missing at random (MAR) and data that are missing not at random (MNAR).<span class="citation">[1]</span> Data that are MAR are missing with a mechanism that is conditional on observed variables, whilst MNAR are missing with a mechanism that is conditional on variables that are not observed. Data that is MAR, and MNAR may lead to biases when analysing the data, however it is not possible to deduce from the observed data what the mechanism driving missing data is. Therefore, it is necessary to account for these potential biases during the analysis stage. This is possible using a variety of methods such as scenario analysis accounting for the ‘best’ and ‘worst’ case scenarios, and multiple imputation of missing data using additional variables in the data-set to inform the imputation model.<span class="citation">[1]</span> Common practice is to include all variables included in the analyses in the imputation model, these variables may or may not be those at most risk of introducing bias due to an MAR mechanism.</p>
+<p>Missing data can take several forms, data that are missing completely at random (MCAR), data that are missing at random (MAR) and data that are missing not at random (MNAR)<span class="citation">[1]</span>. Data that are MAR are missing with a mechanism that is conditional on observed variables, whilst MNAR are missing with a mechanism that is conditional on variables that are not observed. Data that is MAR, and MNAR may lead to biases when analysing the data, however it is not possible to deduce from the observed data what the mechanism driving missing data is. Therefore, it is necessary to account for these potential biases during the analysis stage. This is possible using a variety of methods such as scenario analysis accounting for the ‘best’ and ‘worst’ case scenarios, and multiple imputation of missing data using additional variables in the data-set to inform the imputation model<span class="citation">[1]</span>. Common practice is to include all variables included in the analyses in the imputation model, these variables may or may not be those at most risk of introducing bias due to an MAR mechanism.</p>
 <p><em>Aim</em></p>
 <p>This study aims to explore the evidence for associations between missingness in several key outcomes and demographic variables. Any such associations may introduce bias if not accounted for.</p>
 </div>
@@ -139,11 +144,11 @@
 <div id="enhanced-tuberculosis-surveillance-ets-system" class="section level2">
 <h2 class="hasAnchor">
 <a href="#enhanced-tuberculosis-surveillance-ets-system" class="anchor"></a>Enhanced tuberculosis surveillance (ETS) system</h2>
-<p>The ETS is a database that collects demographic, clinical, and microbiological data on all notified TB cases in England and is maintained by Public Health England (PHE). Notification is required by law, with health service providers having to inform PHE of all confirmed TB cases.<span class="citation">[2]</span> Data collection began in 2000 and was expanded, with additional variables, with the launch of a web-based system in 2008.<span class="citation">[3]</span> It is updated annually with de-notifications, late notifications and other updates. A descriptive analysis of TB epidemiology in England is published each year, which reports on data collection, cleaning, and trends in TB incidence at both a national, and sub-national level.<span class="citation">[2]</span> Data on all notifications (114,820 notifications) from the ETS system from 2000 to 2015 were obtained from PHE via an application to the TB monitoring team. The code used for data cleaning is available as an R package (<a href="https://zenodo.org/badge/latestdoi/93072437" class="uri">https://zenodo.org/badge/latestdoi/93072437</a>).</p>
+<p>The ETS is a database that collects demographic, clinical, and microbiological data on all notified TB cases in England and is maintained by Public Health England (PHE). Notification is required by law, with health service providers having to inform PHE of all confirmed TB cases<span class="citation">[2]</span>. Data collection began in 2000 and was expanded, with additional variables, with the launch of a web-based system in 2008<span class="citation">[3]</span>. It is updated annually with de-notifications, late notifications and other updates. A descriptive analysis of TB epidemiology in England is published each year, which reports on data collection, cleaning, and trends in TB incidence at both a national, and sub-national level<span class="citation">[2]</span>. Data on all notifications (114,820 notifications) from the ETS system from 2000 to 2015 were obtained from PHE via an application to the TB monitoring team. The code used for data cleaning is available as an R package (<a href="https://zenodo.org/badge/latestdoi/93072437" class="uri">https://zenodo.org/badge/latestdoi/93072437</a>).</p>
 <div id="data-completeness" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data-completeness" class="anchor"></a>Data completeness</h3>
-<p>As the ETS is aggregated across England, from a variety of sources, missing data are inevitable. This takes two forms: under-reporting of notified cases, of which there is some evidence in the literature,<span class="citation">[4]</span> and data missing for a notified case. The former is particularly problematic as apart from using comparative studies the characteristics of those that are not notified is unknown. For variables that are missing data within the data-set the proportion of missing data can be calculated but care must be taken to account for nested variables (such as cause of death being dependent on date of death). To account for this when estimating the proportion of missing data we have assumed that nested variables take the value of their parent variable when missing. This approach may be biased for rare outcomes (such as death in the ETS) - for this reason we have also estimated the proportion of missing data by filtering top level variables required for the nested variable to be defined and then computed the proportion of notifications that were missing data for the outcome of interest.</p>
+<p>As the ETS is aggregated across England, from a variety of sources, missing data are inevitable. This takes two forms: under-reporting of notified cases, of which there is some evidence in the literature<span class="citation">[4]</span>, and data missing for a notified case. The former is particularly problematic as apart from using comparative studies the characteristics of those that are not notified is unknown. For variables that are missing data within the data-set the proportion of missing data can be calculated but care must be taken to account for nested variables (such as cause of death being dependent on date of death). To account for this when estimating the proportion of missing data we have assumed that nested variables take the value of their parent variable when missing. This approach may be biased for rare outcomes (such as death in the ETS) - for this reason we have also estimated the proportion of missing data by filtering top level variables required for the nested variable to be defined and then computed the proportion of notifications that were missing data for the outcome of interest.</p>
 </div>
 <div id="drivers-of-variable-completeness" class="section level3">
 <h3 class="hasAnchor">
@@ -160,7 +165,7 @@
 <li><p>Fit a logistic regression model with the temporary data status variable as the outcome, adjusting for the hypothesised drivers of missingness.</p></li>
 <li><p>Exponentiate the returned coefficients, and confidence intervals so that they represent Odds Ratios (ORs).</p></li>
 <li><p>Refit the model, dropping each variable in turn and then comparing the updated model with the full model using a likelihood ratio test.</p></li>
-<li><p>Interpret the results, using the estimated size of the effect, the width of the confidence intervals and the size of the Wald and likelihood ratio test p values to determine which variables are related to missingness for the variable of interest. Evidence should be interpreted on a spectrum, rather than using arbitrary significance cut-offs.<span class="citation">[5]</span> To avoid issues of multiple testing the level of evidence should be weighted based on the number of variables adjusted for and the number of outcomes explored.</p></li>
+<li><p>Interpret the results, using the estimated size of the effect, the width of the confidence intervals and the size of the Wald and likelihood ratio test p values to determine which variables are related to missingness for the variable of interest. Evidence should be interpreted on a spectrum, rather than using arbitrary significance cut-offs<span class="citation">[5]</span>. To avoid issues of multiple testing the level of evidence should be weighted based on the number of variables adjusted for and the number of outcomes explored.</p></li>
 </ol>
 <p>For all outcomes considered we adjusted for the same set of demographic variables that were both highly complete, plausibly linked to missingness for all outcomes considered, and likely to be present in other comparable surveillance data-sets. These were: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status, socio-economic status (national quintiles), and PHE centre (region). Complete case analysis was used, with the data-set limited to notifications from 2010 and on-wards as socio-economic status was not collected prior to this. The code for this approach is available as an R package online (<a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a>).</p>
 </div>
@@ -182,7 +187,7 @@
 <div id="data-completeness-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-completeness-1" class="anchor"></a>Data completeness</h2>
-<p>We found high completeness for common demographic variables such as sex, age, ethnic group and UK birth status (Supplementary Figure S1, Table 1). More problematically, BCG status and year of BCG status had a high percentage missing, even after accounting for the introduction of national collection of these variables in 2008.<span class="citation">[2]</span> Socio-economic status (as national quintiles) was not collected until 2010 but after this point is highly complete.<span class="citation">[2]</span> Comparing pre 2009 and post 2008 in Table 1 (Supplementary Figure S1) we see completeness changes over time.<span class="citation">[2,6]</span> There was some evidence that groups of variables had correlated missing data (Supplementary Figure S1).</p>
+<p>We found high completeness for common demographic variables such as sex, age, ethnic group and UK birth status (Supplementary Figure S1, Table 1). More problematically, BCG status and year of BCG status had a high percentage missing, even after accounting for the introduction of national collection of these variables in 2008<span class="citation">[2]</span>. Socio-economic status (as national quintiles) was not collected until 2010 but after this point is highly complete<span class="citation">[2]</span>. Comparing pre 2009 and post 2008 in Table 1 (Supplementary Figure S1) we see completeness changes over time<span class="citation">[2,6]</span>. There was some evidence that groups of variables had correlated missing data (Supplementary Figure S1).</p>
 <table class="table">
 <caption>Table 1: Percentage of missing data from the ETS for a subset of variables, prior to the web-based system (pre 2009) and post (post 2008) by variable, ordered by the percentage missing for a subset of variables. Nested variables have been accounted for (i.e data of death has had an entry added for cases that are known to have not died), so that true missingness for all variables is estimated.</caption>
 <thead><tr class="header">
@@ -1419,8 +1424,8 @@ Figure 1: a.) Shows the proportion of cases with symptons starting in a given mo
 <h3 class="hasAnchor">
 <a href="#strengths-and-limitations-of-the-study" class="anchor"></a>Strengths and limitations of the study</h3>
 <p><em>Work in progress - copied from chapter text</em></p>
-<p>Routine observational data-sets are subject to numerous potential biases, such as selection bias, recall bias, measurement bias, and unmeasured confounding.<span class="citation">[7]</span> Additionally, as the data has not been collected with a specific analysis in mind there maybe issues with the specificity of variables. The ETS system is likely to suffer from all of the above biases to some extent, which must be accounted for as far as possible, and explicitly stated at every level of analysis. The most important consideration is that the ETS system is unlikely to be representative of the general population as it contains only notified TB cases that occurred in England during the study period, research questions must therefore be either limited to active TB patients, or when extended to the general population the differing population demographics must be accounted for. If this is not done then any results may be due to selection bias. Additionally, multiple variables may suffer from misclassification bias, including BCG status which can be assessed via vaccination record, the presence of a scar, or case recall: this may lead to spurious associations.<span class="citation">[8]</span> Validation studies would be required to account for this.</p>
-<p>Unlike classic approaches to missing data, such as multiple imputation by chained regression (MICE),<span class="citation">[9]</span> this is not an imputation</p>
+<p>Routine observational data-sets are subject to numerous potential biases, such as selection bias, recall bias, measurement bias, and unmeasured confounding<span class="citation">[7]</span>. Additionally, as the data has not been collected with a specific analysis in mind there maybe issues with the specificity of variables. The ETS system is likely to suffer from all of the above biases to some extent, which must be accounted for as far as possible, and explicitly stated at every level of analysis. The most important consideration is that the ETS system is unlikely to be representative of the general population as it contains only notified TB cases that occurred in England during the study period, research questions must therefore be either limited to active TB patients, or when extended to the general population the differing population demographics must be accounted for. If this is not done then any results may be due to selection bias. Additionally, multiple variables may suffer from misclassification bias, including BCG status which can be assessed via vaccination record, the presence of a scar, or case recall: this may lead to spurious associations<span class="citation">[8]</span>. Validation studies would be required to account for this.</p>
+<p>Unlike classic approaches to missing data, such as multiple imputation by chained regression (MICE)<span class="citation">[9]</span>, this is not an imputation</p>
 </div>
 <div id="strengths-and-limitations-in-comparison-to-the-literature" class="section level3">
 <h3 class="hasAnchor">
@@ -1434,7 +1439,7 @@ Figure 1: a.) Shows the proportion of cases with symptons starting in a given mo
 <div id="unanswered-questions-and-future-research" class="section level3">
 <h3 class="hasAnchor">
 <a href="#unanswered-questions-and-future-research" class="anchor"></a>Unanswered questions and future research</h3>
-<p>This analysis only used a single surveillance data-set - in order for the findings to be more easily generalised to other data-sets it should ideally be repeated in additional surveillance data. For this reason this analysis has been structured as an R package (<a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a>).</p>
+<p>Whilst this analysis was able to identify multiple potential sources of bias for key outcomes it did not quantify the impact that these may have on analyses using these outcomes. Several studies have made use of the ETS - using multiple imputation to adjust for biases due to missing data - but to our knowledge none have explicitly focussed on the impact that biases due to missing data may have had <span class="citation">[10,11]</span>. A case study focossing on the impact of missing data on study outcomes could be used to highlight the impact of improperly accounting for missing data in surveillance data-sets. This analysis only used a single surveillance data-set - in order for the findings to be more easily generalised to other data-sets it could be repeated in additional surveillance data. For this reason this analysis has been structured as an R package (<a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a>).</p>
 <p><strong>Acknowledgements</strong></p>
 <p>The authors thank the TB section at Public Health England (PHE) for maintaining the Enhanced Tuberculosis Surveillance (ETS) system; all the healthcare workers involved in data collection for the ETS.</p>
 <p><strong>Contributors</strong></p>
@@ -1443,8 +1448,8 @@ Figure 1: a.) Shows the proportion of cases with symptons starting in a given mo
 <p>SEA, HC, and EBP are funded by the National Institute for Health Research Health Protection Research Unit (NIHR HPRU) in Evaluation of Interventions at University of Bristol in partnership with Public Health England (PHE). The views expressed are those of the author(s) and not necessarily those of the NHS, the NIHR, the Department of Health or Public Health England.</p>
 <p><strong>Conflicts of interest</strong></p>
 <p>HC reports receiving honoraria from Sanofi Pasteur, and consultancy fees from AstraZeneca, GSK and IMS Health, all paid to her employer.</p>
-<p><strong>Accessibility of programming code</strong></p>
-<p>The code for the analysis contained in this paper can be found at: <a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a></p>
+<p><strong>Accessibility of data and programming code</strong></p>
+<p>The code used to clean the data used in this paper can be found at: <a href="https://doi.org/10.5281/zenodo.2551555" class="uri">https://doi.org/10.5281/zenodo.2551555</a> The code for this analysis, interim results, and final results can be found at: <a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a></p>
 </div>
 </div>
 <div id="references" class="section level1">
@@ -1477,6 +1482,12 @@ Figure 1: a.) Shows the proportion of cases with symptons starting in a given mo
 </div>
 <div id="ref-Groothuis-oudshoorn">
 <p>9 Groothuis-oudshoorn K. Journal of Statistical Software MICE : Multivariate Imputation by Chained.;<strong>VV</strong>.</p>
+</div>
+<div id="ref-Abbott:2019:vaccine">
+<p>10 Abbott S, Christensen H, Lalor MK <em>et al.</em> Exploring the effects of bcg vaccination in patients diagnosed with tuberculosis: Observational study using the enhanced tuberculosis surveillance system. <em>Vaccine</em> 2019;<strong>37</strong>:5067–72. doi:<a href="https://doi.org/https://doi.org/10.1016/j.vaccine.2019.06.056">https://doi.org/10.1016/j.vaccine.2019.06.056</a></p>
+</div>
+<div id="ref-Abbott:2019:preprint:direct">
+<p>11 Abbott S, Christensen H, Welton N <em>et al.</em> Estimating the effect of the 2005 change in bcg policy in england: A retrospective cohort study. <em>bioRxiv</em> Published Online First: 2019. doi:<a href="https://doi.org/10.1101/567511">10.1101/567511</a></p>
 </div>
 </div>
 </div>
@@ -3640,6 +3651,7 @@ Supplementary Figure S6: a.) Shows the proportion of cases ending treatment in a
 <li>
 <a href="#abstract">Abstract</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#background">Background</a></li>
+      <li><a href="#aim">Aim</a></li>
       <li><a href="#methods">Methods</a></li>
       <li><a href="#results">Results</a></li>
       <li><a href="#conclusions">Conclusions</a></li>

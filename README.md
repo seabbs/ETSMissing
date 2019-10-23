@@ -14,9 +14,11 @@ The Enhanced Tuberculosis Surveillance (ETS) system is a routine
 surveillance system that collects data on all notified tuberculosis (TB)
 cases in England and is routinely used in research. Routine data often
 has a large amount of missing data which may introduce bias to analyses.
-This study explores the evidence for associations between missingness in
-several outcomes and demographic variables. Any such associations may
-introduce bias if not accounted for.
+
+## Aim
+
+Explore potential sources of bias from missing data for key outcomes in
+the ETS system.
 
 ## Methods
 
