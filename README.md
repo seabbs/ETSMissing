@@ -1,5 +1,5 @@
 
-# Evaluating the Mechanisms for Missing Data in the Enhanced Tuberculosis Surveillance System
+# Exploring Missing Data in the Enhanced Tuberculosis Surveillance System
 
 [![badge](https://img.shields.io/badge/Launch-Analysis-lightblue.svg)](https://mybinder.org/v2/gh/seabbs/ETSMissing/master?urlpath=rstudio)
 [![Documentation](https://img.shields.io/badge/Documentation-click%20here!-lightgrey.svg?style=flat)](https://www.samabbott.co.uk/ETSMissing)
