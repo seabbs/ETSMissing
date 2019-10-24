@@ -137,7 +137,7 @@
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
 <p>The Enhanced Tuberculosis Surveillance (ETS) system is a routine surveillance system - with a similar structure to other such systems - that collects data on all notified tuberculosis (TB) cases in England. It is routinely used to study the epidemiology of TB. Routine data often has a large amount of missing data which may not be fully accounted for when used in analyses. Studies rarely independently assess the impact of missing data - instead aiming to account for it during analysis. This study explores missingness in the ETS - focusing on associations between key outcomes and demographic variables with the aim of highlighting potential sources of bias.</p>
-<p>Missing data can take several forms, data that are missing completely at random (MCAR), data that are missing at random (MAR) and data that are missing not at random (MNAR)<span class="citation">[1]</span>. Data that are MAR are missing with a mechanism that is conditional on observed variables, whilst MNAR are missing with a mechanism that is conditional on variables that are not observed. Data that is MAR - or MNAR - may lead to biases when analysing the data. This means that it is necessary to account for these potential biases during the analysis stage. This is possible using a variety of methods such as scenario analysis accounting for the ‘best’ and ‘worst’ case scenarios, and multiple imputation of missing data using additional variables in the data-set to inform the imputation model<span class="citation">[1,2]</span>. Common practice is to include all variables included in the analyses in the imputation model, these variables may or may not be those at most risk of introducing bias due to an MAR mechanism<span class="citation">[3]</span>. Several studies have used imputation in analyses using the ETS and found that results were impacted compared to using complete case analysis or imputation using only analysis variables<span class="citation">[4,5]</span>.</p>
+<p>Missing data can take several forms, data that are missing completely at random (MCAR), data that are missing at random (MAR) and data that are missing not at random (MNAR)<span class="citation">[1]</span>. Data that are MAR are missing with a mechanism that is conditional on observed variables, whilst MNAR are missing with a mechanism that is conditional on variables that are not observed. Data that is MAR - or MNAR - may lead to biases when analysing the data. This means that it is necessary to account for these potential biases during the analysis stage. This is possible using a variety of methods such as scenario analysis accounting for the ‘best’ and ‘worst’ case scenarios, and multiple imputation of missing data<span class="citation">[1,2]</span>. Common practice is to include all variables included in the analyses in the imputation model and best practise is to also include additional variables that may be related to missing data<span class="citation">[3]</span>. Several studies have used imputation for analyses using the ETS and found that results were impacted compared to using complete case analysis or imputation using only analysis variables<span class="citation">[4,5]</span>.</p>
 <p>This study aims to explore the evidence for associations between missingness in several key outcomes and demographic variables in the ETS. Any such associations may introduce bias if not accounted for. It also aims to more broadly assess missing data in the ETS, evaluate the impact of the introduction of the web based ETS in 2008 on missing data, and highlight potential biases in reporting for date variables.</p>
 </div>
 <div id="methods-1" class="section level1">
@@ -169,7 +169,7 @@
 <li><p>Refit the model, dropping each variable in turn and then comparing the updated model with the full model using a likelihood ratio test.</p></li>
 <li><p>Interpret the results, using the estimated size of the effect, the width of the confidence intervals and the size of the Wald and likelihood ratio test p values to determine which variables are related to missingness for the variable of interest. Evidence should be interpreted on a spectrum, rather than using arbitrary significance cut-offs<span class="citation">[9]</span>. To avoid issues of multiple testing the level of evidence should be weighted based on the number of variables adjusted for and the number of outcomes explored.</p></li>
 </ol>
-<p>For all outcomes considered we adjusted for the same set of demographic variables that were both highly complete, plausibly linked to missingness for all outcomes considered, and likely to be present in other comparable surveillance data-sets. These were: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status, socio-economic status (national quintiles), and PHE centre (region). Complete case analysis was used, with the data-set limited to notifications from 2010 and on-wards as socio-economic status was not collected prior to this. The code for this approach is available as an R package online (<a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a>).</p>
+<p>For all outcomes considered we adjusted for the same set of demographic variables that were both highly complete, plausibly linked to missingness for all outcomes considered, and likely to be present in other comparable surveillance data-sets. These were: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status, socio-economic status (national quintiles), and PHE centre (region). Complete case analysis was used, with the data-set limited to notifications from 2010 and on-wards as socio-economic status was not collected prior to this. The code for this approach is available as an R package (<a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a>).</p>
 </div>
 <div id="assessing-temporal-biases-in-reporting" class="section level3">
 <h3 class="hasAnchor">
@@ -189,7 +189,7 @@
 <div id="data-completeness-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-completeness-1" class="anchor"></a>Data completeness</h2>
-<p>We found high completeness for common demographic variables such as sex, age, ethnic group and UK birth status (Supplementary Figure S1, Table 1). More problematically, BCG status and year of BCG status had a high percentage missing, even after accounting for the introduction of national collection of these variables in 2008<span class="citation">[6]</span>. Socio-economic status (as national quintiles) was not collected until 2010 but after this point is highly complete<span class="citation">[6]</span>. Comparing pre 2009 and post 2008 in Table 1 (Supplementary Figure S1) we see completeness changes over time<span class="citation">[6,10]</span>. There was some evidence that groups of variables had correlated missing data (Supplementary Figure S1).</p>
+<p>We found high completeness for common demographic variables such as sex, age, ethnic group and UK birth status (Supplementary Figure S1, Table 1). More problematically, BCG status and year of BCG status had a high percentage missing, even after accounting for the introduction of national collection of these variables in 2008<span class="citation">[6]</span>. Socio-economic status (as national quintiles) was not collected until 2010 but after this point is highly complete<span class="citation">[6]</span>. Comparing before and after the launch of the web-based ETS in Table 1 (Supplementary Figure S1) we see completeness changes over time<span class="citation">[6]</span>. There was some evidence that groups of variables had correlated missing data (Supplementary Figure S1).</p>
 <table class="table">
 <caption>Table 1: Percentage of missing data from the ETS for a subset of variables, prior to the web-based system (pre 2009) and post (post 2008) by variable, ordered by the percentage missing for a subset of variables. Nested variables have been accounted for (i.e data of death has had an entry added for cases that are known to have not died), so that true missingness for all variables is estimated.</caption>
 <thead><tr class="header">
@@ -351,7 +351,7 @@
 <td align="left">2010</td>
 <td align="left">40.7% (2905)</td>
 <td align="right">7143</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.844</td>
 </tr>
@@ -405,7 +405,7 @@
 <td align="left">Female</td>
 <td align="left">43.1% (7613)</td>
 <td align="right">17664</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">4.81e-21</td>
 </tr>
@@ -423,7 +423,7 @@
 <td align="left">0-14</td>
 <td align="left">76.1% (1365)</td>
 <td align="right">1793</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">2.95e-229</td>
 </tr>
@@ -459,7 +459,7 @@
 <td align="left">White</td>
 <td align="left">40.2% (3364)</td>
 <td align="right">8359</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">8.17e-29</td>
 </tr>
@@ -540,7 +540,7 @@
 <td align="left">Non-UK Born</td>
 <td align="left">38.6% (11913)</td>
 <td align="right">30880</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">3.1e-08</td>
 </tr>
@@ -558,7 +558,7 @@
 <td align="left">1</td>
 <td align="left">40.0% (6454)</td>
 <td align="right">16131</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.000369</td>
 </tr>
@@ -603,7 +603,7 @@
 <td align="left">London</td>
 <td align="left">40.4% (7135)</td>
 <td align="right">17658</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">6.46e-15</td>
 </tr>
@@ -704,7 +704,7 @@
 <td align="left">2010</td>
 <td align="left">31.3% (2235)</td>
 <td align="right">7143</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">1.6e-08</td>
 </tr>
@@ -758,7 +758,7 @@
 <td align="left">Female</td>
 <td align="left">27.4% (4847)</td>
 <td align="right">17664</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">5.21e-14</td>
 </tr>
@@ -776,7 +776,7 @@
 <td align="left">0-14</td>
 <td align="left">13.1% (235)</td>
 <td align="right">1793</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">8.49e-162</td>
 </tr>
@@ -812,7 +812,7 @@
 <td align="left">White</td>
 <td align="left">35.4% (2959)</td>
 <td align="right">8359</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">1.18e-14</td>
 </tr>
@@ -893,7 +893,7 @@
 <td align="left">Non-UK Born</td>
 <td align="left">29.5% (9104)</td>
 <td align="right">30880</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">7.78e-28</td>
 </tr>
@@ -911,7 +911,7 @@
 <td align="left">1</td>
 <td align="left">30.7% (4948)</td>
 <td align="right">16131</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.0647</td>
 </tr>
@@ -956,7 +956,7 @@
 <td align="left">London</td>
 <td align="left">21.0% (3716)</td>
 <td align="right">17658</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0</td>
 </tr>
@@ -1056,7 +1056,7 @@
 <td align="left">2010</td>
 <td align="left">34.0% (2426)</td>
 <td align="right">7143</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0</td>
 </tr>
@@ -1110,7 +1110,7 @@
 <td align="left">Female</td>
 <td align="left">22.0% (3894)</td>
 <td align="right">17664</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.363</td>
 </tr>
@@ -1128,7 +1128,7 @@
 <td align="left">0-14</td>
 <td align="left">38.1% (684)</td>
 <td align="right">1793</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">6.9e-78</td>
 </tr>
@@ -1164,7 +1164,7 @@
 <td align="left">White</td>
 <td align="left">20.9% (1749)</td>
 <td align="right">8359</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">1.53e-08</td>
 </tr>
@@ -1245,7 +1245,7 @@
 <td align="left">Non-UK Born</td>
 <td align="left">21.9% (6774)</td>
 <td align="right">30880</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.000152</td>
 </tr>
@@ -1263,7 +1263,7 @@
 <td align="left">1</td>
 <td align="left">19.9% (3218)</td>
 <td align="right">16131</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">1.06e-06</td>
 </tr>
@@ -1308,7 +1308,7 @@
 <td align="left">London</td>
 <td align="left">30.0% (5289)</td>
 <td align="right">17658</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0</td>
 </tr>
@@ -1395,19 +1395,19 @@
 <div id="date-of-starting-treatment-and-ending-treatment" class="section level3">
 <h3 class="hasAnchor">
 <a href="#date-of-starting-treatment-and-ending-treatment" class="anchor"></a>Date of starting treatment and ending treatment</h3>
-<p>For date of starting treatment there was evidence that missing data was again associated with all variables considered, excepting UK birth status and socio-economic status (Supplementary Table S2). Missingness for the date of ending treatment was associated with fewer variables, with evidence only of associations between year, and PHE centre (Supplementary Table S3). For both variables the proportion of missing data reduced with the year of notification. London had a lower proportion of missing data when compared to most other PHE centres. For the date of starting treatment the White ethnic group were more likely to be missing data than other groups. Older age groups were also more likely to be missing data, as were males.</p>
+<p>For date of starting treatment there was evidence that missing data was again associated with all variables considered, excepting UK birth status and socio-economic status (Supplementary Table S2). Missingness for the date of ending treatment was associated with fewer variables with evidence only of associations between year and PHE centre (Supplementary Table S3). For both variables the proportion of missing data reduced with the year of notification. London had a lower proportion of missing data when compared to most other PHE centres. For the date of starting treatment the White ethnic group were more likely to be missing data than other groups. Older age groups were also more likely to be missing data, as were males.</p>
 </div>
 <div id="date-of-death-and-cause-of-death-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#date-of-death-and-cause-of-death-" class="anchor"></a>Date of death and cause of death.</h3>
-<p>For date of death there was little evidence of any association, except for PHE centre (Supplementary Table S4). This was also the case for cause of death but there was some additional evidence of an association with ethnic group (Supplementary Table S5). There was little evidence of a clear trend across ethnic groups for cause of death. As for other outcomes London was much more likely to be missing date of death than other PHE centres. This relationship was reversed for cause of death. Both date of death and cause of death had a small sample size and this may mean that these analyses were under-powered.</p>
+<p>For date of death there was little evidence of any association, except for PHE centre (Supplementary Table S4). This was also the case for cause of death but there was some additional evidence of an association with ethnic group (Supplementary Table S5). There was little evidence of a clear trend across ethnic groups for cause of death. As for other outcomes London was much more likely to be missing date of death than other PHE centres. This relationship was reversed for cause of death. Both date of death and cause of death had a small sample size and this may mean that these analyses were underpowered.</p>
 </div>
 </div>
 <div id="assessing-temporal-biases-in-reporting-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#assessing-temporal-biases-in-reporting-1" class="anchor"></a>Assessing temporal biases in reporting</h2>
 <p>Notifications showed evidence of a strong seasonal trend with a peak in the number of notifications in May-July each year but had a near uniform distribution within each month (Supplementary Table S6). There was little evidence of strong biases in this reporting and there was little evidence to suggest that the introduction of the web-based ETS impacted the distribution of notifications or the levels of bias. The date of symptom onset showed evidence of an inverted seasonal trend - in comparison to notifications (Table 5) . There was evidence that reporting in January may be biased with a much greater proportion of cases reported as having symptoms starting in this month than in any other. There was also evidence that cases were more likely to have symptoms start on the first and the 14th of each month, again indicating bias. Both of these apparent biases were reduced by the introduction of the web-based ETS but were still present. The date of ending treatment also showed some evidence of these biases and had the same inverted seasonal trend as the date of symptom onset (Supplementary Table S7). The date of diagnosis, date of starting treatment and date of death showed a similar reporting structure to notifications although the strength of the seasonal trend was reduced (see the supplementary information). There was little clear evidence of biases in reporting either by month, or by day for these variables.</p>
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="results/paper/figs/trends-for-symptonset.png" alt="Figure 1: a.) Shows the proportion of cases with symptons starting in a given month for each year with some evidence of bias in January and reduced evidence of a seasonal trend. b.) Shows the proportion of cases with symptons starting on a given day for each month with a strong evidence of biased reporting on the first of the month and the 14th. Stratifying both figures based on the introduction of the web-based ETS indicates that the web-based ETS may have reduced these biases." width="60%"><p class="caption">
 Figure 1: a.) Shows the proportion of cases with symptons starting in a given month for each year with some evidence of bias in January and reduced evidence of a seasonal trend. b.) Shows the proportion of cases with symptons starting on a given day for each month with a strong evidence of biased reporting on the first of the month and the 14th. Stratifying both figures based on the introduction of the web-based ETS indicates that the web-based ETS may have reduced these biases.
 </p>
@@ -1418,9 +1418,9 @@ Figure 1: a.) Shows the proportion of cases with symptons starting in a given mo
 <h1 class="hasAnchor">
 <a href="#discussion" class="anchor"></a>Discussion</h1>
 <p>We found a high degree of missing data for several variables in the ETS. All demographic variables considered were strongly associated with data being missing for multiple outcomes. However, not all outcome missingness was associated with all demographic variables and for those that were the direction of - or trend in - effect was not consistent. Missingness for drug resistance was associated with all variables - excepting year - with higher levels of missingness being associated with children, non-White ethnic groups, the UK born, higher socio-economic status, and the London PHE centre (though there was between PHE centre variation). In comparison, the associations with BCG status had a similar level of evidence but did not share the same trends with children being much less likely to have missing data than older adults, non-White ethnic groups having a lower levels of missing data than the White ethnic group, the non-UK born being more likely to be missing than the UK born, and the London PHE centre being less likely to be missing data than other PHE centres. Missingness for date and cause of death had less evidence of associations than other outcomes. We also found that date variables in particular suffered from changing data completeness over time. In addition, we found that both the date of symptom onset and the date of ending treatment had a higher than expected proportion of cases occurring in January each year and on the 1st and 14th of each month when compared to notification date. This may indicate the presence of reporting or recall bias. These potential biases were reduced after the launch of the web-based ETS but were still present.</p>
-<p>This study has explored missing data in the ETS - which is an example of a well designed surveillance system - in detail and found that missing data can rarely be considered missing completely at random. We highlighted several key demographic variables as being potential sources of bias, but did not find a generalised structure to these biases across key outcomes. Routine observational data-sets are subject to numerous other potential biases not explored in this study. These sources of bias include: selection bias, recall bias, measurement bias, and unmeasured confounding<span class="citation">[11]</span>. These sources of bias may be difficult to quantify in a single routine surveillance data-set as they require knowledge of the population in order to identify - except in the instances seen above with spuriously high reporting for some months, or days in a month. This means that studies using routine surveillance data are never likely to be free of bias, however by using imputation and including a wide range of variables plausibly linked to variable missingness - as we have demonstrated here - this bias can be reduced<span class="citation">[12]</span>. Also as demonstrated here, by exploring variable reporting across times additional potential sources of bias can be identified and then potentially mitigated. Additionally, multiple variables may suffer from misclassification bias, including BCG status which can be assessed via vaccination record, the presence of a scar, or case recall: this may lead to spurious associations<span class="citation">[13]</span>. These potential sources of bias require additional verification studies in order to identify and account for them. Finally, our study may be used to inform studies in surveillance data-sets other than the ETS but cannot be directly generalised as we only considered a single data-set. For this reason we conducted our analysis within a highly reproducible framework and hence our approach should be readily applicable to other data sources with little alteration.</p>
-<p>Missing data in the ETS was highly complex with changing completeness over time and associations with multiple demographic factors. The launch of the web-based ETS system was linked to reduced missing data, followed by improved completeness over subsequent years for multiple outcomes but for most outcomes this improvement then stalled. An updated data collection system may be able to reduce missing data - and MAR missingness - further. The nature of the associations could not be generalised over the outcomes considered with it being clear that individual mechanisms led to each. However, for all outcomes considered - that were well powered - there was evidence of associations with demographic variables. This indicates that missingness is likely to be not MCAR and hence must be accounted for in any analysis, ideally using multiple imputation<span class="citation">[2,12]</span>. This means that complete case analysis should not be used on its own for this data source - or other similar surveillance data. Whilst many of the variables we considered may often be considered in analysis models - and hence included in imputation - this may not be the case. Therefore, considerable care should be taken when specifying imputation models with other potentially informative variables also being included. Our findings highlight the need for those involved with data collection to also be involved with downstream analysis. Data issues that could lead to bias could then be readily identified by those with the required domain knowledge. This approach may not be feasible in widely studied data-sets, an alternative would be that data collectors share fully imputed data - using all available variables - rather than raw data with missing values. This would allow those best placed to understand the potential sources of bias to mitigate for them and leave downstream users to conduct analysis without having to account further for missingness.</p>
-<p>Whilst this analysis was able to identify multiple potential sources of bias for key outcomes it did not quantify the impact that these may have on analyses using these outcomes. Several studies have made use of the ETS - using multiple imputation to adjust for biases due to missing data - but to our knowledge none have explicitly focused on the impact that biases due to missing data may have had <span class="citation">[4,5]</span>. A case study focussing on the impact of missing data on study outcomes could be used to highlight the impact of improperly accounting for missing data in surveillance data-sets. This analysis only used a single surveillance data-set - in order for the findings to be more easily generalised to other data-sets it could be repeated in additional surveillance data. For this reason this analysis has been structured as an R package (<a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a>).</p>
+<p>This study has explored missing data in the ETS - which is an example of a well designed surveillance system - in detail and found that missing data can rarely be considered missing completely at random. We highlighted several key demographic variables as being potential sources of bias, but did not find a generalised structure to these biases across key outcomes. Routine observational data-sets are subject to numerous other potential biases not explored in this study. These sources of bias include: selection bias, recall bias, measurement bias, and unmeasured confounding<span class="citation">[10]</span>. These sources of bias may be difficult to quantify in a single routine surveillance data-set as they require knowledge of the population in order to identify - except in the instances seen above with spuriously high reporting for some months, or days in a month. This means that studies using routine surveillance data are never likely to be free of bias. However, by using imputation and including a wide range of variables plausibly linked to variable missingness - as we have demonstrated here - this bias can be reduced<span class="citation">[11]</span>. Also as demonstrated here, by exploring variable reporting across times additional potential sources of bias can be identified and then potentially mitigated. This study does not detail imputation best practises see <span class="citation">[1,11]</span> for further information and <span class="citation">[4,5]</span> for case studies in the ETS. Additionally, multiple variables may suffer from misclassification bias, including BCG status which can be assessed via vaccination record, the presence of a scar, or case recall: this may lead to spurious associations<span class="citation">[12]</span>. These potential sources of bias require additional verification studies in order to identify and account for them. Finally, our study may be used to inform studies in surveillance data-sets other than the ETS but cannot be directly generalised as we only considered a single data-set. For this reason we conducted our analysis within a highly reproducible framework and hence our approach should be readily applicable to other data sources with little alteration.</p>
+<p>Missing data in the ETS was highly complex with changing completeness over time and associations with multiple demographic factors. The launch of the web-based ETS system was linked to reduced missing data, followed by improved completeness over subsequent years for multiple outcomes but for most outcomes this improvement then stalled. An updated data collection system may be able to reduce missing data - and MAR missingness - further. The nature of the associations could not be generalised over the outcomes considered with it being clear that individual mechanisms led to each. However, for all outcomes considered - that were well powered - there was evidence of associations with demographic variables. This indicates that missingness is likely to be not MCAR and hence must be accounted for in any analysis, ideally using multiple imputation<span class="citation">[2,11]</span>. This means that complete case analysis should not be used on its own for this data source - or other similar surveillance data. Whilst many of the variables we considered may often be considered in analysis models - and hence included in imputation - this may not be the case. Therefore, considerable care should be taken when specifying imputation models with other potentially informative variables also being included. Our findings highlight the need for those involved with data collection to also be involved with downstream analysis. Data issues that could lead to bias could then be readily identified by those with the required domain knowledge. This approach may not be feasible in widely studied data-sets, an alternative would be that data collectors share fully imputed data - using all available variables - rather than raw data with missing values. This would allow those best placed to understand the potential sources of bias to mitigate for them and leave downstream users to conduct analysis without having to account further for missingness.</p>
+<p>Whilst this analysis was able to identify multiple potential sources of bias for key outcomes it did not quantify the impact that these may have on analyses using these outcomes. Several studies have made use of the ETS - using imputation to adjust for biases due to missing data - but to our knowledge none have explicitly focused on the impact that biases due to missing data may have had<span class="citation">[4,5]</span>. A case study focussing on the impact of missing data on study outcomes could be used to highlight the impact of improperly accounting for missing data in surveillance data-sets. This analysis only used a single surveillance data-set - in order for the findings to be more easily generalised to other data-sets it could be repeated in additional surveillance data. For this reason this analysis has been structured as an R package (<a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a>).</p>
 <p><strong>Acknowledgements</strong></p>
 <p>The authors thank the TB section at Public Health England (PHE) for maintaining the Enhanced Tuberculosis Surveillance (ETS) system; all the healthcare workers involved in data collection for the ETS.</p>
 <p><strong>Contributors</strong></p>
@@ -1430,7 +1430,8 @@ Figure 1: a.) Shows the proportion of cases with symptons starting in a given mo
 <p><strong>Conflicts of interest</strong></p>
 <p>HC reports receiving honoraria from Sanofi Pasteur, and consultancy fees from AstraZeneca, GSK and IMS Health, all paid to her employer.</p>
 <p><strong>Accessibility of data and programming code</strong></p>
-<p>The code used to clean the data used in this paper can be found at: <a href="https://doi.org/10.5281/zenodo.2551555" class="uri">https://doi.org/10.5281/zenodo.2551555</a> The code for this analysis, interim results, and final results can be found at: <a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a></p>
+<p>The code used to clean the data used in this paper can be found at: <a href="https://doi.org/10.5281/zenodo.2551555" class="uri">https://doi.org/10.5281/zenodo.2551555</a></p>
+<p>The code for this analysis, interim results, and final results can be found at: <a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a></p>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
@@ -1463,17 +1464,14 @@ Figure 1: a.) Shows the proportion of cases with symptons starting in a given mo
 <div id="ref-Sterne2001">
 <p>9 Sterne JA, Davey Smith G. Sifting the evidence-what’s wrong with significance tests? <em>Bmj</em> 2001;<strong>322</strong>:226–31.</p>
 </div>
-<div id="ref-PHE2016">
-<p>10 PHE. Tuberculosis in England 2016 Report (presenting data to end of 2015). 2016. </p>
-</div>
 <div id="ref-Benchimol2016a">
-<p>11 Benchimol EI, Smeeth L, Guttmann A <em>et al.</em> The REporting of studies Conducted using Observational Routinely-collected health Data (RECORD) Statement. <em>The American Statistician</em> 2016;<strong>115-116</strong>:1–22.</p>
+<p>10 Benchimol EI, Smeeth L, Guttmann A <em>et al.</em> The REporting of studies Conducted using Observational Routinely-collected health Data (RECORD) Statement. <em>The American Statistician</em> 2016;<strong>115-116</strong>:1–22.</p>
 </div>
 <div id="ref-Azur2011">
-<p>12 Azur MJ, Stuart EA, Frangakis C <em>et al.</em> Multiple imputation by chained equations: what is it and how does it work? <em>Int J Methods Psychiatr Res</em> 2011;<strong>20</strong>:40–9. doi:<a href="https://doi.org/10.1002/mpr.329">10.1002/mpr.329</a></p>
+<p>11 Azur MJ, Stuart EA, Frangakis C <em>et al.</em> Multiple imputation by chained equations: what is it and how does it work? <em>Int J Methods Psychiatr Res</em> 2011;<strong>20</strong>:40–9. doi:<a href="https://doi.org/10.1002/mpr.329">10.1002/mpr.329</a></p>
 </div>
 <div id="ref-Fewell2007">
-<p>13 Fewell Z, Davey Smith G, Sterne JAC. The impact of residual and unmeasured confounding in epidemiologic studies: A simulation study. <em>American Journal of Epidemiology</em> 2007;<strong>166</strong>:646–55.</p>
+<p>12 Fewell Z, Davey Smith G, Sterne JAC. The impact of residual and unmeasured confounding in epidemiologic studies: A simulation study. <em>American Journal of Epidemiology</em> 2007;<strong>166</strong>:646–55.</p>
 </div>
 </div>
 </div>
@@ -1484,7 +1482,7 @@ Figure 1: a.) Shows the proportion of cases with symptons starting in a given mo
 <div id="data-completeness-2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-completeness-2" class="anchor"></a>Data completeness</h2>
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="results/paper/figs/plot-missing-struct.png" alt="Supplementary Figure S1: Summary plot of missing data in the extract of the ETS data used in this thesis. Due to the large size of the dataset, the data has been sub-sampled with only 20\% of the data shown in this figure. Notifications have been ordered by date of notification from left to right. The following subset of variables are shown: year (year), sex (sex), age (age), PHE Centre (phec), Occupation (occat), Ethnic group (ethgrp), UK birth status (ukborn), Time since entry (timesinceent), date of symptom onset (symptonset), date of diagnosis (datediag), started treatment (startedtreat), date of starting treatment (starttreatdate), treatment end date (txenddate), pulmonary or extra-pulmonary TB (pulmextrapulm), culture (culture), sputum smear status (sputsmear), drug resistance (anyres), previous diagnosis (prevdiag), BCG status(bcgvacc), Year of BCG vaccination (bcgvaccyr), overall outcome (overalloutcome), cause of death (tomdeathrelate), socio-economic status quintiles (natquintile), and date of death (dateofdeath). Nested variables have been accounted for (i.e date of death has had an entry added for cases that are known to have not died)." width="60%"><p class="caption">
 Supplementary Figure S1: Summary plot of missing data in the extract of the ETS data used in this thesis. Due to the large size of the dataset, the data has been sub-sampled with only 20% of the data shown in this figure. Notifications have been ordered by date of notification from left to right. The following subset of variables are shown: year (year), sex (sex), age (age), PHE Centre (phec), Occupation (occat), Ethnic group (ethgrp), UK birth status (ukborn), Time since entry (timesinceent), date of symptom onset (symptonset), date of diagnosis (datediag), started treatment (startedtreat), date of starting treatment (starttreatdate), treatment end date (txenddate), pulmonary or extra-pulmonary TB (pulmextrapulm), culture (culture), sputum smear status (sputsmear), drug resistance (anyres), previous diagnosis (prevdiag), BCG status(bcgvacc), Year of BCG vaccination (bcgvaccyr), overall outcome (overalloutcome), cause of death (tomdeathrelate), socio-economic status quintiles (natquintile), and date of death (dateofdeath). Nested variables have been accounted for (i.e date of death has had an entry added for cases that are known to have not died).
 </p>
@@ -1513,7 +1511,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2010</td>
 <td align="left">61.0% (2090)</td>
 <td align="right">3424</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">1.59e-09</td>
 </tr>
@@ -1567,7 +1565,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Female</td>
 <td align="left">55.5% (5089)</td>
 <td align="right">9174</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.275</td>
 </tr>
@@ -1585,7 +1583,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">0-14</td>
 <td align="left">43.9% (488)</td>
 <td align="right">1111</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">1.21e-20</td>
 </tr>
@@ -1621,7 +1619,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">White</td>
 <td align="left">44.2% (1370)</td>
 <td align="right">3102</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">5.86e-12</td>
 </tr>
@@ -1702,7 +1700,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Non-UK Born</td>
 <td align="left">61.1% (9665)</td>
 <td align="right">15808</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">5.14e-08</td>
 </tr>
@@ -1720,7 +1718,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1</td>
 <td align="left">55.4% (4221)</td>
 <td align="right">7615</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">4.64e-05</td>
 </tr>
@@ -1765,7 +1763,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">London</td>
 <td align="left">91.0% (9421)</td>
 <td align="right">10358</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0</td>
 </tr>
@@ -1864,7 +1862,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2010</td>
 <td align="left">26.9% (1918)</td>
 <td align="right">7143</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">7.54e-286</td>
 </tr>
@@ -1918,7 +1916,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Female</td>
 <td align="left">16.9% (2984)</td>
 <td align="right">17664</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.432</td>
 </tr>
@@ -1936,7 +1934,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">0-14</td>
 <td align="left">19.4% (348)</td>
 <td align="right">1793</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.000251</td>
 </tr>
@@ -1972,7 +1970,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">White</td>
 <td align="left">12.5% (1043)</td>
 <td align="right">8359</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">6.85e-08</td>
 </tr>
@@ -2053,7 +2051,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Non-UK Born</td>
 <td align="left">18.4% (5696)</td>
 <td align="right">30880</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.00227</td>
 </tr>
@@ -2071,7 +2069,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1</td>
 <td align="left">14.4% (2317)</td>
 <td align="right">16131</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">6.01e-14</td>
 </tr>
@@ -2116,7 +2114,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">London</td>
 <td align="left">31.0% (5471)</td>
 <td align="right">17658</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0</td>
 </tr>
@@ -2215,7 +2213,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2010</td>
 <td align="left">5.1% (367)</td>
 <td align="right">7143</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">2.48e-37</td>
 </tr>
@@ -2269,7 +2267,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Female</td>
 <td align="left">3.4% (608)</td>
 <td align="right">17664</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.00223</td>
 </tr>
@@ -2287,7 +2285,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">0-14</td>
 <td align="left">3.6% (64)</td>
 <td align="right">1793</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">1.89e-29</td>
 </tr>
@@ -2323,7 +2321,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">White</td>
 <td align="left">5.8% (486)</td>
 <td align="right">8359</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.00077</td>
 </tr>
@@ -2404,7 +2402,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Non-UK Born</td>
 <td align="left">3.4% (1045)</td>
 <td align="right">30880</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.516</td>
 </tr>
@@ -2422,7 +2420,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1</td>
 <td align="left">3.8% (611)</td>
 <td align="right">16131</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.665</td>
 </tr>
@@ -2467,7 +2465,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">London</td>
 <td align="left">3.1% (551)</td>
 <td align="right">17658</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">2.84e-17</td>
 </tr>
@@ -2562,7 +2560,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2010</td>
 <td align="left">2.9% (182)</td>
 <td align="right">6171</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">4.89e-15</td>
 </tr>
@@ -2616,7 +2614,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Female</td>
 <td align="left">2.1% (311)</td>
 <td align="right">14630</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.506</td>
 </tr>
@@ -2634,7 +2632,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">0-14</td>
 <td align="left">2.7% (44)</td>
 <td align="right">1617</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.52</td>
 </tr>
@@ -2670,7 +2668,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">White</td>
 <td align="left">2.9% (176)</td>
 <td align="right">6076</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.0466</td>
 </tr>
@@ -2751,7 +2749,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Non-UK Born</td>
 <td align="left">1.9% (480)</td>
 <td align="right">25174</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.959</td>
 </tr>
@@ -2769,7 +2767,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1</td>
 <td align="left">2.4% (308)</td>
 <td align="right">13080</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.257</td>
 </tr>
@@ -2814,7 +2812,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">London</td>
 <td align="left">0.7% (100)</td>
 <td align="right">14747</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">8.46e-59</td>
 </tr>
@@ -2913,7 +2911,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2010</td>
 <td align="left">16.6% (53)</td>
 <td align="right">320</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.129</td>
 </tr>
@@ -2967,7 +2965,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Female</td>
 <td align="left">14.8% (97)</td>
 <td align="right">657</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.569</td>
 </tr>
@@ -2985,7 +2983,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">0-14</td>
 <td align="left">10.0% (1)</td>
 <td align="right">10</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.799</td>
 </tr>
@@ -3021,7 +3019,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">White</td>
 <td align="left">11.1% (102)</td>
 <td align="right">920</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.9</td>
 </tr>
@@ -3102,7 +3100,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Non-UK Born</td>
 <td align="left">16.6% (167)</td>
 <td align="right">1004</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.796</td>
 </tr>
@@ -3120,7 +3118,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1</td>
 <td align="left">11.4% (79)</td>
 <td align="right">695</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.912</td>
 </tr>
@@ -3165,7 +3163,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">London</td>
 <td align="left">37.6% (201)</td>
 <td align="right">534</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">1.92e-57</td>
 </tr>
@@ -3264,7 +3262,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2010</td>
 <td align="left">45.0% (144)</td>
 <td align="right">320</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.576</td>
 </tr>
@@ -3318,7 +3316,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Female</td>
 <td align="left">44.7% (294)</td>
 <td align="right">657</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.763</td>
 </tr>
@@ -3336,7 +3334,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">0-14</td>
 <td align="left">50.0% (5)</td>
 <td align="right">10</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.14</td>
 </tr>
@@ -3372,7 +3370,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">White</td>
 <td align="left">48.2% (443)</td>
 <td align="right">920</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.00768</td>
 </tr>
@@ -3453,7 +3451,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">Non-UK Born</td>
 <td align="left">40.1% (403)</td>
 <td align="right">1004</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.426</td>
 </tr>
@@ -3471,7 +3469,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1</td>
 <td align="left">43.7% (304)</td>
 <td align="right">695</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">0.168</td>
 </tr>
@@ -3516,7 +3514,7 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">London</td>
 <td align="left">25.3% (135)</td>
 <td align="right">534</td>
-<td align="left">*Reference*</td>
+<td align="left">Reference</td>
 <td align="left"></td>
 <td align="left">1.1e-20</td>
 </tr>
@@ -3598,27 +3596,27 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <div id="assessing-temporal-biases-in-reporting-2" class="section level3">
 <h3 class="hasAnchor">
 <a href="#assessing-temporal-biases-in-reporting-2" class="anchor"></a>Assessing temporal biases in reporting</h3>
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="results/paper/figs/trends-for-caserepdate.png" alt="Supplementary Figure S2: a.) Shows the proportion of cases notified in a given month for each year with evidence of a seasonal peak in June. b.) Shows the proportion of cases notified on a given day for each month with a near uniform distribution. Stratifying both figures based on the introduction of the web-based ETS gives little evidence for any change in these trends." width="60%"><p class="caption">
 Supplementary Figure S2: a.) Shows the proportion of cases notified in a given month for each year with evidence of a seasonal peak in June. b.) Shows the proportion of cases notified on a given day for each month with a near uniform distribution. Stratifying both figures based on the introduction of the web-based ETS gives little evidence for any change in these trends.
 </p>
 </div>
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="results/paper/figs/trends-for-datediag.png" alt="Supplementary Figure S3: a.) Shows the proportion of cases with a diagnosis in a given month for each year. b.) Shows the proportion of cases with a diagnosis on a given day for each month. Trends for the date of diagnosis were similar to those seen for notifications." width="60%"><p class="caption">
 Supplementary Figure S3: a.) Shows the proportion of cases with a diagnosis in a given month for each year. b.) Shows the proportion of cases with a diagnosis on a given day for each month. Trends for the date of diagnosis were similar to those seen for notifications.
 </p>
 </div>
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="results/paper/figs/trends-for-dateofdeath.png" alt="Supplementary Figure S4: a.) Shows the proportion of cases that died in a given month for each year. b.) Shows the proportion of cases that died on a given day for each month. Trends for the date of death were similar to those seen for notifications but there was a reduction in the strength of the observed seasonality." width="60%"><p class="caption">
 Supplementary Figure S4: a.) Shows the proportion of cases that died in a given month for each year. b.) Shows the proportion of cases that died on a given day for each month. Trends for the date of death were similar to those seen for notifications but there was a reduction in the strength of the observed seasonality.
 </p>
 </div>
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="results/paper/figs/trends-for-starttreatdate.png" alt="Supplementary Figure S5: a.) Shows the proportion of cases starting treatment in a given month for each year. b.) Shows the proportion of cases starting treatment on a given day for each month. Trends for the date of starting treatment were similar to those seen for notifications." width="60%"><p class="caption">
 Supplementary Figure S5: a.) Shows the proportion of cases starting treatment in a given month for each year. b.) Shows the proportion of cases starting treatment on a given day for each month. Trends for the date of starting treatment were similar to those seen for notifications.
 </p>
 </div>
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="results/paper/figs/trends-for-txenddate.png" alt="Supplementary Figure S6: a.) Shows the proportion of cases ending treatment in a given month for each year with a peak in December. b.) Shows the proportion of cases ending treatment on a given day for each month with some evidence of a bias in reporting on the first of the month. Uncertainty reduced after the introduction of the web-based ETS and the level of bias on the first of the month reduced." width="60%"><p class="caption">
 Supplementary Figure S6: a.) Shows the proportion of cases ending treatment in a given month for each year with a peak in December. b.) Shows the proportion of cases ending treatment on a given day for each month with some evidence of a bias in reporting on the first of the month. Uncertainty reduced after the introduction of the web-based ETS and the level of bias on the first of the month reduced.
 </p>
