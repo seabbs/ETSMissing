@@ -88,7 +88,7 @@
 <p>Hannah Christensen, Bristol Medical School: Population Health Sciences, University of Bristol, Bristol, UK</p>
 <p>Ellen Brooks-Pollock, Bristol Medical School: Population Health Sciences, University of Bristol, Bristol, UK</p>
 <p><strong>Correspondence to:</strong> Sam Abbott, Bristol Medical School: Population Health Sciences, University of Bristol, Bristol BS8 2BN, UK; <a href="mailto:sam.abbott@bristol.ac.uk" class="email">sam.abbott@bristol.ac.uk</a>; 01173310185</p>
-<p><strong>Words:</strong> <em>Title:</em> 9 <em>Abstract:</em> 299 <em>Paper:</em> 3669</p>
+<p><strong>Words:</strong> <em>Title:</em> 9 <em>Abstract:</em> 300 <em>Paper:</em> 3669</p>
 <div id="abstract" class="section level1">
 <h1 class="hasAnchor">
 <a href="#abstract" class="anchor"></a>Abstract</h1>
@@ -115,7 +115,7 @@
 <div id="conclusions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#conclusions" class="anchor"></a>Conclusions</h2>
-<p>Missingness in outcomes was associated with multiple demographic variables. These associations could not be generalised, preventing a systematic approach to dealing with missingness and indicating that domain knowledge is required. The identified associations may induce bias, meaning that complete case analysis should not be used for this data source - or other similar surveillance data. Our findings should be used to motivate the use of imputation and to inform the specification of imputation models for similar surveillance data.</p>
+<p>Missingness in outcomes was associated with multiple demographic variables. These associations could not be generalised, preventing a systematic approach to dealing with missingness and indicating that domain knowledge is required. The identified associations may induce bias, meaning that multiple imputation may be beneficial for analyse using this data source - or other similar surveillance data. Our findings should be used to motivate the use of imputation and to inform the specification of imputation models that include auxiliary variables.</p>
 </div>
 <div id="keywords" class="section level2">
 <h2 class="hasAnchor">
@@ -137,7 +137,7 @@
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
 <p>The Enhanced Tuberculosis Surveillance (ETS) system is a routine surveillance system - with a similar structure to other such systems - that collects data on all notified tuberculosis (TB) cases in England. It is routinely used to study the epidemiology of TB. Routine data often has a large amount of missing data which may not be fully accounted for when used in analyses. Studies rarely independently assess the impact of missing data - instead aiming to account for it during analysis. This study explores missingness in the ETS - focusing on associations between key outcomes and demographic variables with the aim of highlighting potential sources of bias.</p>
-<p>Missing data can take several forms, data that are missing completely at random (MCAR), data that are missing at random (MAR) and data that are missing not at random (MNAR)<span class="citation">[1]</span>. Data that are MAR are missing with a mechanism that is conditional on observed variables, whilst MNAR are missing with a mechanism that is conditional on variables that are not observed. Data that is MAR - or MNAR - may lead to biases when analysing the data. This means that it is necessary to account for these potential biases during the analysis stage. This is possible using a variety of methods such as scenario analysis accounting for the ‘best’ and ‘worst’ case scenarios, and multiple imputation of missing data<span class="citation">[1,2]</span>. Common practice is to include all variables included in the analyses in the imputation model and best practise is to also include additional variables that may be related to missing data<span class="citation">[3]</span>. Several studies have used imputation for analyses using the ETS and found that results were impacted compared to using complete case analysis or imputation using only analysis variables<span class="citation">[4,5]</span>.</p>
+<p>Missing data can take several forms, data that are missing completely at random (MCAR), data that are missing at random (MAR) and data that are missing not at random (MNAR)<span class="citation">[1]</span>. Data that are MAR are missing with a mechanism that is conditional on observed variables, whilst MNAR are missing with a mechanism that is conditional on variables that are not observed. Data that is MAR - or MNAR - may lead to biases when analysing the data. This means that it is necessary to account for these potential biases during the analysis stage. This is possible using a variety of methods such as scenario analysis accounting for the ‘best’ and ‘worst’ case scenarios, and multiple imputation of missing data<span class="citation">[1,2]</span>. Common practice is to include all variables included in the analyses in the imputation model and best practice is to also include additional variables that may be related to missing data<span class="citation">[3,4]</span>. Several studies have used imputation for analyses using the ETS and found that results were impacted compared to using complete case analysis or imputation using only analysis variables<span class="citation">[5,6]</span>.</p>
 <p>This study aims to explore the evidence for associations between missingness in several key outcomes and demographic variables in the ETS. Any such associations may introduce bias if not accounted for. It also aims to more broadly assess missing data in the ETS, evaluate the impact of the introduction of the web based ETS in 2008 on missing data, and highlight potential biases in reporting for date variables.</p>
 </div>
 <div id="methods-1" class="section level1">
@@ -146,11 +146,11 @@
 <div id="enhanced-tuberculosis-surveillance-ets-system" class="section level2">
 <h2 class="hasAnchor">
 <a href="#enhanced-tuberculosis-surveillance-ets-system" class="anchor"></a>Enhanced tuberculosis surveillance (ETS) system</h2>
-<p>The ETS is a database that collects demographic, clinical, and microbiological data on all notified TB cases in England and is maintained by Public Health England (PHE). Notification is required by law, with health service providers having to inform PHE of all confirmed TB cases<span class="citation">[6]</span>. Data collection began in 2000 and was expanded, with additional variables, with the launch of a web-based system in 2008<span class="citation">[7]</span>. It is updated annually with de-notifications, late notifications and other updates. A descriptive analysis of TB epidemiology in England is published each year, which reports on data collection, cleaning, and trends in TB incidence at both a national, and sub-national level<span class="citation">[6]</span>. Data on all notifications (114,820 notifications) from the ETS system from 2000 to 2015 were obtained from PHE via an application to the TB monitoring team. The code used for data cleaning is available as an R package (<a href="https://zenodo.org/badge/latestdoi/93072437" class="uri">https://zenodo.org/badge/latestdoi/93072437</a>).</p>
+<p>The ETS is a database that collects demographic, clinical, and microbiological data on all notified TB cases in England and is maintained by Public Health England (PHE). Notification is required by law, with health service providers having to inform PHE of all confirmed TB cases<span class="citation">[7]</span>. Data collection began in 2000 and was expanded, with additional variables, with the launch of a web-based system in 2008<span class="citation">[8]</span>. It is updated annually with de-notifications, late notifications and other updates. A descriptive analysis of TB epidemiology in England is published each year, which reports on data collection, cleaning, and trends in TB incidence at both a national, and sub-national level<span class="citation">[7]</span>. Data on all notifications (114,820 notifications) from the ETS system from 2000 to 2015 were obtained from PHE via an application to the TB monitoring team. The code used for data cleaning is available as an R package (<a href="https://zenodo.org/badge/latestdoi/93072437" class="uri">https://zenodo.org/badge/latestdoi/93072437</a>).</p>
 <div id="data-completeness" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data-completeness" class="anchor"></a>Data completeness</h3>
-<p>As the ETS is aggregated across England, from a variety of sources, missing data are inevitable. This takes two forms: under-reporting of notified cases, of which there is some evidence in the literature<span class="citation">[8]</span>, and data missing for a notified case. The former is particularly problematic as apart from using comparative studies the characteristics of those that are not notified is unknown. For variables that are missing data within the data-set the proportion of missing data can be calculated but care must be taken to account for nested variables (such as cause of death being dependent on date of death). To account for this when estimating the proportion of missing data we have assumed that nested variables take the value of their parent variable when missing. This approach may be biased for rare outcomes (such as death in the ETS) - for this reason we have also estimated the proportion of missing data by filtering top level variables required for the nested variable to be defined and then computed the proportion of notifications that were missing data for the outcome of interest.</p>
+<p>As the ETS is aggregated across England, from a variety of sources, missing data are inevitable. This takes two forms: under-reporting of notified cases, of which there is some evidence in the literature<span class="citation">[9]</span>, and data missing for a notified case. The former is particularly problematic as apart from using comparative studies the characteristics of those that are not notified is unknown. For variables that are missing data within the data-set the proportion of missing data can be calculated but care must be taken to account for nested variables (such as cause of death being dependent on date of death). To account for this when estimating the proportion of missing data we have assumed that nested variables take the value of their parent variable when missing. This approach may be biased for rare outcomes (such as death in the ETS) - for this reason we have also estimated the proportion of missing data by filtering top level variables required for the nested variable to be defined and then computed the proportion of notifications that were missing data for the outcome of interest.</p>
 </div>
 <div id="drivers-of-variable-completeness" class="section level3">
 <h3 class="hasAnchor">
@@ -167,7 +167,7 @@
 <li><p>Fit a logistic regression model with the temporary data status variable as the outcome, adjusting for the hypothesised drivers of missingness.</p></li>
 <li><p>Exponentiate the returned coefficients, and confidence intervals so that they represent Odds Ratios (ORs).</p></li>
 <li><p>Refit the model, dropping each variable in turn and then comparing the updated model with the full model using a likelihood ratio test.</p></li>
-<li><p>Interpret the results, using the estimated size of the effect, the width of the confidence intervals and the size of the Wald and likelihood ratio test p values to determine which variables are related to missingness for the variable of interest. Evidence should be interpreted on a spectrum, rather than using arbitrary significance cut-offs<span class="citation">[9]</span>. To avoid issues of multiple testing the level of evidence should be weighted based on the number of variables adjusted for and the number of outcomes explored.</p></li>
+<li><p>Interpret the results, using the estimated size of the effect, the width of the confidence intervals and the size of the likelihood ratio test p values to determine which variables are related to missingness for the variable of interest. Evidence should be interpreted on a spectrum, rather than using arbitrary significance cut-offs<span class="citation">[10]</span>. To avoid issues of multiple testing the level of evidence should be weighted based on the number of variables adjusted for and the number of outcomes explored.</p></li>
 </ol>
 <p>For all outcomes considered we adjusted for the same set of demographic variables that were both highly complete, plausibly linked to missingness for all outcomes considered, and likely to be present in other comparable surveillance data-sets. These were: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status, socio-economic status (national quintiles), and PHE centre (region). Complete case analysis was used, with the data-set limited to notifications from 2010 and on-wards as socio-economic status was not collected prior to this. The code for this approach is available as an R package (<a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a>).</p>
 </div>
@@ -189,9 +189,9 @@
 <div id="data-completeness-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-completeness-1" class="anchor"></a>Data completeness</h2>
-<p>We found high completeness for common demographic variables such as sex, age, ethnic group and UK birth status (Supplementary Figure S1, Table 1). More problematically, BCG status and year of BCG status had a high percentage missing, even after accounting for the introduction of national collection of these variables in 2008<span class="citation">[6]</span>. Socio-economic status (as national quintiles) was not collected until 2010 but after this point is highly complete<span class="citation">[6]</span>. Comparing before and after the launch of the web-based ETS in Table 1 (Supplementary Figure S1) we see completeness changes over time<span class="citation">[6]</span>. There was some evidence that groups of variables had correlated missing data (Supplementary Figure S1).</p>
+<p>We found high completeness for common demographic variables such as sex, age, ethnic group and UK birth status (Supplementary Figure S1, Table 1). More problematically, BCG status and year of BCG status had a high percentage missing, even after accounting for the introduction of national collection of these variables in 2008<span class="citation">[7]</span>. Socio-economic status (as national quintiles) was not collected until 2010 but after this point is highly complete<span class="citation">[7]</span>. Comparing before and after the launch of the web-based ETS in Table 1 (Supplementary Figure S1) we see completeness changes over time<span class="citation">[7]</span>. There was some evidence that groups of variables had correlated missing data (Supplementary Figure S1).</p>
 <table class="table">
-<caption>Table 1: Percentage of missing data from the ETS for a subset of variables, prior to the web-based system (pre 2009) and post (post 2008) by variable, ordered by the percentage missing for a subset of variables. Nested variables have been accounted for (i.e data of death has had an entry added for cases that are known to have not died), so that true missingness for all variables is estimated.</caption>
+<caption>Table 1: Percentage of missing data from the ETS for a subset of variables commonly used in analyse, prior to the web-based system (2000-2008) and post (2009-2015) by variable, ordered by the percentage missing for a subset of variables. Number of notifications missing per variable is given in brackets. Between 2000-2008 there were 63175 notifications overall and between 2009-2015 there were 51681.</caption>
 <thead><tr class="header">
 <th align="left">Variable</th>
 <th align="left">2000-2008</th>
@@ -333,17 +333,16 @@
 <div id="drug-resistance" class="section level3">
 <h3 class="hasAnchor">
 <a href="#drug-resistance" class="anchor"></a>Drug resistance</h3>
-<p>There was evidence that drug resistance was missing with a MAR mechanism for all variables considered (Table 2), excepting year of notification. Men were less likely to be missing than women. Children were much more likely to have a missing drug resistance status than any other age group. The white ethnic group were less likely to be missing drug resistance than all other ethnic groups, excepting the Chinese ethnic group. The UK born population was more likely to be missing as were those from higher economic quintiles. Notifications in London were more likely to be missing drug resistance status than for most other PHE centres.</p>
+<p>There was evidence that drug resistance was missing with a MAR mechanism for all variables considered (Table 2), excepting year of notification. Men were less likely to be missing than women. Children were much more likely to have a missing drug resistance status than any other age group. The White ethnic group were less likely to be missing drug resistance than all other ethnic groups, excepting the Chinese ethnic group. The UK born population was more likely to be missing as were those from higher economic quintiles. Notifications in London were more likely to be missing drug resistance status than for most other PHE centres.</p>
 <table class="table">
-<caption>Table 2: Results from a logistic regression model with data completeness (Complete/Missing) for drug resistance (to any treatment) as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables.</caption>
+<caption>Table 2: Results from a logistic regression model with data completeness (Complete/Missing) for drug resistance (to any treatment) as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables.</caption>
 <thead><tr class="header">
 <th align="left">Variable</th>
 <th align="left">Category</th>
 <th align="left">Missing (N)</th>
 <th align="right">Notifications (41659)</th>
 <th align="left">Odds Ratio</th>
-<th align="left">P value (Wald)</th>
-<th align="left">P value (LRT)</th>
+<th align="left">P value</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -352,7 +351,6 @@
 <td align="left">40.7% (2905)</td>
 <td align="right">7143</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.844</td>
 </tr>
 <tr class="even">
@@ -361,7 +359,6 @@
 <td align="left">40.2% (3126)</td>
 <td align="right">7781</td>
 <td align="left">0.97 (0.91, 1.04)</td>
-<td align="left">0.428</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -370,7 +367,6 @@
 <td align="left">40.1% (3107)</td>
 <td align="right">7755</td>
 <td align="left">0.96 (0.90, 1.03)</td>
-<td align="left">0.278</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -379,7 +375,6 @@
 <td align="left">40.4% (2839)</td>
 <td align="right">7034</td>
 <td align="left">0.98 (0.92, 1.05)</td>
-<td align="left">0.625</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -388,7 +383,6 @@
 <td align="left">39.8% (2519)</td>
 <td align="right">6327</td>
 <td align="left">0.96 (0.90, 1.03)</td>
-<td align="left">0.29</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -397,7 +391,6 @@
 <td align="left">40.3% (2267)</td>
 <td align="right">5619</td>
 <td align="left">1.00 (0.93, 1.07)</td>
-<td align="left">0.896</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -406,7 +399,6 @@
 <td align="left">43.1% (7613)</td>
 <td align="right">17664</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">4.81e-21</td>
 </tr>
 <tr class="even">
@@ -415,7 +407,6 @@
 <td align="left">38.1% (9150)</td>
 <td align="right">23995</td>
 <td align="left">0.82 (0.79, 0.86)</td>
-<td align="left">4.67e-21</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -424,7 +415,6 @@
 <td align="left">76.1% (1365)</td>
 <td align="right">1793</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">2.95e-229</td>
 </tr>
 <tr class="even">
@@ -433,7 +423,6 @@
 <td align="left">36.0% (9096)</td>
 <td align="right">25235</td>
 <td align="left">0.18 (0.16, 0.21)</td>
-<td align="left">6e-180</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -442,7 +431,6 @@
 <td align="left">43.9% (3961)</td>
 <td align="right">9026</td>
 <td align="left">0.26 (0.23, 0.29)</td>
-<td align="left">2.07e-105</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -451,7 +439,6 @@
 <td align="left">41.8% (2341)</td>
 <td align="right">5605</td>
 <td align="left">0.23 (0.20, 0.26)</td>
-<td align="left">1.48e-112</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -460,7 +447,6 @@
 <td align="left">40.2% (3364)</td>
 <td align="right">8359</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">8.17e-29</td>
 </tr>
 <tr class="even">
@@ -469,7 +455,6 @@
 <td align="left">40.1% (372)</td>
 <td align="right">928</td>
 <td align="left">0.99 (0.85, 1.14)</td>
-<td align="left">0.854</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -478,7 +463,6 @@
 <td align="left">38.5% (2775)</td>
 <td align="right">7204</td>
 <td align="left">1.07 (0.98, 1.16)</td>
-<td align="left">0.133</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -487,7 +471,6 @@
 <td align="left">42.5% (157)</td>
 <td align="right">369</td>
 <td align="left">1.20 (0.96, 1.49)</td>
-<td align="left">0.105</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -496,7 +479,6 @@
 <td align="left">40.7% (4412)</td>
 <td align="right">10848</td>
 <td align="left">1.24 (1.15, 1.34)</td>
-<td align="left">1.58e-08</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -505,7 +487,6 @@
 <td align="left">42.4% (2885)</td>
 <td align="right">6806</td>
 <td align="left">1.31 (1.21, 1.41)</td>
-<td align="left">2.7e-11</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -514,7 +495,6 @@
 <td align="left">47.1% (791)</td>
 <td align="right">1680</td>
 <td align="left">1.67 (1.48, 1.88)</td>
-<td align="left">9.74e-18</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -523,7 +503,6 @@
 <td align="left">34.6% (171)</td>
 <td align="right">494</td>
 <td align="left">0.97 (0.80, 1.18)</td>
-<td align="left">0.787</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -532,7 +511,6 @@
 <td align="left">36.9% (1836)</td>
 <td align="right">4971</td>
 <td align="left">1.01 (0.92, 1.10)</td>
-<td align="left">0.911</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -541,7 +519,6 @@
 <td align="left">38.6% (11913)</td>
 <td align="right">30880</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">3.1e-08</td>
 </tr>
 <tr class="odd">
@@ -550,7 +527,6 @@
 <td align="left">45.0% (4850)</td>
 <td align="right">10779</td>
 <td align="left">1.19 (1.12, 1.26)</td>
-<td align="left">3e-08</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -559,7 +535,6 @@
 <td align="left">40.0% (6454)</td>
 <td align="right">16131</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.000369</td>
 </tr>
 <tr class="odd">
@@ -568,7 +543,6 @@
 <td align="left">39.7% (5005)</td>
 <td align="right">12621</td>
 <td align="left">1.02 (0.97, 1.07)</td>
-<td align="left">0.487</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -577,7 +551,6 @@
 <td align="left">40.3% (2633)</td>
 <td align="right">6530</td>
 <td align="left">1.06 (1.00, 1.13)</td>
-<td align="left">0.0563</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -586,7 +559,6 @@
 <td align="left">41.1% (1561)</td>
 <td align="right">3796</td>
 <td align="left">1.10 (1.02, 1.19)</td>
-<td align="left">0.0125</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -595,7 +567,6 @@
 <td align="left">43.0% (1110)</td>
 <td align="right">2581</td>
 <td align="left">1.21 (1.10, 1.32)</td>
-<td align="left">4.57e-05</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -604,7 +575,6 @@
 <td align="left">40.4% (7135)</td>
 <td align="right">17658</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">6.46e-15</td>
 </tr>
 <tr class="even">
@@ -613,7 +583,6 @@
 <td align="left">43.6% (2274)</td>
 <td align="right">5217</td>
 <td align="left">1.07 (1.00, 1.15)</td>
-<td align="left">0.0416</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -622,7 +591,6 @@
 <td align="left">39.2% (1597)</td>
 <td align="right">4075</td>
 <td align="left">0.87 (0.81, 0.94)</td>
-<td align="left">0.000464</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -631,7 +599,6 @@
 <td align="left">38.2% (1542)</td>
 <td align="right">4037</td>
 <td align="left">0.87 (0.81, 0.94)</td>
-<td align="left">0.000287</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -640,7 +607,6 @@
 <td align="left">40.9% (1257)</td>
 <td align="right">3077</td>
 <td align="left">0.91 (0.84, 0.99)</td>
-<td align="left">0.027</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -649,7 +615,6 @@
 <td align="left">38.3% (1019)</td>
 <td align="right">2662</td>
 <td align="left">0.87 (0.80, 0.95)</td>
-<td align="left">0.00171</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -658,7 +623,6 @@
 <td align="left">40.2% (1025)</td>
 <td align="right">2548</td>
 <td align="left">0.95 (0.87, 1.04)</td>
-<td align="left">0.27</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -667,7 +631,6 @@
 <td align="left">42.3% (674)</td>
 <td align="right">1595</td>
 <td align="left">1.06 (0.95, 1.18)</td>
-<td align="left">0.3</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -676,7 +639,6 @@
 <td align="left">30.4% (240)</td>
 <td align="right">790</td>
 <td align="left">0.60 (0.51, 0.70)</td>
-<td align="left">3.43e-10</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -685,18 +647,17 @@
 <div id="bcg-status-and-year-of-bcg-vaccination" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bcg-status-and-year-of-bcg-vaccination" class="anchor"></a>BCG status and year of BCG vaccination</h3>
-<p>Similarly to drug resistance there was evidence that BCG status was missing with a MAR mechanism for all variables considered (Table 3) with the stronger evidence for an association with year but reduced evidence of an association with socio-economic status. After adjusting for other variables data completeness increased from 2010 until 2012 but has since showed no clear trend. Men appeared to be more likely than women to have a missing BCG status, with the non-UK born also being more likely than the UK born to be missing BCG status. The proportion of those missing BCG status increased with age, with those aged 65+ being over 4 times more likely to be missing BCG status than those aged 0-14 years old. The White ethnic group was more likely to have a missing BCG status than any other ethnic group. London was associated with less reduced missingness for BCG status compared to other PHE centres.</p>
-<p>Missingness for year of BC vaccination had similar associations as BCG status. However, there was less evidence of an association with sex, the white ethnic group were less likely to have a missing status than other ethnic groups, and there was strong evidence of an association with socio-economic status with those in the lowest quintile being more likely to have a missing year of BCG vaccination. London was much more likely to be missing BCG status than any other PHE centre, a reversal of the relationship observed for BCG status.</p>
+<p>Similarly to drug resistance there was evidence that BCG status was missing with a MAR mechanism for all variables considered (Table 3) with the stronger evidence for an association with year but reduced evidence of an association with socio-economic status. After adjusting for other variables data completeness increased from 2010 until 2012 but has since showed no clear trend. Men appeared to be more likely than women to have a missing BCG status, with the non-UK born also being more likely than the UK born to be missing BCG status. The proportion of those missing BCG status increased with age, with those aged 65+ being over 4 times more likely to be missing BCG status than those aged 0-14 years old. The White ethnic group was more likely to have a missing BCG status than any other ethnic group. London was associated with increased missingness for BCG status compared to other PHE centres.</p>
+<p>Missingness for year of BCG vaccination had similar associations as BCG status. However, there was less evidence of an association with sex, the White ethnic group were less likely to have a missing status than other ethnic groups, and there was strong evidence of an association with socio-economic status with those in the lowest quintile being more likely to have a missing year of BCG vaccination. London was much more likely to be missing BCG status than any other PHE centre, a reversal of the relationship observed for BCG status.</p>
 <table class="table">
-<caption>Table 3: Results from a logistic regression model with data completeness (Complete/Missing) for BCG vaccination as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. The model indicates that BCG status is missing at random for the variables considered.</caption>
+<caption>Table 3: Results from a logistic regression model with data completeness (Complete/Missing) for BCG vaccination as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables.</caption>
 <thead><tr class="header">
 <th align="left">Variable</th>
 <th align="left">Category</th>
 <th align="left">Missing (N)</th>
 <th align="right">Notifications (41659)</th>
 <th align="left">Odds Ratio</th>
-<th align="left">P value (Wald)</th>
-<th align="left">P value (LRT)</th>
+<th align="left">P value</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -705,7 +666,6 @@
 <td align="left">31.3% (2235)</td>
 <td align="right">7143</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">1.6e-08</td>
 </tr>
 <tr class="even">
@@ -714,7 +674,6 @@
 <td align="left">29.8% (2319)</td>
 <td align="right">7781</td>
 <td align="left">0.94 (0.88, 1.01)</td>
-<td align="left">0.107</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -723,7 +682,6 @@
 <td align="left">27.9% (2164)</td>
 <td align="right">7755</td>
 <td align="left">0.85 (0.79, 0.92)</td>
-<td align="left">1.93e-05</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -732,7 +690,6 @@
 <td align="left">27.1% (1907)</td>
 <td align="right">7034</td>
 <td align="left">0.79 (0.73, 0.85)</td>
-<td align="left">1.3e-09</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -741,7 +698,6 @@
 <td align="left">30.1% (1907)</td>
 <td align="right">6327</td>
 <td align="left">0.90 (0.83, 0.97)</td>
-<td align="left">0.00672</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -750,7 +706,6 @@
 <td align="left">29.7% (1668)</td>
 <td align="right">5619</td>
 <td align="left">0.88 (0.81, 0.95)</td>
-<td align="left">0.00104</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -759,7 +714,6 @@
 <td align="left">27.4% (4847)</td>
 <td align="right">17664</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">5.21e-14</td>
 </tr>
 <tr class="even">
@@ -768,7 +722,6 @@
 <td align="left">30.6% (7353)</td>
 <td align="right">23995</td>
 <td align="left">1.19 (1.14, 1.24)</td>
-<td align="left">5.97e-14</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -777,7 +730,6 @@
 <td align="left">13.1% (235)</td>
 <td align="right">1793</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">8.49e-162</td>
 </tr>
 <tr class="even">
@@ -786,7 +738,6 @@
 <td align="left">26.0% (6557)</td>
 <td align="right">25235</td>
 <td align="left">2.24 (1.94, 2.60)</td>
-<td align="left">5.72e-27</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -795,7 +746,6 @@
 <td align="left">32.8% (2964)</td>
 <td align="right">9026</td>
 <td align="left">3.05 (2.63, 3.55)</td>
-<td align="left">3.38e-47</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -804,7 +754,6 @@
 <td align="left">43.6% (2444)</td>
 <td align="right">5605</td>
 <td align="left">4.82 (4.13, 5.64)</td>
-<td align="left">1.93e-87</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -813,7 +762,6 @@
 <td align="left">35.4% (2959)</td>
 <td align="right">8359</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">1.18e-14</td>
 </tr>
 <tr class="even">
@@ -822,7 +770,6 @@
 <td align="left">24.6% (228)</td>
 <td align="right">928</td>
 <td align="left">0.88 (0.74, 1.03)</td>
-<td align="left">0.124</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -831,7 +778,6 @@
 <td align="left">27.3% (1966)</td>
 <td align="right">7204</td>
 <td align="left">0.87 (0.79, 0.95)</td>
-<td align="left">0.00235</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -840,7 +786,6 @@
 <td align="left">24.1% (89)</td>
 <td align="right">369</td>
 <td align="left">0.87 (0.67, 1.12)</td>
-<td align="left">0.275</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -849,7 +794,6 @@
 <td align="left">25.9% (2805)</td>
 <td align="right">10848</td>
 <td align="left">0.71 (0.65, 0.77)</td>
-<td align="left">3.69e-16</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -858,7 +802,6 @@
 <td align="left">33.2% (2258)</td>
 <td align="right">6806</td>
 <td align="left">0.85 (0.78, 0.93)</td>
-<td align="left">0.000209</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -867,7 +810,6 @@
 <td align="left">27.9% (469)</td>
 <td align="right">1680</td>
 <td align="left">0.92 (0.81, 1.05)</td>
-<td align="left">0.214</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -876,7 +818,6 @@
 <td align="left">33.6% (166)</td>
 <td align="right">494</td>
 <td align="left">0.91 (0.74, 1.12)</td>
-<td align="left">0.395</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -885,7 +826,6 @@
 <td align="left">25.3% (1260)</td>
 <td align="right">4971</td>
 <td align="left">0.80 (0.72, 0.88)</td>
-<td align="left">5.15e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -894,7 +834,6 @@
 <td align="left">29.5% (9104)</td>
 <td align="right">30880</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">7.78e-28</td>
 </tr>
 <tr class="odd">
@@ -903,7 +842,6 @@
 <td align="left">28.7% (3096)</td>
 <td align="right">10779</td>
 <td align="left">0.68 (0.63, 0.73)</td>
-<td align="left">2.69e-27</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -912,7 +850,6 @@
 <td align="left">30.7% (4948)</td>
 <td align="right">16131</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.0647</td>
 </tr>
 <tr class="odd">
@@ -921,7 +858,6 @@
 <td align="left">26.8% (3383)</td>
 <td align="right">12621</td>
 <td align="left">1.01 (0.95, 1.07)</td>
-<td align="left">0.825</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -930,7 +866,6 @@
 <td align="left">29.2% (1905)</td>
 <td align="right">6530</td>
 <td align="left">1.09 (1.01, 1.16)</td>
-<td align="left">0.0187</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -939,7 +874,6 @@
 <td align="left">30.1% (1142)</td>
 <td align="right">3796</td>
 <td align="left">0.98 (0.90, 1.06)</td>
-<td align="left">0.616</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -948,7 +882,6 @@
 <td align="left">31.8% (822)</td>
 <td align="right">2581</td>
 <td align="left">0.96 (0.87, 1.06)</td>
-<td align="left">0.415</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -957,7 +890,6 @@
 <td align="left">21.0% (3716)</td>
 <td align="right">17658</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0</td>
 </tr>
 <tr class="even">
@@ -966,7 +898,6 @@
 <td align="left">22.4% (1171)</td>
 <td align="right">5217</td>
 <td align="left">1.08 (0.99, 1.16)</td>
-<td align="left">0.066</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -975,7 +906,6 @@
 <td align="left">51.8% (2112)</td>
 <td align="right">4075</td>
 <td align="left">4.16 (3.85, 4.49)</td>
-<td align="left">4.44e-286</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -984,7 +914,6 @@
 <td align="left">26.6% (1074)</td>
 <td align="right">4037</td>
 <td align="left">1.33 (1.23, 1.45)</td>
-<td align="left">7.73e-12</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -993,7 +922,6 @@
 <td align="left">37.0% (1138)</td>
 <td align="right">3077</td>
 <td align="left">2.24 (2.05, 2.44)</td>
-<td align="left">1.35e-72</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1002,7 +930,6 @@
 <td align="left">36.4% (969)</td>
 <td align="right">2662</td>
 <td align="left">2.12 (1.94, 2.32)</td>
-<td align="left">6.4e-61</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1011,7 +938,6 @@
 <td align="left">45.3% (1154)</td>
 <td align="right">2548</td>
 <td align="left">3.20 (2.93, 3.50)</td>
-<td align="left">4.07e-145</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1020,7 +946,6 @@
 <td align="left">41.2% (657)</td>
 <td align="right">1595</td>
 <td align="left">2.55 (2.28, 2.85)</td>
-<td align="left">5.96e-62</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1029,7 +954,6 @@
 <td align="left">26.5% (209)</td>
 <td align="right">790</td>
 <td align="left">1.31 (1.11, 1.55)</td>
-<td align="left">0.0013</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -1038,17 +962,16 @@
 <div id="date-of-symptom-onset" class="section level3">
 <h3 class="hasAnchor">
 <a href="#date-of-symptom-onset" class="anchor"></a>Date of symptom onset</h3>
-<p>For date of symptom onset there was strong evidence of an MAR mechanism for all variables considered, except for sex (Table 4). The likelihood of date of symptom onset being missing reduced with year of notification. Children (0-14 years old) were more likely to have a missing date of symptom onset than any other age group as were those in any socio-economic quintile when compared to the poorest group. UK born cases were more likely to have a complete date of symptom onset than non-UK born cases, with the White ethnic group being more likely to have a missing date of symptom onset than most other ethnic groups. London was again associated with a increased level of missing data compared to other PHE centres.</p>
+<p>For date of symptom onset there was strong evidence of an MAR mechanism for all variables considered, except for sex (Table 4). The likelihood of date of symptom onset being missing reduced with year of notification. Children (0-14 years old) were more likely to have a missing date of symptom onset than any other age group as were those in any socio-economic quintile when compared to the most deprived group. UK born cases were more likely to have a complete date of symptom onset than non-UK born cases, with the White ethnic group being more likely to have a missing date of symptom onset than most other ethnic groups. London was again associated with a increased level of missing data compared to other PHE centres.</p>
 <table class="table">
-<caption>Table 4: Results from a logistic regression model with data completeness (Complete/Missing) for date of symptom onset as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. The model indicates that date of symptom onset is missing not at random for the variables for all variables considered, except for sex.</caption>
+<caption>Table 4: Results from a logistic regression model with data completeness (Complete/Missing) for date of symptom onset as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables.</caption>
 <thead><tr class="header">
 <th align="left">Variable</th>
 <th align="left">Category</th>
 <th align="left">Missing (N)</th>
 <th align="right">Notifications (41659)</th>
 <th align="left">Odds Ratio</th>
-<th align="left">P value (Wald)</th>
-<th align="left">P value (LRT)</th>
+<th align="left">P value</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -1057,7 +980,6 @@
 <td align="left">34.0% (2426)</td>
 <td align="right">7143</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0</td>
 </tr>
 <tr class="even">
@@ -1066,7 +988,6 @@
 <td align="left">30.1% (2339)</td>
 <td align="right">7781</td>
 <td align="left">0.84 (0.78, 0.90)</td>
-<td align="left">1.45e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1075,7 +996,6 @@
 <td align="left">24.2% (1878)</td>
 <td align="right">7755</td>
 <td align="left">0.61 (0.57, 0.66)</td>
-<td align="left">1.73e-38</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1084,7 +1004,6 @@
 <td align="left">17.5% (1233)</td>
 <td align="right">7034</td>
 <td align="left">0.41 (0.37, 0.44)</td>
-<td align="left">2.6e-105</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1093,7 +1012,6 @@
 <td align="left">11.8% (744)</td>
 <td align="right">6327</td>
 <td align="left">0.25 (0.23, 0.27)</td>
-<td align="left">6.1e-187</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1102,7 +1020,6 @@
 <td align="left">6.9% (390)</td>
 <td align="right">5619</td>
 <td align="left">0.14 (0.12, 0.15)</td>
-<td align="left">1.7e-245</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1111,7 +1028,6 @@
 <td align="left">22.0% (3894)</td>
 <td align="right">17664</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.363</td>
 </tr>
 <tr class="even">
@@ -1120,7 +1036,6 @@
 <td align="left">21.3% (5116)</td>
 <td align="right">23995</td>
 <td align="left">0.98 (0.93, 1.03)</td>
-<td align="left">0.363</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1129,7 +1044,6 @@
 <td align="left">38.1% (684)</td>
 <td align="right">1793</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">6.9e-78</td>
 </tr>
 <tr class="even">
@@ -1138,7 +1052,6 @@
 <td align="left">20.5% (5182)</td>
 <td align="right">25235</td>
 <td align="left">0.33 (0.30, 0.38)</td>
-<td align="left">4.33e-78</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1147,7 +1060,6 @@
 <td align="left">20.7% (1870)</td>
 <td align="right">9026</td>
 <td align="left">0.36 (0.32, 0.41)</td>
-<td align="left">4.15e-58</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1156,7 +1068,6 @@
 <td align="left">22.7% (1274)</td>
 <td align="right">5605</td>
 <td align="left">0.44 (0.39, 0.51)</td>
-<td align="left">3.41e-34</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1165,7 +1076,6 @@
 <td align="left">20.9% (1749)</td>
 <td align="right">8359</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">1.53e-08</td>
 </tr>
 <tr class="even">
@@ -1174,7 +1084,6 @@
 <td align="left">23.1% (214)</td>
 <td align="right">928</td>
 <td align="left">0.76 (0.64, 0.90)</td>
-<td align="left">0.00216</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1183,7 +1092,6 @@
 <td align="left">23.0% (1654)</td>
 <td align="right">7204</td>
 <td align="left">0.72 (0.65, 0.79)</td>
-<td align="left">7.47e-11</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1192,7 +1100,6 @@
 <td align="left">18.7% (69)</td>
 <td align="right">369</td>
 <td align="left">0.61 (0.45, 0.80)</td>
-<td align="left">0.000611</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1201,7 +1108,6 @@
 <td align="left">22.2% (2404)</td>
 <td align="right">10848</td>
 <td align="left">0.76 (0.70, 0.84)</td>
-<td align="left">1.17e-08</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1210,7 +1116,6 @@
 <td align="left">19.2% (1305)</td>
 <td align="right">6806</td>
 <td align="left">0.79 (0.72, 0.87)</td>
-<td align="left">3.23e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1219,7 +1124,6 @@
 <td align="left">23.9% (401)</td>
 <td align="right">1680</td>
 <td align="left">0.80 (0.69, 0.92)</td>
-<td align="left">0.00178</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1228,7 +1132,6 @@
 <td align="left">18.8% (93)</td>
 <td align="right">494</td>
 <td align="left">0.68 (0.53, 0.87)</td>
-<td align="left">0.0025</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1237,7 +1140,6 @@
 <td align="left">22.6% (1121)</td>
 <td align="right">4971</td>
 <td align="left">0.79 (0.71, 0.88)</td>
-<td align="left">1.07e-05</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1246,7 +1148,6 @@
 <td align="left">21.9% (6774)</td>
 <td align="right">30880</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.000152</td>
 </tr>
 <tr class="odd">
@@ -1255,7 +1156,6 @@
 <td align="left">20.7% (2236)</td>
 <td align="right">10779</td>
 <td align="left">0.86 (0.80, 0.93)</td>
-<td align="left">0.00016</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1264,7 +1164,6 @@
 <td align="left">19.9% (3218)</td>
 <td align="right">16131</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">1.06e-06</td>
 </tr>
 <tr class="odd">
@@ -1273,7 +1172,6 @@
 <td align="left">22.9% (2888)</td>
 <td align="right">12621</td>
 <td align="left">0.98 (0.92, 1.05)</td>
-<td align="left">0.63</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1282,7 +1180,6 @@
 <td align="left">24.2% (1578)</td>
 <td align="right">6530</td>
 <td align="left">1.17 (1.08, 1.26)</td>
-<td align="left">7.32e-05</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1291,7 +1188,6 @@
 <td align="left">22.0% (837)</td>
 <td align="right">3796</td>
 <td align="left">1.18 (1.07, 1.29)</td>
-<td align="left">0.000845</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1300,7 +1196,6 @@
 <td align="left">18.9% (489)</td>
 <td align="right">2581</td>
 <td align="left">1.17 (1.04, 1.31)</td>
-<td align="left">0.01</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1309,7 +1204,6 @@
 <td align="left">30.0% (5289)</td>
 <td align="right">17658</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0</td>
 </tr>
 <tr class="even">
@@ -1318,7 +1212,6 @@
 <td align="left">12.0% (627)</td>
 <td align="right">5217</td>
 <td align="left">0.30 (0.27, 0.33)</td>
-<td align="left">8.63e-137</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1327,7 +1220,6 @@
 <td align="left">20.6% (841)</td>
 <td align="right">4075</td>
 <td align="left">0.56 (0.51, 0.61)</td>
-<td align="left">5.62e-36</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1336,7 +1228,6 @@
 <td align="left">9.0% (363)</td>
 <td align="right">4037</td>
 <td align="left">0.20 (0.18, 0.23)</td>
-<td align="left">7.15e-156</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1345,7 +1236,6 @@
 <td align="left">13.2% (407)</td>
 <td align="right">3077</td>
 <td align="left">0.32 (0.28, 0.35)</td>
-<td align="left">4.19e-83</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1354,7 +1244,6 @@
 <td align="left">26.5% (705)</td>
 <td align="right">2662</td>
 <td align="left">0.80 (0.72, 0.88)</td>
-<td align="left">4.54e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1363,7 +1252,6 @@
 <td align="left">19.2% (488)</td>
 <td align="right">2548</td>
 <td align="left">0.52 (0.47, 0.58)</td>
-<td align="left">2.21e-32</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1372,7 +1260,6 @@
 <td align="left">10.9% (174)</td>
 <td align="right">1595</td>
 <td align="left">0.27 (0.23, 0.32)</td>
-<td align="left">6.79e-53</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1381,7 +1268,6 @@
 <td align="left">14.7% (116)</td>
 <td align="right">790</td>
 <td align="left">0.39 (0.31, 0.47)</td>
-<td align="left">1.9e-19</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -1390,7 +1276,7 @@
 <div id="date-of-diagnosis" class="section level3">
 <h3 class="hasAnchor">
 <a href="#date-of-diagnosis" class="anchor"></a>Date of diagnosis</h3>
-<p>For date of diagnosis there was again strong evidence for an MAR mechanism for all variables considered, except for sex (Supplementary Table S1). Increasing completeness was found for year of notification as seen previously, as was an increased likelihood of missing data in males and the non-UK born. The White ethnic group was more likely to be missing data on the data of diagnosis as compared to the majority of other ethnic groups. The poorest socio-economic group was less likely to be missing data compared to all other socio-economic quintiles. Children (0-14 years old) were again more likely to be missing data than adults in any age group. As for other variables London had a much higher proportion of missing data than any other PHE centre.</p>
+<p>For date of diagnosis there was again strong evidence for an MAR mechanism for all variables considered, except for sex (Supplementary Table S1). Increasing completeness was found for year of notification as seen previously, as was an increased likelihood of missing data in males and the non-UK born. The White ethnic group was more likely to be missing data on the data of diagnosis as compared to the majority of other ethnic groups. The most deprived socio-economic group was less likely to be missing data compared to all other socio-economic quintiles. Children (0-14 years old) were again more likely to be missing data than adults in any age group. As for other variables London had a much higher proportion of missing data than any other PHE centre.</p>
 </div>
 <div id="date-of-starting-treatment-and-ending-treatment" class="section level3">
 <h3 class="hasAnchor">
@@ -1408,8 +1294,8 @@
 <a href="#assessing-temporal-biases-in-reporting-1" class="anchor"></a>Assessing temporal biases in reporting</h2>
 <p>Notifications showed evidence of a strong seasonal trend with a peak in the number of notifications in May-July each year but had a near uniform distribution within each month (Supplementary Table S6). There was little evidence of strong biases in this reporting and there was little evidence to suggest that the introduction of the web-based ETS impacted the distribution of notifications or the levels of bias. The date of symptom onset showed evidence of an inverted seasonal trend - in comparison to notifications (Table 5) . There was evidence that reporting in January may be biased with a much greater proportion of cases reported as having symptoms starting in this month than in any other. There was also evidence that cases were more likely to have symptoms start on the first and the 14th of each month, again indicating bias. Both of these apparent biases were reduced by the introduction of the web-based ETS but were still present. The date of ending treatment also showed some evidence of these biases and had the same inverted seasonal trend as the date of symptom onset (Supplementary Table S7). The date of diagnosis, date of starting treatment and date of death showed a similar reporting structure to notifications although the strength of the seasonal trend was reduced (see the supplementary information). There was little clear evidence of biases in reporting either by month, or by day for these variables.</p>
 <div class="figure" style="text-align: center">
-<img src="results/paper/figs/trends-for-symptonset.png" alt="Figure 1: a.) Shows the proportion of cases with symptons starting in a given month for each year with some evidence of bias in January and reduced evidence of a seasonal trend. b.) Shows the proportion of cases with symptons starting on a given day for each month with a strong evidence of biased reporting on the first of the month and the 14th. Stratifying both figures based on the introduction of the web-based ETS indicates that the web-based ETS may have reduced these biases." width="60%"><p class="caption">
-Figure 1: a.) Shows the proportion of cases with symptons starting in a given month for each year with some evidence of bias in January and reduced evidence of a seasonal trend. b.) Shows the proportion of cases with symptons starting on a given day for each month with a strong evidence of biased reporting on the first of the month and the 14th. Stratifying both figures based on the introduction of the web-based ETS indicates that the web-based ETS may have reduced these biases.
+<img src="results/paper/figs/trends-for-symptonset.png" alt="Figure 1: a.) Shows the proportion of cases with symptons starting in a given month for each year with some evidence of bias in January. b.) Shows the proportion of cases with symptons starting on a given day for each month with a strong evidence of biased reporting on the first of the month and the 14th. Stratifying both figures based on the introduction of the web-based ETS indicates that the web-based ETS may have reduced these biases." width="60%"><p class="caption">
+Figure 1: a.) Shows the proportion of cases with symptons starting in a given month for each year with some evidence of bias in January. b.) Shows the proportion of cases with symptons starting on a given day for each month with a strong evidence of biased reporting on the first of the month and the 14th. Stratifying both figures based on the introduction of the web-based ETS indicates that the web-based ETS may have reduced these biases.
 </p>
 </div>
 </div>
@@ -1418,9 +1304,9 @@ Figure 1: a.) Shows the proportion of cases with symptons starting in a given mo
 <h1 class="hasAnchor">
 <a href="#discussion" class="anchor"></a>Discussion</h1>
 <p>We found a high degree of missing data for several variables in the ETS. All demographic variables considered were strongly associated with data being missing for multiple outcomes. However, not all outcome missingness was associated with all demographic variables and for those that were the direction of - or trend in - effect was not consistent. Missingness for drug resistance was associated with all variables - excepting year - with higher levels of missingness being associated with children, non-White ethnic groups, the UK born, higher socio-economic status, and the London PHE centre (though there was between PHE centre variation). In comparison, the associations with BCG status had a similar level of evidence but did not share the same trends with children being much less likely to have missing data than older adults, non-White ethnic groups having a lower levels of missing data than the White ethnic group, the non-UK born being more likely to be missing than the UK born, and the London PHE centre being less likely to be missing data than other PHE centres. Missingness for date and cause of death had less evidence of associations than other outcomes. We also found that date variables in particular suffered from changing data completeness over time. In addition, we found that both the date of symptom onset and the date of ending treatment had a higher than expected proportion of cases occurring in January each year and on the 1st and 14th of each month when compared to notification date. This may indicate the presence of reporting or recall bias. These potential biases were reduced after the launch of the web-based ETS but were still present.</p>
-<p>This study has explored missing data in the ETS - which is an example of a well designed surveillance system - in detail and found that missing data can rarely be considered missing completely at random. We highlighted several key demographic variables as being potential sources of bias, but did not find a generalised structure to these biases across key outcomes. Routine observational data-sets are subject to numerous other potential biases not explored in this study. These sources of bias include: selection bias, recall bias, measurement bias, and unmeasured confounding<span class="citation">[10]</span>. These sources of bias may be difficult to quantify in a single routine surveillance data-set as they require knowledge of the population in order to identify - except in the instances seen above with spuriously high reporting for some months, or days in a month. This means that studies using routine surveillance data are never likely to be free of bias. However, by using imputation and including a wide range of variables plausibly linked to variable missingness - as we have demonstrated here - this bias can be reduced<span class="citation">[11]</span>. Also as demonstrated here, by exploring variable reporting across times additional potential sources of bias can be identified and then potentially mitigated. This study does not detail imputation best practises see <span class="citation">[1,11]</span> for further information and <span class="citation">[4,5]</span> for case studies in the ETS. Additionally, multiple variables may suffer from misclassification bias, including BCG status which can be assessed via vaccination record, the presence of a scar, or case recall: this may lead to spurious associations<span class="citation">[12]</span>. These potential sources of bias require additional verification studies in order to identify and account for them. Finally, our study may be used to inform studies in surveillance data-sets other than the ETS but cannot be directly generalised as we only considered a single data-set. For this reason we conducted our analysis within a highly reproducible framework and hence our approach should be readily applicable to other data sources with little alteration.</p>
-<p>Missing data in the ETS was highly complex with changing completeness over time and associations with multiple demographic factors. The launch of the web-based ETS system was linked to reduced missing data, followed by improved completeness over subsequent years for multiple outcomes but for most outcomes this improvement then stalled. An updated data collection system may be able to reduce missing data - and MAR missingness - further. The nature of the associations could not be generalised over the outcomes considered with it being clear that individual mechanisms led to each. However, for all outcomes considered - that were well powered - there was evidence of associations with demographic variables. This indicates that missingness is likely to be not MCAR and hence must be accounted for in any analysis, ideally using multiple imputation<span class="citation">[2,11]</span>. This means that complete case analysis should not be used on its own for this data source - or other similar surveillance data. Whilst many of the variables we considered may often be considered in analysis models - and hence included in imputation - this may not be the case. Therefore, considerable care should be taken when specifying imputation models with other potentially informative variables also being included. Our findings highlight the need for those involved with data collection to also be involved with downstream analysis. Data issues that could lead to bias could then be readily identified by those with the required domain knowledge. This approach may not be feasible in widely studied data-sets, an alternative would be that data collectors share fully imputed data - using all available variables - rather than raw data with missing values. This would allow those best placed to understand the potential sources of bias to mitigate for them and leave downstream users to conduct analysis without having to account further for missingness.</p>
-<p>Whilst this analysis was able to identify multiple potential sources of bias for key outcomes it did not quantify the impact that these may have on analyses using these outcomes. Several studies have made use of the ETS - using imputation to adjust for biases due to missing data - but to our knowledge none have explicitly focused on the impact that biases due to missing data may have had<span class="citation">[4,5]</span>. A case study focussing on the impact of missing data on study outcomes could be used to highlight the impact of improperly accounting for missing data in surveillance data-sets. This analysis only used a single surveillance data-set - in order for the findings to be more easily generalised to other data-sets it could be repeated in additional surveillance data. For this reason this analysis has been structured as an R package (<a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a>).</p>
+<p>This study has explored missing data in the ETS - which is an example of a well designed surveillance system - in detail and found that missing data can rarely be considered missing completely at random. We highlighted several key demographic variables as being potential sources of bias, but did not find a generalised structure to these biases across key outcomes. Routine observational data-sets are subject to numerous other potential biases not explored in this study. These sources of bias include: selection bias, recall bias, measurement bias, and unmeasured confounding<span class="citation">[11]</span>. These sources of bias may be difficult to quantify in a single routine surveillance data-set as they require knowledge of the population in order to identify - except in the instances seen above with spuriously high reporting for some months, or days in a month. This means that studies using routine surveillance data are never likely to be free of bias. However, by using imputation and including a wide range of variables plausibly linked to variable missingness - as we have demonstrated here - this bias can be reduced<span class="citation">[3]</span>. Also as demonstrated here, by exploring variable reporting across times additional potential sources of bias can be identified and then potentially mitigated. This study does not detail imputation best practices see <span class="citation">[1,3]</span> for further information and <span class="citation">[5,6]</span> for case studies in the ETS. Additionally, multiple variables may suffer from misclassification bias, including BCG status which can be assessed via vaccination record, the presence of a scar, or case recall: this may lead to spurious associations<span class="citation">[12]</span>. These potential sources of bias require additional verification studies in order to identify and account for them. Finally, our study may be used to inform studies in surveillance data-sets other than the ETS but cannot be directly generalised as we only considered a single data-set. For this reason we conducted our analysis within a highly reproducible framework and hence our approach should be readily applicable to other data sources with little alteration.</p>
+<p>Missing data in the ETS was highly complex with changing completeness over time and associations with multiple demographic factors. The launch of the web-based ETS system was linked to reduced missing data, followed by improved completeness over subsequent years for multiple outcomes but for most outcomes this improvement then stalled. An updated data collection system may be able to reduce missing data - and MAR missingness - further. The nature of the associations could not be generalised over the outcomes considered with it being clear that individual mechanisms led to each. However, for all outcomes considered - that were well powered - there was evidence of associations with demographic variables. This indicates that missingness is likely to be not MCAR and hence must be accounted for in any analysis, ideally using multiple imputation<span class="citation">[2,3]</span>. This means that complete case analysis is unlikely to be the best option for analyses using this data source - or other similar surveillance data. However, it may be preferable when missing data is MNAR but is not conditional on the outcome being considered<span class="citation">[13]</span>. Whilst many of the variables we considered may often be considered in analysis models - and hence included in imputation - this may not be the case. Therefore, considerable care should be taken when specifying imputation models with other potentially informative variables also being included. Our findings highlight the need for those involved with data collection to also be involved with downstream analysis. Data issues that could lead to bias could then be readily identified by those with the required domain knowledge. This approach may not be feasible in widely studied data-sets, an alternative would be that data collectors share fully imputed data - using all available variables - rather than raw data with missing values. This would allow those best placed to understand the potential sources of bias to mitigate for them and leave downstream users to conduct analysis without having to account further for missingness.</p>
+<p>Whilst this analysis was able to identify multiple potential sources of bias for key outcomes it did not quantify the impact that these may have on analyses using these outcomes. Several studies have made use of the ETS - using imputation to adjust for biases due to missing data - but to our knowledge none have explicitly focused on the impact that biases due to missing data may have had<span class="citation">[5,6]</span>. A case study focusing on the impact of missing data on study outcomes could be used to highlight the impact of improperly accounting for missing data in surveillance data-sets. This analysis only used a single surveillance data-set - in order for the findings to be more easily generalised to other data-sets it could be repeated in additional surveillance data. For this reason this analysis has been structured as an R package (<a href="https://doi.org/10.5281/zenodo.3492200" class="uri">https://doi.org/10.5281/zenodo.3492200</a>).</p>
 <p><strong>Acknowledgements</strong></p>
 <p>The authors thank the TB section at Public Health England (PHE) for maintaining the Enhanced Tuberculosis Surveillance (ETS) system; all the healthcare workers involved in data collection for the ETS.</p>
 <p><strong>Contributors</strong></p>
@@ -1443,35 +1329,38 @@ Figure 1: a.) Shows the proportion of cases with symptons starting in a given mo
 <div id="ref-JSSv045i03">
 <p>2 Buuren S van, Groothuis-Oudshoorn K. Mice: Multivariate imputation by chained equations in r. <em>Journal of Statistical Software, Articles</em> 2011;<strong>45</strong>:1–67. doi:<a href="https://doi.org/10.18637/jss.v045.i03">10.18637/jss.v045.i03</a></p>
 </div>
+<div id="ref-Azur2011">
+<p>3 Azur MJ, Stuart EA, Frangakis C <em>et al.</em> Multiple imputation by chained equations: what is it and how does it work? <em>Int J Methods Psychiatr Res</em> 2011;<strong>20</strong>:40–9. doi:<a href="https://doi.org/10.1002/mpr.329">10.1002/mpr.329</a></p>
+</div>
 <div id="ref-Rezvan2015">
-<p>3 Rezvan PH, Lee KJ, Simpson JA. The rise of multiple imputation : a review of the reporting and implementation of the method in medical research. 2015;1–14. doi:<a href="https://doi.org/10.1186/s12874-015-0022-1">10.1186/s12874-015-0022-1</a></p>
+<p>4 Rezvan PH, Lee KJ, Simpson JA. The rise of multiple imputation : a review of the reporting and implementation of the method in medical research. 2015;1–14. doi:<a href="https://doi.org/10.1186/s12874-015-0022-1">10.1186/s12874-015-0022-1</a></p>
 </div>
 <div id="ref-Abbott:2019:vaccine">
-<p>4 Abbott S, Christensen H, Lalor MK <em>et al.</em> Exploring the effects of bcg vaccination in patients diagnosed with tuberculosis: Observational study using the enhanced tuberculosis surveillance system. <em>Vaccine</em> 2019;<strong>37</strong>:5067–72. doi:<a href="https://doi.org/https://doi.org/10.1016/j.vaccine.2019.06.056">https://doi.org/10.1016/j.vaccine.2019.06.056</a></p>
+<p>5 Abbott S, Christensen H, Lalor MK <em>et al.</em> Exploring the effects of bcg vaccination in patients diagnosed with tuberculosis: Observational study using the enhanced tuberculosis surveillance system. <em>Vaccine</em> 2019;<strong>37</strong>:5067–72. doi:<a href="https://doi.org/https://doi.org/10.1016/j.vaccine.2019.06.056">https://doi.org/10.1016/j.vaccine.2019.06.056</a></p>
 </div>
 <div id="ref-Abbott:2019:preprint:direct">
-<p>5 Abbott S, Christensen H, Welton N <em>et al.</em> Estimating the effect of the 2005 change in bcg policy in england: A retrospective cohort study. <em>bioRxiv</em> Published Online First: 2019. doi:<a href="https://doi.org/10.1101/567511">10.1101/567511</a></p>
+<p>6 Abbott S, Christensen H, Welton N <em>et al.</em> Estimating the effect of the 2005 change in bcg policy in england: A retrospective cohort study. <em>bioRxiv</em> Published Online First: 2019. doi:<a href="https://doi.org/10.1101/567511">10.1101/567511</a></p>
 </div>
 <div id="ref-PHE2017">
-<p>6 Public Health England. Tuberculosis in England 2017 report ( presenting data to end of 2016 ) About Public Health England. 2017. </p>
+<p>7 Public Health England. Tuberculosis in England 2017 report ( presenting data to end of 2016 ) About Public Health England. 2017. </p>
 </div>
 <div id="ref-Kriujshaar2007">
-<p>7 Kruijshaar M, French C, Anderson C <em>et al.</em> Tuberculosis in the UK, Annual report on tuberculosis surveillance and control in the UK 2007. <em>Thorax</em> 2007;<strong>50</strong>:703–3.</p>
+<p>8 Kruijshaar M, French C, Anderson C <em>et al.</em> Tuberculosis in the UK, Annual report on tuberculosis surveillance and control in the UK 2007. <em>Thorax</em> 2007;<strong>50</strong>:703–3.</p>
 </div>
 <div id="ref-Pillaye2003">
-<p>8 Pillaye J, Clarke A. An evaluation of completeness of tuberculosis notification in the United Kingdom. <em>BMC Public Health</em> 2003;<strong>3</strong>:31.</p>
+<p>9 Pillaye J, Clarke A. An evaluation of completeness of tuberculosis notification in the United Kingdom. <em>BMC Public Health</em> 2003;<strong>3</strong>:31.</p>
 </div>
 <div id="ref-Sterne2001">
-<p>9 Sterne JA, Davey Smith G. Sifting the evidence-what’s wrong with significance tests? <em>Bmj</em> 2001;<strong>322</strong>:226–31.</p>
+<p>10 Sterne JA, Davey Smith G. Sifting the evidence-what’s wrong with significance tests? <em>Bmj</em> 2001;<strong>322</strong>:226–31.</p>
 </div>
 <div id="ref-Benchimol2016a">
-<p>10 Benchimol EI, Smeeth L, Guttmann A <em>et al.</em> The REporting of studies Conducted using Observational Routinely-collected health Data (RECORD) Statement. <em>The American Statistician</em> 2016;<strong>115-116</strong>:1–22.</p>
-</div>
-<div id="ref-Azur2011">
-<p>11 Azur MJ, Stuart EA, Frangakis C <em>et al.</em> Multiple imputation by chained equations: what is it and how does it work? <em>Int J Methods Psychiatr Res</em> 2011;<strong>20</strong>:40–9. doi:<a href="https://doi.org/10.1002/mpr.329">10.1002/mpr.329</a></p>
+<p>11 Benchimol EI, Smeeth L, Guttmann A <em>et al.</em> The REporting of studies Conducted using Observational Routinely-collected health Data (RECORD) Statement. <em>The American Statistician</em> 2016;<strong>115-116</strong>:1–22.</p>
 </div>
 <div id="ref-Fewell2007">
 <p>12 Fewell Z, Davey Smith G, Sterne JAC. The impact of residual and unmeasured confounding in epidemiologic studies: A simulation study. <em>American Journal of Epidemiology</em> 2007;<strong>166</strong>:646–55.</p>
+</div>
+<div id="ref-10-1093/ije/dyz032">
+<p>13 Hughes RA, Heron J, Sterne JAC <em>et al.</em> Accounting for missing data in statistical analyses: multiple imputation is not always the answer. <em>International Journal of Epidemiology</em> 2019;<strong>48</strong>:1294–304. doi:<a href="https://doi.org/10.1093/ije/dyz032">10.1093/ije/dyz032</a></p>
 </div>
 </div>
 </div>
@@ -1483,8 +1372,8 @@ Figure 1: a.) Shows the proportion of cases with symptons starting in a given mo
 <h2 class="hasAnchor">
 <a href="#data-completeness-2" class="anchor"></a>Data completeness</h2>
 <div class="figure" style="text-align: center">
-<img src="results/paper/figs/plot-missing-struct.png" alt="Supplementary Figure S1: Summary plot of missing data in the extract of the ETS data used in this thesis. Due to the large size of the dataset, the data has been sub-sampled with only 20\% of the data shown in this figure. Notifications have been ordered by date of notification from left to right. The following subset of variables are shown: year (year), sex (sex), age (age), PHE Centre (phec), Occupation (occat), Ethnic group (ethgrp), UK birth status (ukborn), Time since entry (timesinceent), date of symptom onset (symptonset), date of diagnosis (datediag), started treatment (startedtreat), date of starting treatment (starttreatdate), treatment end date (txenddate), pulmonary or extra-pulmonary TB (pulmextrapulm), culture (culture), sputum smear status (sputsmear), drug resistance (anyres), previous diagnosis (prevdiag), BCG status(bcgvacc), Year of BCG vaccination (bcgvaccyr), overall outcome (overalloutcome), cause of death (tomdeathrelate), socio-economic status quintiles (natquintile), and date of death (dateofdeath). Nested variables have been accounted for (i.e date of death has had an entry added for cases that are known to have not died)." width="60%"><p class="caption">
-Supplementary Figure S1: Summary plot of missing data in the extract of the ETS data used in this thesis. Due to the large size of the dataset, the data has been sub-sampled with only 20% of the data shown in this figure. Notifications have been ordered by date of notification from left to right. The following subset of variables are shown: year (year), sex (sex), age (age), PHE Centre (phec), Occupation (occat), Ethnic group (ethgrp), UK birth status (ukborn), Time since entry (timesinceent), date of symptom onset (symptonset), date of diagnosis (datediag), started treatment (startedtreat), date of starting treatment (starttreatdate), treatment end date (txenddate), pulmonary or extra-pulmonary TB (pulmextrapulm), culture (culture), sputum smear status (sputsmear), drug resistance (anyres), previous diagnosis (prevdiag), BCG status(bcgvacc), Year of BCG vaccination (bcgvaccyr), overall outcome (overalloutcome), cause of death (tomdeathrelate), socio-economic status quintiles (natquintile), and date of death (dateofdeath). Nested variables have been accounted for (i.e date of death has had an entry added for cases that are known to have not died).
+<img src="results/paper/figs/plot-missing-struct.png" alt="Supplementary Figure S1: Summary plot of missing data in the ETS. Due to the large size of the dataset, the data has been sub-sampled with only 20\% of the data shown in this figure. Notifications have been ordered by date of notification from left to right. The following subset of variables are shown: year (year), sex (sex), age (age), PHE Centre (phec), Occupation (occat), Ethnic group (ethgrp), UK birth status (ukborn), Time since entry (timesinceent), date of symptom onset (symptonset), date of diagnosis (datediag), started treatment (startedtreat), date of starting treatment (starttreatdate), treatment end date (txenddate), pulmonary or extra-pulmonary TB (pulmextrapulm), culture (culture), sputum smear status (sputsmear), drug resistance (anyres), previous diagnosis (prevdiag), BCG status(bcgvacc), Year of BCG vaccination (bcgvaccyr), overall outcome (overalloutcome), cause of death (tomdeathrelate), socio-economic status quintiles (natquintile), and date of death (dateofdeath)." width="60%"><p class="caption">
+Supplementary Figure S1: Summary plot of missing data in the ETS. Due to the large size of the dataset, the data has been sub-sampled with only 20% of the data shown in this figure. Notifications have been ordered by date of notification from left to right. The following subset of variables are shown: year (year), sex (sex), age (age), PHE Centre (phec), Occupation (occat), Ethnic group (ethgrp), UK birth status (ukborn), Time since entry (timesinceent), date of symptom onset (symptonset), date of diagnosis (datediag), started treatment (startedtreat), date of starting treatment (starttreatdate), treatment end date (txenddate), pulmonary or extra-pulmonary TB (pulmextrapulm), culture (culture), sputum smear status (sputsmear), drug resistance (anyres), previous diagnosis (prevdiag), BCG status(bcgvacc), Year of BCG vaccination (bcgvaccyr), overall outcome (overalloutcome), cause of death (tomdeathrelate), socio-economic status quintiles (natquintile), and date of death (dateofdeath).
 </p>
 </div>
 </div>
@@ -1495,15 +1384,14 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <h3 class="hasAnchor">
 <a href="#year-of-bcg-vaccination" class="anchor"></a>Year of BCG vaccination</h3>
 <table class="table">
-<caption>Supplementary Table S8: Results from a logistic regression model with data completeness (Complete/Missing) for year of BCG vaccination as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. The model indicates that year of BCG vaccination is missing at random for the variables considered.</caption>
+<caption>Supplementary Table S8: Results from a logistic regression model with data completeness (Complete/Missing) for year of BCG vaccination as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables.</caption>
 <thead><tr class="header">
 <th align="left">Variable</th>
 <th align="left">Category</th>
 <th align="left">Missing (N)</th>
 <th align="right">Notifications (20835)</th>
 <th align="left">Odds Ratio</th>
-<th align="left">P value (Wald)</th>
-<th align="left">P value (LRT)</th>
+<th align="left">P value</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -1512,7 +1400,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">61.0% (2090)</td>
 <td align="right">3424</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">1.59e-09</td>
 </tr>
 <tr class="even">
@@ -1521,7 +1408,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">59.6% (2304)</td>
 <td align="right">3869</td>
 <td align="left">0.90 (0.79, 1.03)</td>
-<td align="left">0.134</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1530,7 +1416,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">56.2% (2216)</td>
 <td align="right">3945</td>
 <td align="left">0.73 (0.64, 0.84)</td>
-<td align="left">6.21e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1539,7 +1424,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">55.7% (2025)</td>
 <td align="right">3638</td>
 <td align="left">0.75 (0.65, 0.86)</td>
-<td align="left">2.71e-05</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1548,7 +1432,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">56.6% (1776)</td>
 <td align="right">3138</td>
 <td align="left">0.83 (0.72, 0.95)</td>
-<td align="left">0.00891</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1557,7 +1440,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">54.2% (1530)</td>
 <td align="right">2821</td>
 <td align="left">0.64 (0.55, 0.74)</td>
-<td align="left">1.34e-09</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1566,7 +1448,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">55.5% (5089)</td>
 <td align="right">9174</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.275</td>
 </tr>
 <tr class="even">
@@ -1575,7 +1456,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">58.8% (6852)</td>
 <td align="right">11661</td>
 <td align="left">1.05 (0.97, 1.13)</td>
-<td align="left">0.275</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1584,7 +1464,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">43.9% (488)</td>
 <td align="right">1111</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">1.21e-20</td>
 </tr>
 <tr class="even">
@@ -1593,7 +1472,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">58.3% (8216)</td>
 <td align="right">14102</td>
 <td align="left">2.12 (1.77, 2.53)</td>
-<td align="left">1.38e-16</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1602,7 +1480,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">57.6% (2526)</td>
 <td align="right">4388</td>
 <td align="left">2.42 (1.99, 2.94)</td>
-<td align="left">6.72e-19</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1611,7 +1488,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">57.6% (711)</td>
 <td align="right">1234</td>
 <td align="left">3.00 (2.36, 3.83)</td>
-<td align="left">5.09e-19</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1620,7 +1496,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">44.2% (1370)</td>
 <td align="right">3102</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">5.86e-12</td>
 </tr>
 <tr class="even">
@@ -1629,7 +1504,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">77.5% (371)</td>
 <td align="right">479</td>
 <td align="left">1.19 (0.89, 1.61)</td>
-<td align="left">0.242</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1638,7 +1512,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">65.2% (2524)</td>
 <td align="right">3870</td>
 <td align="left">0.91 (0.78, 1.07)</td>
-<td align="left">0.261</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1647,7 +1520,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">72.0% (154)</td>
 <td align="right">214</td>
 <td align="left">1.23 (0.80, 1.90)</td>
-<td align="left">0.349</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1656,7 +1528,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">56.1% (3516)</td>
 <td align="right">6267</td>
 <td align="left">0.75 (0.65, 0.86)</td>
-<td align="left">7.27e-05</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1665,7 +1536,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">51.6% (1583)</td>
 <td align="right">3066</td>
 <td align="left">1.10 (0.95, 1.28)</td>
-<td align="left">0.205</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1674,7 +1544,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">73.1% (583)</td>
 <td align="right">797</td>
 <td align="left">1.48 (1.15, 1.90)</td>
-<td align="left">0.00226</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1683,7 +1552,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">58.2% (142)</td>
 <td align="right">244</td>
 <td align="left">1.23 (0.83, 1.80)</td>
-<td align="left">0.3</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1692,7 +1560,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">60.7% (1698)</td>
 <td align="right">2796</td>
 <td align="left">0.83 (0.70, 0.98)</td>
-<td align="left">0.0318</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1701,7 +1568,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">61.1% (9665)</td>
 <td align="right">15808</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">5.14e-08</td>
 </tr>
 <tr class="odd">
@@ -1710,7 +1576,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">45.3% (2276)</td>
 <td align="right">5027</td>
 <td align="left">0.74 (0.66, 0.82)</td>
-<td align="left">4.98e-08</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1719,7 +1584,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">55.4% (4221)</td>
 <td align="right">7615</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">4.64e-05</td>
 </tr>
 <tr class="odd">
@@ -1728,7 +1592,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">66.3% (4463)</td>
 <td align="right">6729</td>
 <td align="left">0.88 (0.79, 0.97)</td>
-<td align="left">0.0118</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1737,7 +1600,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">59.4% (2019)</td>
 <td align="right">3401</td>
 <td align="left">0.84 (0.74, 0.95)</td>
-<td align="left">0.00684</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1746,7 +1608,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">45.3% (838)</td>
 <td align="right">1848</td>
 <td align="left">0.70 (0.60, 0.82)</td>
-<td align="left">6.29e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1755,7 +1616,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">32.2% (400)</td>
 <td align="right">1242</td>
 <td align="left">0.78 (0.65, 0.93)</td>
-<td align="left">0.00583</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1764,7 +1624,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">91.0% (9421)</td>
 <td align="right">10358</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0</td>
 </tr>
 <tr class="even">
@@ -1773,7 +1632,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">39.3% (1010)</td>
 <td align="right">2568</td>
 <td align="left">0.06 (0.05, 0.07)</td>
-<td align="left">0</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1782,7 +1640,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">9.2% (116)</td>
 <td align="right">1260</td>
 <td align="left">0.01 (0.01, 0.01)</td>
-<td align="left">0</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1791,7 +1648,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">13.0% (293)</td>
 <td align="right">2261</td>
 <td align="left">0.01 (0.01, 0.02)</td>
-<td align="left">0</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1800,7 +1656,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">45.2% (528)</td>
 <td align="right">1167</td>
 <td align="left">0.08 (0.07, 0.09)</td>
-<td align="left">2.85e-255</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1809,7 +1664,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">19.9% (260)</td>
 <td align="right">1305</td>
 <td align="left">0.02 (0.02, 0.03)</td>
-<td align="left">0</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1818,7 +1672,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.1% (33)</td>
 <td align="right">1066</td>
 <td align="left">0.00 (0.00, 0.00)</td>
-<td align="left">2.6e-224</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1827,7 +1680,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">38.4% (175)</td>
 <td align="right">456</td>
 <td align="left">0.06 (0.05, 0.08)</td>
-<td align="left">4.24e-153</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1836,7 +1688,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">26.6% (105)</td>
 <td align="right">394</td>
 <td align="left">0.03 (0.03, 0.04)</td>
-<td align="left">2.87e-172</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -1846,15 +1697,14 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <h3 class="hasAnchor">
 <a href="#date-of-diagnosis-1" class="anchor"></a>Date of diagnosis</h3>
 <table class="table">
-<caption>Supplementary Table S1: Results from a logistic regression model with data completeness (Complete/Missing) for date of diagnosis onset as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. The model indicates that date of diagnosis is missing at random for the variables for all variables considered, except for sex.</caption>
+<caption>Supplementary Table S1: Results from a logistic regression model with data completeness (Complete/Missing) for date of diagnosis onset as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables.</caption>
 <thead><tr class="header">
 <th align="left">Variable</th>
 <th align="left">Category</th>
 <th align="left">Missing (N)</th>
 <th align="right">Notifications (41659)</th>
 <th align="left">Odds Ratio</th>
-<th align="left">P value (Wald)</th>
-<th align="left">P value (LRT)</th>
+<th align="left">P value</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -1863,7 +1713,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">26.9% (1918)</td>
 <td align="right">7143</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">7.54e-286</td>
 </tr>
 <tr class="even">
@@ -1872,7 +1721,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">22.3% (1736)</td>
 <td align="right">7781</td>
 <td align="left">0.77 (0.71, 0.83)</td>
-<td align="left">2.11e-10</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1881,7 +1729,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">18.8% (1458)</td>
 <td align="right">7755</td>
 <td align="left">0.61 (0.56, 0.66)</td>
-<td align="left">3.93e-31</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1890,7 +1737,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">12.9% (909)</td>
 <td align="right">7034</td>
 <td align="left">0.38 (0.35, 0.42)</td>
-<td align="left">6.81e-91</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1899,7 +1745,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">10.4% (659)</td>
 <td align="right">6327</td>
 <td align="left">0.30 (0.27, 0.33)</td>
-<td align="left">6.2e-120</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1908,7 +1753,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">7.4% (415)</td>
 <td align="right">5619</td>
 <td align="left">0.20 (0.18, 0.22)</td>
-<td align="left">1.56e-158</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1917,7 +1761,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">16.9% (2984)</td>
 <td align="right">17664</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.432</td>
 </tr>
 <tr class="even">
@@ -1926,7 +1769,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">17.1% (4111)</td>
 <td align="right">23995</td>
 <td align="left">1.02 (0.97, 1.08)</td>
-<td align="left">0.432</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1935,7 +1777,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">19.4% (348)</td>
 <td align="right">1793</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.000251</td>
 </tr>
 <tr class="even">
@@ -1944,7 +1785,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">17.8% (4504)</td>
 <td align="right">25235</td>
 <td align="left">0.74 (0.65, 0.86)</td>
-<td align="left">4.77e-05</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1953,7 +1793,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">15.9% (1434)</td>
 <td align="right">9026</td>
 <td align="left">0.73 (0.62, 0.85)</td>
-<td align="left">3.52e-05</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1962,7 +1801,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">14.4% (809)</td>
 <td align="right">5605</td>
 <td align="left">0.79 (0.68, 0.94)</td>
-<td align="left">0.00563</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1971,7 +1809,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">12.5% (1043)</td>
 <td align="right">8359</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">6.85e-08</td>
 </tr>
 <tr class="even">
@@ -1980,7 +1817,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">25.2% (234)</td>
 <td align="right">928</td>
 <td align="left">1.20 (1.00, 1.43)</td>
-<td align="left">0.0469</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -1989,7 +1825,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">21.9% (1577)</td>
 <td align="right">7204</td>
 <td align="left">0.99 (0.89, 1.11)</td>
-<td align="left">0.876</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -1998,7 +1833,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">17.9% (66)</td>
 <td align="right">369</td>
 <td align="left">0.75 (0.56, 1.01)</td>
-<td align="left">0.0612</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2007,7 +1841,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">18.0% (1957)</td>
 <td align="right">10848</td>
 <td align="left">0.80 (0.72, 0.89)</td>
-<td align="left">4.94e-05</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2016,7 +1849,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">11.8% (805)</td>
 <td align="right">6806</td>
 <td align="left">0.86 (0.76, 0.97)</td>
-<td align="left">0.0158</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2025,7 +1857,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">21.5% (361)</td>
 <td align="right">1680</td>
 <td align="left">0.94 (0.81, 1.10)</td>
-<td align="left">0.469</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2034,7 +1865,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">13.4% (66)</td>
 <td align="right">494</td>
 <td align="left">0.66 (0.49, 0.88)</td>
-<td align="left">0.00525</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2043,7 +1873,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">19.8% (986)</td>
 <td align="right">4971</td>
 <td align="left">0.91 (0.81, 1.02)</td>
-<td align="left">0.117</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2052,7 +1881,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">18.4% (5696)</td>
 <td align="right">30880</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.00227</td>
 </tr>
 <tr class="odd">
@@ -2061,7 +1889,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">13.0% (1399)</td>
 <td align="right">10779</td>
 <td align="left">0.87 (0.80, 0.95)</td>
-<td align="left">0.00235</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2070,7 +1897,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">14.4% (2317)</td>
 <td align="right">16131</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">6.01e-14</td>
 </tr>
 <tr class="odd">
@@ -2079,7 +1905,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">19.6% (2469)</td>
 <td align="right">12621</td>
 <td align="left">0.97 (0.90, 1.04)</td>
-<td align="left">0.394</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2088,7 +1913,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">20.3% (1325)</td>
 <td align="right">6530</td>
 <td align="left">1.22 (1.12, 1.33)</td>
-<td align="left">5.3e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2097,7 +1921,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">17.0% (645)</td>
 <td align="right">3796</td>
 <td align="left">1.30 (1.17, 1.45)</td>
-<td align="left">1.87e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2106,7 +1929,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">13.1% (339)</td>
 <td align="right">2581</td>
 <td align="left">1.42 (1.23, 1.62)</td>
-<td align="left">9.74e-07</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2115,7 +1937,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">31.0% (5471)</td>
 <td align="right">17658</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0</td>
 </tr>
 <tr class="even">
@@ -2124,7 +1945,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.6% (190)</td>
 <td align="right">5217</td>
 <td align="left">0.08 (0.07, 0.10)</td>
-<td align="left">4.97e-226</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2133,7 +1953,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">7.6% (308)</td>
 <td align="right">4075</td>
 <td align="left">0.18 (0.15, 0.20)</td>
-<td align="left">6.15e-159</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2142,7 +1961,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.9% (157)</td>
 <td align="right">4037</td>
 <td align="left">0.08 (0.07, 0.09)</td>
-<td align="left">4e-193</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2151,7 +1969,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.2% (99)</td>
 <td align="right">3077</td>
 <td align="left">0.07 (0.06, 0.09)</td>
-<td align="left">1.51e-137</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2160,7 +1977,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">11.3% (302)</td>
 <td align="right">2662</td>
 <td align="left">0.26 (0.23, 0.30)</td>
-<td align="left">2.32e-93</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2169,7 +1985,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">18.9% (482)</td>
 <td align="right">2548</td>
 <td align="left">0.51 (0.46, 0.57)</td>
-<td align="left">2.4e-33</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2178,7 +1993,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.8% (45)</td>
 <td align="right">1595</td>
 <td align="left">0.06 (0.05, 0.08)</td>
-<td align="left">8.96e-73</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2187,7 +2001,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">5.2% (41)</td>
 <td align="right">790</td>
 <td align="left">0.12 (0.09, 0.17)</td>
-<td align="left">5.45e-38</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -2197,15 +2010,14 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <h3 class="hasAnchor">
 <a href="#date-of-starting-treatment-and-ending-treatment-1" class="anchor"></a>Date of starting treatment and ending treatment</h3>
 <table class="table">
-<caption>Supplementary Table S2: Results from a logistic regression model with data completeness (Complete/Missing) for date of starting treatment as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. There is little evidence that the missing data for the date of starting treatment is associated with any variable considered, except for year of notification.</caption>
+<caption>Supplementary Table S2: Results from a logistic regression model with data completeness (Complete/Missing) for date of starting treatment as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables.</caption>
 <thead><tr class="header">
 <th align="left">Variable</th>
 <th align="left">Category</th>
 <th align="left">Missing (N)</th>
 <th align="right">Notifications (41659)</th>
 <th align="left">Odds Ratio</th>
-<th align="left">P value (Wald)</th>
-<th align="left">P value (LRT)</th>
+<th align="left">P value</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -2214,7 +2026,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">5.1% (367)</td>
 <td align="right">7143</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">2.48e-37</td>
 </tr>
 <tr class="even">
@@ -2223,7 +2034,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">4.7% (368)</td>
 <td align="right">7781</td>
 <td align="left">0.92 (0.79, 1.07)</td>
-<td align="left">0.281</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2232,7 +2042,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">4.0% (314)</td>
 <td align="right">7755</td>
 <td align="left">0.77 (0.66, 0.90)</td>
-<td align="left">0.00121</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2241,7 +2050,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.8% (265)</td>
 <td align="right">7034</td>
 <td align="left">0.70 (0.59, 0.82)</td>
-<td align="left">1.7e-05</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2250,7 +2058,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.2% (139)</td>
 <td align="right">6327</td>
 <td align="left">0.39 (0.32, 0.47)</td>
-<td align="left">1.36e-20</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2259,7 +2066,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.0% (115)</td>
 <td align="right">5619</td>
 <td align="left">0.36 (0.29, 0.45)</td>
-<td align="left">1.65e-20</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2268,7 +2074,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.4% (608)</td>
 <td align="right">17664</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.00223</td>
 </tr>
 <tr class="even">
@@ -2277,7 +2082,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">4.0% (960)</td>
 <td align="right">23995</td>
 <td align="left">1.18 (1.06, 1.31)</td>
-<td align="left">0.00234</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2286,7 +2090,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.6% (64)</td>
 <td align="right">1793</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">1.89e-29</td>
 </tr>
 <tr class="even">
@@ -2295,7 +2098,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.1% (774)</td>
 <td align="right">25235</td>
 <td align="left">0.89 (0.68, 1.17)</td>
-<td align="left">0.384</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2304,7 +2106,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.4% (310)</td>
 <td align="right">9026</td>
 <td align="left">0.93 (0.70, 1.25)</td>
-<td align="left">0.628</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2313,7 +2114,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">7.5% (420)</td>
 <td align="right">5605</td>
 <td align="left">1.96 (1.49, 2.63)</td>
-<td align="left">3.16e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2322,7 +2122,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">5.8% (486)</td>
 <td align="right">8359</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.00077</td>
 </tr>
 <tr class="even">
@@ -2331,7 +2130,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.4% (32)</td>
 <td align="right">928</td>
 <td align="left">0.71 (0.48, 1.02)</td>
-<td align="left">0.0765</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2340,7 +2138,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.8% (203)</td>
 <td align="right">7204</td>
 <td align="left">0.61 (0.49, 0.76)</td>
-<td align="left">7.46e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2349,7 +2146,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.3% (12)</td>
 <td align="right">369</td>
 <td align="left">0.79 (0.42, 1.38)</td>
-<td align="left">0.445</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2358,7 +2154,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.4% (371)</td>
 <td align="right">10848</td>
 <td align="left">0.71 (0.59, 0.86)</td>
-<td align="left">0.000401</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2367,7 +2162,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.6% (243)</td>
 <td align="right">6806</td>
 <td align="left">0.63 (0.52, 0.77)</td>
-<td align="left">4.66e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2376,7 +2170,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.1% (52)</td>
 <td align="right">1680</td>
 <td align="left">0.66 (0.48, 0.90)</td>
-<td align="left">0.0108</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2385,7 +2178,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.8% (19)</td>
 <td align="right">494</td>
 <td align="left">0.78 (0.46, 1.24)</td>
-<td align="left">0.318</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2394,7 +2186,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.0% (150)</td>
 <td align="right">4971</td>
 <td align="left">0.70 (0.55, 0.87)</td>
-<td align="left">0.00173</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2403,7 +2194,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.4% (1045)</td>
 <td align="right">30880</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.516</td>
 </tr>
 <tr class="odd">
@@ -2412,7 +2202,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">4.9% (523)</td>
 <td align="right">10779</td>
 <td align="left">0.95 (0.81, 1.11)</td>
-<td align="left">0.516</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2421,7 +2210,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.8% (611)</td>
 <td align="right">16131</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.665</td>
 </tr>
 <tr class="odd">
@@ -2430,7 +2218,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.7% (462)</td>
 <td align="right">12621</td>
 <td align="left">1.05 (0.92, 1.20)</td>
-<td align="left">0.481</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2439,7 +2226,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.5% (226)</td>
 <td align="right">6530</td>
 <td align="left">0.92 (0.78, 1.09)</td>
-<td align="left">0.336</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2448,7 +2234,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">4.1% (154)</td>
 <td align="right">3796</td>
 <td align="left">0.99 (0.82, 1.20)</td>
-<td align="left">0.934</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2457,7 +2242,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">4.5% (115)</td>
 <td align="right">2581</td>
 <td align="left">1.01 (0.81, 1.25)</td>
-<td align="left">0.925</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2466,7 +2250,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.1% (551)</td>
 <td align="right">17658</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">2.84e-17</td>
 </tr>
 <tr class="even">
@@ -2475,7 +2258,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.8% (198)</td>
 <td align="right">5217</td>
 <td align="left">1.11 (0.93, 1.32)</td>
-<td align="left">0.229</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2484,7 +2266,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">4.3% (176)</td>
 <td align="right">4075</td>
 <td align="left">1.27 (1.05, 1.52)</td>
-<td align="left">0.0112</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2493,7 +2274,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.0% (121)</td>
 <td align="right">4037</td>
 <td align="left">0.87 (0.71, 1.07)</td>
-<td align="left">0.194</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2502,7 +2282,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">6.6% (202)</td>
 <td align="right">3077</td>
 <td align="left">2.03 (1.70, 2.43)</td>
-<td align="left">8.5e-15</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2511,7 +2290,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.3% (88)</td>
 <td align="right">2662</td>
 <td align="left">0.97 (0.77, 1.22)</td>
-<td align="left">0.815</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2520,7 +2298,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.2% (82)</td>
 <td align="right">2548</td>
 <td align="left">0.93 (0.73, 1.17)</td>
-<td align="left">0.542</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2529,7 +2306,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">6.9% (110)</td>
 <td align="right">1595</td>
 <td align="left">1.94 (1.54, 2.41)</td>
-<td align="left">5.75e-09</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2538,21 +2314,19 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">5.1% (40)</td>
 <td align="right">790</td>
 <td align="left">1.44 (1.01, 1.99)</td>
-<td align="left">0.0342</td>
 <td align="left"></td>
 </tr>
 </tbody>
 </table>
 <table class="table">
-<caption>Supplementary Table S3: Results from a logistic regression model with data completeness (Complete/Missing) for date of starting treatment as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. There is little evidence that the missing data for the date of starting treatment is associated with any variable considered, except for year of notification.</caption>
+<caption>Supplementary Table S3: Results from a logistic regression model with data completeness (Complete/Missing) for date of starting treatment as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables.</caption>
 <thead><tr class="header">
 <th align="left">Variable</th>
 <th align="left">Category</th>
 <th align="left">Missing (N)</th>
 <th align="right">Notifications (33606)</th>
 <th align="left">Odds Ratio</th>
-<th align="left">P value (Wald)</th>
-<th align="left">P value (LRT)</th>
+<th align="left">P value</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -2561,7 +2335,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.9% (182)</td>
 <td align="right">6171</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">4.89e-15</td>
 </tr>
 <tr class="even">
@@ -2570,7 +2343,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.6% (177)</td>
 <td align="right">6855</td>
 <td align="left">0.88 (0.71, 1.08)</td>
-<td align="left">0.228</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2579,7 +2351,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.4% (164)</td>
 <td align="right">6882</td>
 <td align="left">0.78 (0.63, 0.97)</td>
-<td align="left">0.0274</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2588,7 +2359,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1.5% (97)</td>
 <td align="right">6298</td>
 <td align="left">0.49 (0.38, 0.63)</td>
-<td align="left">3.05e-08</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2597,7 +2367,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1.2% (66)</td>
 <td align="right">5341</td>
 <td align="left">0.38 (0.29, 0.51)</td>
-<td align="left">5.33e-11</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2606,7 +2375,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1.4% (28)</td>
 <td align="right">2059</td>
 <td align="left">0.47 (0.31, 0.69)</td>
-<td align="left">0.000223</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2615,7 +2383,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.1% (311)</td>
 <td align="right">14630</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.506</td>
 </tr>
 <tr class="even">
@@ -2624,7 +2391,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.1% (403)</td>
 <td align="right">18976</td>
 <td align="left">1.05 (0.91, 1.23)</td>
-<td align="left">0.507</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2633,7 +2399,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.7% (44)</td>
 <td align="right">1617</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.52</td>
 </tr>
 <tr class="even">
@@ -2642,7 +2407,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.0% (419)</td>
 <td align="right">21027</td>
 <td align="left">0.81 (0.59, 1.14)</td>
-<td align="left">0.209</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2651,7 +2415,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.3% (165)</td>
 <td align="right">7272</td>
 <td align="left">0.83 (0.59, 1.20)</td>
-<td align="left">0.314</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2660,7 +2423,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.3% (86)</td>
 <td align="right">3690</td>
 <td align="left">0.74 (0.50, 1.11)</td>
-<td align="left">0.141</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2669,7 +2431,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.9% (176)</td>
 <td align="right">6076</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.0466</td>
 </tr>
 <tr class="even">
@@ -2678,7 +2439,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.8% (21)</td>
 <td align="right">753</td>
 <td align="left">1.51 (0.91, 2.38)</td>
-<td align="left">0.0888</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2687,7 +2447,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1.9% (114)</td>
 <td align="right">6071</td>
 <td align="left">0.90 (0.66, 1.23)</td>
-<td align="left">0.512</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2696,7 +2455,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.3% (7)</td>
 <td align="right">306</td>
 <td align="left">1.34 (0.56, 2.75)</td>
-<td align="left">0.464</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2705,7 +2463,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1.7% (150)</td>
 <td align="right">8842</td>
 <td align="left">0.72 (0.55, 0.96)</td>
-<td align="left">0.0235</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2714,7 +2471,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.5% (140)</td>
 <td align="right">5668</td>
 <td align="left">0.86 (0.65, 1.13)</td>
-<td align="left">0.282</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2723,7 +2479,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1.3% (18)</td>
 <td align="right">1409</td>
 <td align="left">0.65 (0.37, 1.07)</td>
-<td align="left">0.105</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2732,7 +2487,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.8% (11)</td>
 <td align="right">396</td>
 <td align="left">1.17 (0.58, 2.14)</td>
-<td align="left">0.643</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2741,7 +2495,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1.9% (77)</td>
 <td align="right">4085</td>
 <td align="left">0.98 (0.70, 1.35)</td>
-<td align="left">0.887</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2750,7 +2503,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1.9% (480)</td>
 <td align="right">25174</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.959</td>
 </tr>
 <tr class="odd">
@@ -2759,7 +2511,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.8% (234)</td>
 <td align="right">8432</td>
 <td align="left">1.01 (0.81, 1.25)</td>
-<td align="left">0.959</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2768,7 +2519,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.4% (308)</td>
 <td align="right">13080</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.257</td>
 </tr>
 <tr class="odd">
@@ -2777,7 +2527,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1.7% (170)</td>
 <td align="right">10266</td>
 <td align="left">1.03 (0.84, 1.26)</td>
-<td align="left">0.752</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2786,7 +2535,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1.9% (100)</td>
 <td align="right">5265</td>
 <td align="left">1.09 (0.85, 1.38)</td>
-<td align="left">0.498</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2795,7 +2543,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.8% (84)</td>
 <td align="right">2994</td>
 <td align="left">1.36 (1.04, 1.76)</td>
-<td align="left">0.021</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2804,7 +2551,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.6% (52)</td>
 <td align="right">2001</td>
 <td align="left">1.08 (0.78, 1.47)</td>
-<td align="left">0.619</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2813,7 +2559,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">0.7% (100)</td>
 <td align="right">14747</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">8.46e-59</td>
 </tr>
 <tr class="even">
@@ -2822,7 +2567,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">4.2% (177)</td>
 <td align="right">4240</td>
 <td align="left">6.68 (5.16, 8.69)</td>
-<td align="left">2e-46</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2831,7 +2575,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.7% (88)</td>
 <td align="right">3208</td>
 <td align="left">4.16 (3.07, 5.63)</td>
-<td align="left">2.21e-20</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2840,7 +2583,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.5% (79)</td>
 <td align="right">3213</td>
 <td align="left">3.57 (2.62, 4.84)</td>
-<td align="left">3.41e-16</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2849,7 +2591,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.8% (67)</td>
 <td align="right">2361</td>
 <td align="left">4.34 (3.12, 6.01)</td>
-<td align="left">1.06e-18</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2858,7 +2599,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">4.0% (83)</td>
 <td align="right">2098</td>
 <td align="left">5.88 (4.35, 7.94)</td>
-<td align="left">6.86e-31</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2867,7 +2607,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.1% (63)</td>
 <td align="right">2039</td>
 <td align="left">4.77 (3.44, 6.58)</td>
-<td align="left">2.87e-21</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2876,7 +2615,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.9% (32)</td>
 <td align="right">1122</td>
 <td align="left">4.22 (2.76, 6.29)</td>
-<td align="left">6.37e-12</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2885,7 +2623,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">4.3% (25)</td>
 <td align="right">578</td>
 <td align="left">6.73 (4.19, 10.44)</td>
-<td align="left">2.16e-16</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -2895,15 +2632,14 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <h3 class="hasAnchor">
 <a href="#date-of-death" class="anchor"></a>Date of death</h3>
 <table class="table">
-<caption>Supplementary Table S4: Results from a logistic regression model with data completeness (Complete/Missing) for date of death as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. The model indicates that there is some evidence that date of death is missing at random for ethnic group, with weaker evidence for all other variables.</caption>
+<caption>Supplementary Table S4: Results from a logistic regression model with data completeness (Complete/Missing) for date of death as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables.</caption>
 <thead><tr class="header">
 <th align="left">Variable</th>
 <th align="left">Category</th>
 <th align="left">Missing (N)</th>
 <th align="right">Notifications (1883)</th>
 <th align="left">Odds Ratio</th>
-<th align="left">P value (Wald)</th>
-<th align="left">P value (LRT)</th>
+<th align="left">P value</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -2912,7 +2648,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">16.6% (53)</td>
 <td align="right">320</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.129</td>
 </tr>
 <tr class="even">
@@ -2921,7 +2656,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">15.9% (52)</td>
 <td align="right">327</td>
 <td align="left">1.02 (0.63, 1.65)</td>
-<td align="left">0.938</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2930,7 +2664,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">14.5% (51)</td>
 <td align="right">351</td>
 <td align="left">0.88 (0.54, 1.42)</td>
-<td align="left">0.593</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2939,7 +2672,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">13.5% (42)</td>
 <td align="right">312</td>
 <td align="left">0.70 (0.43, 1.16)</td>
-<td align="left">0.169</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2948,7 +2680,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">9.5% (30)</td>
 <td align="right">317</td>
 <td align="left">0.55 (0.32, 0.93)</td>
-<td align="left">0.0263</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -2957,7 +2688,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">13.3% (34)</td>
 <td align="right">256</td>
 <td align="left">0.67 (0.39, 1.14)</td>
-<td align="left">0.14</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2966,7 +2696,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">14.8% (97)</td>
 <td align="right">657</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.569</td>
 </tr>
 <tr class="even">
@@ -2975,7 +2704,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">13.5% (165)</td>
 <td align="right">1226</td>
 <td align="left">0.91 (0.67, 1.25)</td>
-<td align="left">0.568</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -2984,7 +2712,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">10.0% (1)</td>
 <td align="right">10</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.799</td>
 </tr>
 <tr class="even">
@@ -2993,7 +2720,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">15.7% (31)</td>
 <td align="right">198</td>
 <td align="left">1.86 (0.26, 38.77)</td>
-<td align="left">0.596</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3002,7 +2728,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">14.6% (68)</td>
 <td align="right">465</td>
 <td align="left">1.85 (0.26, 38.20)</td>
-<td align="left">0.598</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3011,7 +2736,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">13.4% (162)</td>
 <td align="right">1210</td>
 <td align="left">2.11 (0.30, 43.43)</td>
-<td align="left">0.521</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3020,7 +2744,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">11.1% (102)</td>
 <td align="right">920</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.9</td>
 </tr>
 <tr class="even">
@@ -3029,7 +2752,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">21.7% (10)</td>
 <td align="right">46</td>
 <td align="left">0.90 (0.35, 2.18)</td>
-<td align="left">0.817</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3038,7 +2760,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">20.1% (27)</td>
 <td align="right">134</td>
 <td align="left">0.92 (0.45, 1.92)</td>
-<td align="left">0.833</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3047,7 +2768,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">20.0% (1)</td>
 <td align="right">5</td>
 <td align="left">0.52 (0.03, 4.31)</td>
-<td align="left">0.586</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3056,7 +2776,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">17.4% (64)</td>
 <td align="right">367</td>
 <td align="left">0.90 (0.49, 1.70)</td>
-<td align="left">0.747</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3065,7 +2784,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">8.0% (20)</td>
 <td align="right">249</td>
 <td align="left">0.62 (0.30, 1.29)</td>
-<td align="left">0.204</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3074,7 +2792,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">22.7% (10)</td>
 <td align="right">44</td>
 <td align="left">0.85 (0.33, 2.12)</td>
-<td align="left">0.731</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3083,7 +2800,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">14.3% (3)</td>
 <td align="right">21</td>
 <td align="left">0.80 (0.16, 3.23)</td>
-<td align="left">0.772</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3092,7 +2808,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">25.8% (25)</td>
 <td align="right">97</td>
 <td align="left">1.15 (0.55, 2.39)</td>
-<td align="left">0.711</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3101,7 +2816,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">16.6% (167)</td>
 <td align="right">1004</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.796</td>
 </tr>
 <tr class="odd">
@@ -3110,7 +2824,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">10.8% (95)</td>
 <td align="right">879</td>
 <td align="left">1.08 (0.61, 1.92)</td>
-<td align="left">0.796</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3119,7 +2832,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">11.4% (79)</td>
 <td align="right">695</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.912</td>
 </tr>
 <tr class="odd">
@@ -3128,7 +2840,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">18.3% (86)</td>
 <td align="right">470</td>
 <td align="left">0.87 (0.59, 1.29)</td>
-<td align="left">0.499</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3137,7 +2848,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">16.2% (48)</td>
 <td align="right">296</td>
 <td align="left">1.04 (0.66, 1.64)</td>
-<td align="left">0.87</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3146,7 +2856,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">12.7% (30)</td>
 <td align="right">237</td>
 <td align="left">1.02 (0.60, 1.71)</td>
-<td align="left">0.937</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3155,7 +2864,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">10.3% (19)</td>
 <td align="right">185</td>
 <td align="left">0.87 (0.46, 1.59)</td>
-<td align="left">0.651</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3164,7 +2872,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">37.6% (201)</td>
 <td align="right">534</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">1.92e-57</td>
 </tr>
 <tr class="even">
@@ -3173,7 +2880,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.3% (7)</td>
 <td align="right">305</td>
 <td align="left">0.04 (0.02, 0.07)</td>
-<td align="left">1.61e-16</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3182,7 +2888,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">7.0% (16)</td>
 <td align="right">228</td>
 <td align="left">0.12 (0.07, 0.21)</td>
-<td align="left">5.23e-13</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3191,7 +2896,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">4.8% (10)</td>
 <td align="right">208</td>
 <td align="left">0.08 (0.04, 0.15)</td>
-<td align="left">2.25e-13</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3200,7 +2904,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">3.6% (6)</td>
 <td align="right">168</td>
 <td align="left">0.06 (0.02, 0.12)</td>
-<td align="left">4.81e-11</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3209,7 +2912,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">8.5% (11)</td>
 <td align="right">130</td>
 <td align="left">0.14 (0.07, 0.26)</td>
-<td align="left">6.32e-09</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3218,7 +2920,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">1.9% (3)</td>
 <td align="right">156</td>
 <td align="left">0.03 (0.01, 0.08)</td>
-<td align="left">2.58e-09</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3227,7 +2928,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">6.7% (7)</td>
 <td align="right">105</td>
 <td align="left">0.11 (0.04, 0.23)</td>
-<td align="left">7.77e-08</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3236,7 +2936,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">2.0% (1)</td>
 <td align="right">49</td>
 <td align="left">0.03 (0.00, 0.15)</td>
-<td align="left">0.000694</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -3246,15 +2945,14 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <h3 class="hasAnchor">
 <a href="#cause-of-death" class="anchor"></a>Cause of death</h3>
 <table class="table">
-<caption>Supplementary Table S5: Results from a logistic regression model with data completeness (Complete/Missing) for cause of death as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. The model indicates that cause of death is missing at random for ethnic group and UK birth status, with little evidence for any other variables</caption>
+<caption>Supplementary Table S5: Results from a logistic regression model with data completeness (Complete/Missing) for cause of death as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables.</caption>
 <thead><tr class="header">
 <th align="left">Variable</th>
 <th align="left">Category</th>
 <th align="left">Missing (N)</th>
 <th align="right">Notifications (1883)</th>
 <th align="left">Odds Ratio</th>
-<th align="left">P value (Wald)</th>
-<th align="left">P value (LRT)</th>
+<th align="left">P value</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -3263,7 +2961,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">45.0% (144)</td>
 <td align="right">320</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.576</td>
 </tr>
 <tr class="even">
@@ -3272,7 +2969,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">45.6% (149)</td>
 <td align="right">327</td>
 <td align="left">0.99 (0.71, 1.37)</td>
-<td align="left">0.944</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3281,7 +2977,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">45.3% (159)</td>
 <td align="right">351</td>
 <td align="left">0.94 (0.68, 1.29)</td>
-<td align="left">0.694</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3290,7 +2985,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">43.9% (137)</td>
 <td align="right">312</td>
 <td align="left">0.94 (0.67, 1.30)</td>
-<td align="left">0.693</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3299,7 +2993,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">44.8% (142)</td>
 <td align="right">317</td>
 <td align="left">0.86 (0.62, 1.20)</td>
-<td align="left">0.379</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3308,7 +3001,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">38.7% (99)</td>
 <td align="right">256</td>
 <td align="left">0.74 (0.52, 1.05)</td>
-<td align="left">0.0933</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3317,7 +3009,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">44.7% (294)</td>
 <td align="right">657</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.763</td>
 </tr>
 <tr class="even">
@@ -3326,7 +3017,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">43.7% (536)</td>
 <td align="right">1226</td>
 <td align="left">0.97 (0.79, 1.19)</td>
-<td align="left">0.763</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3335,7 +3025,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">50.0% (5)</td>
 <td align="right">10</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.14</td>
 </tr>
 <tr class="even">
@@ -3344,7 +3033,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">35.4% (70)</td>
 <td align="right">198</td>
 <td align="left">0.69 (0.17, 2.82)</td>
-<td align="left">0.6</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3353,7 +3041,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">43.0% (200)</td>
 <td align="right">465</td>
 <td align="left">1.02 (0.25, 4.11)</td>
-<td align="left">0.977</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3362,7 +3049,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">45.9% (555)</td>
 <td align="right">1210</td>
 <td align="left">1.03 (0.25, 4.13)</td>
-<td align="left">0.965</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3371,7 +3057,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">48.2% (443)</td>
 <td align="right">920</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.00768</td>
 </tr>
 <tr class="even">
@@ -3380,7 +3065,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">21.7% (10)</td>
 <td align="right">46</td>
 <td align="left">0.47 (0.20, 0.99)</td>
-<td align="left">0.0565</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3389,7 +3073,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">45.5% (61)</td>
 <td align="right">134</td>
 <td align="left">1.78 (1.04, 3.03)</td>
-<td align="left">0.0347</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3398,7 +3081,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">20.0% (1)</td>
 <td align="right">5</td>
 <td align="left">0.70 (0.03, 5.37)</td>
-<td align="left">0.761</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3407,7 +3089,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">35.7% (131)</td>
 <td align="right">367</td>
 <td align="left">0.87 (0.56, 1.36)</td>
-<td align="left">0.545</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3416,7 +3097,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">49.4% (123)</td>
 <td align="right">249</td>
 <td align="left">1.33 (0.84, 2.11)</td>
-<td align="left">0.224</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3425,7 +3105,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">27.3% (12)</td>
 <td align="right">44</td>
 <td align="left">0.82 (0.36, 1.78)</td>
-<td align="left">0.625</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3434,7 +3113,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">52.4% (11)</td>
 <td align="right">21</td>
 <td align="left">1.70 (0.64, 4.55)</td>
-<td align="left">0.284</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3443,7 +3121,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">39.2% (38)</td>
 <td align="right">97</td>
 <td align="left">1.37 (0.78, 2.41)</td>
-<td align="left">0.275</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3452,7 +3129,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">40.1% (403)</td>
 <td align="right">1004</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.426</td>
 </tr>
 <tr class="odd">
@@ -3461,7 +3137,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">48.6% (427)</td>
 <td align="right">879</td>
 <td align="left">1.17 (0.79, 1.74)</td>
-<td align="left">0.427</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3470,7 +3145,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">43.7% (304)</td>
 <td align="right">695</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">0.168</td>
 </tr>
 <tr class="odd">
@@ -3479,7 +3153,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">40.0% (188)</td>
 <td align="right">470</td>
 <td align="left">1.26 (0.97, 1.64)</td>
-<td align="left">0.0842</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3488,7 +3161,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">42.9% (127)</td>
 <td align="right">296</td>
 <td align="left">1.20 (0.89, 1.63)</td>
-<td align="left">0.235</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3497,7 +3169,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">49.8% (118)</td>
 <td align="right">237</td>
 <td align="left">1.43 (1.03, 1.98)</td>
-<td align="left">0.0322</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3506,7 +3177,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">50.3% (93)</td>
 <td align="right">185</td>
 <td align="left">1.37 (0.96, 1.97)</td>
-<td align="left">0.0841</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3515,7 +3185,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">25.3% (135)</td>
 <td align="right">534</td>
 <td align="left">Reference</td>
-<td align="left"></td>
 <td align="left">1.1e-20</td>
 </tr>
 <tr class="even">
@@ -3524,7 +3193,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">48.9% (149)</td>
 <td align="right">305</td>
 <td align="left">3.01 (2.19, 4.14)</td>
-<td align="left">1.17e-11</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3533,7 +3201,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">61.8% (141)</td>
 <td align="right">228</td>
 <td align="left">4.82 (3.39, 6.91)</td>
-<td align="left">5.11e-18</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3542,7 +3209,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">46.6% (97)</td>
 <td align="right">208</td>
 <td align="left">2.36 (1.65, 3.37)</td>
-<td align="left">2.23e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3551,7 +3217,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">44.0% (74)</td>
 <td align="right">168</td>
 <td align="left">2.23 (1.52, 3.26)</td>
-<td align="left">3.55e-05</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3560,7 +3225,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">46.2% (60)</td>
 <td align="right">130</td>
 <td align="left">2.36 (1.56, 3.55)</td>
-<td align="left">4e-05</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3569,7 +3233,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">60.3% (94)</td>
 <td align="right">156</td>
 <td align="left">4.56 (3.09, 6.77)</td>
-<td align="left">3.07e-14</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
@@ -3578,7 +3241,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">53.3% (56)</td>
 <td align="right">105</td>
 <td align="left">3.09 (1.97, 4.88)</td>
-<td align="left">1.06e-06</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
@@ -3587,7 +3249,6 @@ Supplementary Figure S1: Summary plot of missing data in the extract of the ETS 
 <td align="left">49.0% (24)</td>
 <td align="right">49</td>
 <td align="left">2.84 (1.54, 5.25)</td>
-<td align="left">0.000831</td>
 <td align="left"></td>
 </tr>
 </tbody>

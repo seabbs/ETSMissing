@@ -69,7 +69,7 @@ Ellen Brooks-Pollock, Bristol Medical School: Population Health Sciences, Univer
 
 **Correspondence to:** Sam Abbott, Bristol Medical School: Population Health Sciences, University of Bristol, Bristol BS8 2BN, UK; sam.abbott@bristol.ac.uk; 01173310185
 
-**Words:** *Title:* 9 *Abstract:* 299  *Paper:* 3669
+**Words:** *Title:* 9 *Abstract:* 300  *Paper:* 3669
 
 # Abstract
 
@@ -91,7 +91,7 @@ All demographic variables considered were associated with data being missing for
 
 ## Conclusions
 
-Missingness in outcomes was associated with multiple demographic variables. These associations could not be generalised, preventing a systematic approach to dealing with missingness and indicating that domain knowledge is required. The identified associations may induce bias, meaning that complete case analysis should not be used for this data source - or other similar surveillance data. Our findings should be used to motivate the use of imputation and to inform the specification of imputation models for similar surveillance data. 
+Missingness in outcomes was associated with multiple demographic variables. These associations could not be generalised, preventing a systematic approach to dealing with missingness and indicating that domain knowledge is required. The identified associations may induce bias, meaning that multiple imputation may be beneficial for analyse using this data source - or other similar surveillance data. Our findings should be used to motivate the use of imputation and to inform the specification of imputation models that include auxiliary variables. 
 
 ## Keywords
 
@@ -111,7 +111,7 @@ Tuberculosis, surveillance, missingness, imputation
 
 The Enhanced Tuberculosis Surveillance (ETS) system is a routine surveillance system - with a similar structure to other such systems - that collects data on all notified tuberculosis (TB) cases in England. It is routinely used to study the epidemiology of TB. Routine data often has a large amount of missing data which may not be fully accounted for when used in analyses. Studies rarely independently assess the impact of missing data - instead aiming to account for it during analysis. This study explores missingness in the ETS - focusing on associations between key outcomes and demographic variables with the aim of highlighting potential sources of bias. 
 
-Missing data can take several forms, data that are missing completely at random (MCAR), data that are missing at random (MAR) and data that are missing not at random (MNAR)[@Sterne2009a]. Data that are MAR are missing with a mechanism that is conditional on observed variables, whilst MNAR are missing with a mechanism that is conditional on variables that are not observed. Data that is MAR - or MNAR - may lead to biases when analysing the data. This means that it is necessary to account for these potential biases during the analysis stage. This is possible using a variety of methods such as scenario analysis accounting for the 'best' and 'worst' case scenarios, and multiple imputation of missing data[@Sterne2009a; Azur2011; @JSSv045i03]. Common practice is to include all variables included in the analyses in the imputation model and best practise is to also include additional variables that may be related to missing data[Azur2011; @Rezvan2015]. Several studies have used imputation for analyses using the ETS and found that results were impacted compared to using complete case analysis or imputation using only analysis variables[@Abbott:2019:vaccine ;@Abbott:2019:preprint:direct].
+Missing data can take several forms, data that are missing completely at random (MCAR), data that are missing at random (MAR) and data that are missing not at random (MNAR)[@Sterne2009a]. Data that are MAR are missing with a mechanism that is conditional on observed variables, whilst MNAR are missing with a mechanism that is conditional on variables that are not observed. Data that is MAR - or MNAR - may lead to biases when analysing the data. This means that it is necessary to account for these potential biases during the analysis stage. This is possible using a variety of methods such as scenario analysis accounting for the 'best' and 'worst' case scenarios, and multiple imputation of missing data[@Sterne2009a; Azur2011; @JSSv045i03]. Common practice is to include all variables included in the analyses in the imputation model and best practice is to also include additional variables that may be related to missing data[@Azur2011; @Rezvan2015]. Several studies have used imputation for analyses using the ETS and found that results were impacted compared to using complete case analysis or imputation using only analysis variables[@Abbott:2019:vaccine ;@Abbott:2019:preprint:direct].
  
 This study aims to explore the evidence for associations between missingness in several key outcomes and demographic variables in the ETS. Any such associations may introduce bias if not accounted for. It also aims to more broadly assess missing data in the ETS, evaluate the impact of the introduction of the web based ETS in 2008 on missing data, and highlight potential biases in reporting for date variables.
 
@@ -192,7 +192,7 @@ We took the following steps:
 
 1. Refit the model, dropping each variable in turn and then comparing the updated model with the full model using a likelihood ratio test.
 
-1. Interpret the results, using the estimated size of the effect, the width of the confidence intervals and the size of the Wald and likelihood ratio test p values to determine which variables are related to missingness for the variable of interest. Evidence should be interpreted on a spectrum, rather than using arbitrary significance cut-offs[@Sterne2001]. To avoid issues of multiple testing the level of evidence should be weighted based on the number of variables adjusted for and the number of outcomes explored.
+1. Interpret the results, using the estimated size of the effect, the width of the confidence intervals and the size of the likelihood ratio test p values to determine which variables are related to missingness for the variable of interest. Evidence should be interpreted on a spectrum, rather than using arbitrary significance cut-offs[@Sterne2001]. To avoid issues of multiple testing the level of evidence should be weighted based on the number of variables adjusted for and the number of outcomes explored.
 
 For all outcomes considered we adjusted for the same set of demographic variables that were both highly complete, plausibly linked to missingness for all outcomes considered, and likely to be present in other comparable surveillance data-sets. These were: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status, socio-economic status (national quintiles), and PHE centre (region). Complete case analysis was used, with the data-set limited to notifications from 2010 and on-wards as socio-economic status was not collected prior to this. The code for this approach is available as an R package (https://doi.org/10.5281/zenodo.3492200).
 
@@ -318,11 +318,26 @@ miss_ets <- miss_ets_pre_2009 %>%
                      dplyr::select(variable, `2009-2015` = reported), by = "variable") %>% 
   map_variable_names() %>% 
   rename(Variable = variable)
-                     
+
+
+## sample size
+get_sample_size <- function(df, time = NULL) {
+  df %>% 
+  dplyr::slice(1) %>% 
+  dplyr::mutate(time = time, n = round(n_miss / (as.numeric(percent) / 100), 0)) %>% 
+  dplyr::select(time, n)
+}
+
+
+ets_sample_size <- miss_ets_pre_2009 %>% 
+  get_sample_size(time = "pre_2009") %>% 
+  bind_rows(miss_ets_post_2008 %>%
+              get_sample_size("post_2008"))
+  
                      
 
 knitr::kable(miss_ets,
-      caption = prettypublisher::pretty_tabref("missing-var-tabs", "Percentage of missing data from the ETS for a subset of variables, prior to the web-based system (pre 2009) and post (post 2008) by variable, ordered by the  percentage missing for a subset of variables. Nested variables have been accounted for (i.e data of death has had an entry added for cases that are known to have not died), so that true missingness for all variables is estimated."))
+      caption = prettypublisher::pretty_tabref("missing-var-tabs", paste0("Percentage of missing data from the ETS for a subset of variables commonly used in analyse, prior to the web-based system (2000-2008) and post (2009-2015) by variable, ordered by the  percentage missing for a subset of variables. Number of notifications missing per variable is given in brackets. Between 2000-2008 there were ",  ets_sample_size$n[[1]] ," notifications overall and between 2009-2015 there were ", ets_sample_size$n[[2]], ".")))
 ```
 
 By filtering nested variables - rather than by using replacement -  we found the date of starting treatment was `r missing_stats[["date_treat"]]` missing, which is more complete than previously estimated. For cases that were known to have completed treatment `r missing_stats[["date_treat_end"]]` were missing a date for the end of treatment. In notifications that were known to have died, `r missing_stats[["date_death"]]` were missing the date of death and `r missing_stats[["cause_death"]]` were missing the cause of death. 
@@ -331,46 +346,49 @@ By filtering nested variables - rather than by using replacement -  we found the
 
 ### Drug resistance
 
-There was evidence that drug resistance was missing with a MAR mechanism for all variables considered (`r prettypublisher::pretty_tabref("anyres-miss")`), excepting year of notification. Men were less likely to be missing than women. Children were much more likely to have a missing drug resistance status than any other age group. The white ethnic group were less likely to be missing drug resistance than all other ethnic groups, excepting the Chinese ethnic group. The UK born population was more likely to be missing as were those from higher economic quintiles. Notifications in London were more likely to be missing drug resistance status than for most other PHE centres. 
+There was evidence that drug resistance was missing with a MAR mechanism for all variables considered (`r prettypublisher::pretty_tabref("anyres-miss")`), excepting year of notification. Men were less likely to be missing than women. Children were much more likely to have a missing drug resistance status than any other age group. The White ethnic group were less likely to be missing drug resistance than all other ethnic groups, excepting the Chinese ethnic group. The UK born population was more likely to be missing as were those from higher economic quintiles. Notifications in London were more likely to be missing drug resistance status than for most other PHE centres. 
 
 ```{r anyres-miss}
+strip_wald <- function(df) {
+  df %>% 
+    dplyr::select(-`P value (Wald)`) %>% 
+    dplyr::rename(`P value` = `P value (LRT)`)
+}
+
+  
 ETSMissing::pull_results(results, "anyres") %>% 
+  strip_wald() %>% 
   knitr::kable(
-        caption = prettypublisher::pretty_tabref("anyres-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for drug resistance (to any treatment) as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables."))
+        caption = prettypublisher::pretty_tabref("anyres-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for drug resistance (to any treatment) as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables."))
 ```
 
 ### BCG status and year of BCG vaccination
 
-Similarly to drug resistance there was evidence that BCG status was missing with a MAR mechanism for all variables considered (`r prettypublisher::pretty_tabref("bcgvacc-miss")`) with the  stronger evidence for an association with year but reduced evidence of an association with socio-economic status. After adjusting for other variables data completeness increased from 2010 until 2012 but has since showed no clear trend. Men appeared to be more likely than women to have a missing BCG status, with the non-UK born also being more likely than the UK born to be missing BCG status. The proportion of those missing BCG status increased with age, with those aged 65+ being over 4 times more likely to be missing BCG status than those aged 0-14 years old. The White ethnic group was more likely to have a missing BCG status than any other ethnic group. London was associated with less reduced missingness for BCG status compared to other PHE centres. 
+Similarly to drug resistance there was evidence that BCG status was missing with a MAR mechanism for all variables considered (`r prettypublisher::pretty_tabref("bcgvacc-miss")`) with the  stronger evidence for an association with year but reduced evidence of an association with socio-economic status. After adjusting for other variables data completeness increased from 2010 until 2012 but has since showed no clear trend. Men appeared to be more likely than women to have a missing BCG status, with the non-UK born also being more likely than the UK born to be missing BCG status. The proportion of those missing BCG status increased with age, with those aged 65+ being over 4 times more likely to be missing BCG status than those aged 0-14 years old. The White ethnic group was more likely to have a missing BCG status than any other ethnic group. London was associated with increased missingness for BCG status compared to other PHE centres. 
 
-Missingness for year of BC vaccination had similar associations as BCG status. However, there was less evidence of an association with sex, the white ethnic group were less likely to have a missing status than other ethnic groups, and there was strong evidence of an association with socio-economic status with those in the lowest quintile being more likely to have a missing year of BCG vaccination. London was much more likely to be missing BCG status than any other PHE centre, a reversal of the relationship observed for BCG status.
+Missingness for year of BCG vaccination had similar associations as BCG status. However, there was less evidence of an association with sex, the White ethnic group were less likely to have a missing status than other ethnic groups, and there was strong evidence of an association with socio-economic status with those in the lowest quintile being more likely to have a missing year of BCG vaccination. London was much more likely to be missing BCG status than any other PHE centre, a reversal of the relationship observed for BCG status.
 
 ```{r bcgvacc-miss}
 ETSMissing::pull_results(results, "bcgvacc") %>% 
+  strip_wald() %>% 
   knitr::kable(
-        caption = prettypublisher::pretty_tabref("bcgvacc-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for BCG vaccination as an outcome, adjusted for: year, sex, age (grouped as 0-14 
-                                year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. 
-                                Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all 
-                                explanatory variables. The model indicates that BCG status is missing at random for the variables considered."))
+        caption = prettypublisher::pretty_tabref("bcgvacc-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for BCG vaccination as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables."))
 ```
 
 ### Date of symptom onset
 
-For date of symptom onset there was strong evidence of an MAR mechanism for all variables considered, except for sex (`r prettypublisher::pretty_tabref("symptonset-miss")`). The likelihood of date of symptom onset being missing reduced with year of notification. Children (0-14 years old) were more likely to have a missing date of symptom onset than any other age group as were those in any socio-economic quintile when compared to the poorest group. UK born cases were more likely to have a complete date of symptom onset than non-UK born cases, with the White ethnic group being more likely to have a missing date of symptom onset than most other ethnic groups. London was again associated with a increased level of missing data compared to other PHE centres.
+For date of symptom onset there was strong evidence of an MAR mechanism for all variables considered, except for sex (`r prettypublisher::pretty_tabref("symptonset-miss")`). The likelihood of date of symptom onset being missing reduced with year of notification. Children (0-14 years old) were more likely to have a missing date of symptom onset than any other age group as were those in any socio-economic quintile when compared to the most deprived group. UK born cases were more likely to have a complete date of symptom onset than non-UK born cases, with the White ethnic group being more likely to have a missing date of symptom onset than most other ethnic groups. London was again associated with a increased level of missing data compared to other PHE centres.
 
 ```{r symptonset-miss}
 ETSMissing::pull_results(results, "symptonset") %>% 
+  strip_wald() %>% 
   knitr::kable(
-        caption = prettypublisher::pretty_tabref("symptonset-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of symptom onset as an outcome, adjusted for: 
-                                year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For 
-                                socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before 
-                                this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. The model indicates that date of symptom onset is missing 
-                                not at random for the variables for all variables considered, except for sex."))
+        caption = prettypublisher::pretty_tabref("symptonset-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of symptom onset as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables."))
 ```
 
 ### Date of diagnosis
 
-For date of diagnosis there was again strong evidence for an MAR mechanism for all variables considered, except for sex (`r prettypublisher::pretty_suptabref("datediag-miss")`). Increasing completeness was found for year of notification as seen previously, as was an increased likelihood of missing data in males and the non-UK born. The White ethnic group was more likely to be missing data on the data of diagnosis as compared to the majority of other ethnic groups. The poorest socio-economic group was less likely to be missing data compared to all other socio-economic quintiles. Children (0-14 years old) were again more likely to be missing data than adults in any age group. As for other variables London had a much higher proportion of missing data than any other PHE centre. 
+For date of diagnosis there was again strong evidence for an MAR mechanism for all variables considered, except for sex (`r prettypublisher::pretty_suptabref("datediag-miss")`). Increasing completeness was found for year of notification as seen previously, as was an increased likelihood of missing data in males and the non-UK born. The White ethnic group was more likely to be missing data on the data of diagnosis as compared to the majority of other ethnic groups. The most deprived socio-economic group was less likely to be missing data compared to all other socio-economic quintiles. Children (0-14 years old) were again more likely to be missing data than adults in any age group. As for other variables London had a much higher proportion of missing data than any other PHE centre. 
 
 ### Date of starting treatment and ending treatment
 
@@ -386,7 +404,7 @@ Notifications showed evidence of a strong seasonal trend with a peak in the numb
 
 
 
-```{r plot-trends-symptonset, fig.cap = prettypublisher::pretty_figref("plot-trends-symptonset", "a.) Shows the proportion of cases with symptons starting in a given month for each year with some evidence of bias in January and reduced evidence of a seasonal trend. b.) Shows the proportion of cases with symptons starting on a given day for each month with a strong evidence of biased reporting on the first of the month and the 14th. Stratifying both figures based on the introduction of the web-based ETS indicates that the web-based ETS may have reduced these biases."), out.width = "60%", out.extra = ""}
+```{r plot-trends-symptonset, fig.cap = prettypublisher::pretty_figref("plot-trends-symptonset", "a.) Shows the proportion of cases with symptons starting in a given month for each year with some evidence of bias in January. b.) Shows the proportion of cases with symptons starting on a given day for each month with a strong evidence of biased reporting on the first of the month and the 14th. Stratifying both figures based on the introduction of the web-based ETS indicates that the web-based ETS may have reduced these biases."), out.width = "60%", out.extra = ""}
 show_figure("trends-for-symptonset")
 ```
 
@@ -394,11 +412,11 @@ show_figure("trends-for-symptonset")
 
 We found a high degree of missing data for several variables in the ETS. All demographic variables considered were strongly associated with data being missing for multiple outcomes. However, not all outcome missingness was associated with all demographic variables and for those that were the direction of - or trend in - effect was not consistent. Missingness for drug resistance was associated with all variables - excepting year - with higher levels of missingness being associated with children, non-White ethnic groups, the UK born, higher socio-economic status, and the London PHE centre (though there was between PHE centre variation). In comparison, the associations with BCG status had a similar level of evidence but did not share the same trends with children being much less likely to have missing data than older adults, non-White ethnic groups having a lower levels of missing data than the White ethnic group, the non-UK born being more likely to be missing than the UK born, and the London PHE centre being less likely to be missing data than other PHE centres. Missingness for date and cause of death had less evidence of associations than other outcomes. We also found that date variables in particular suffered from changing data completeness over time. In addition, we found that both the date of symptom onset and the date of ending treatment had a higher than expected proportion of cases occurring in January each year and on the 1st and 14th of each month when compared to notification date. This may indicate the presence of reporting or recall bias. These potential biases were reduced after the launch of the web-based ETS but were still present.  
 
-This study has explored missing data in the ETS - which is an example of a well designed surveillance system - in detail and found that missing data can rarely be considered missing completely at random. We highlighted several key demographic variables as being potential sources of bias, but did not find a generalised structure to these biases across key outcomes. Routine observational data-sets are subject to numerous other potential biases not explored in this study. These sources of bias include: selection bias, recall bias, measurement bias, and unmeasured confounding[@Benchimol2016a]. These sources of bias may be difficult to quantify in a single routine surveillance data-set as they require knowledge of the population in order to identify - except in the instances seen above with spuriously high reporting for some months, or days in a month. This means that studies using routine surveillance data are never likely to be free of bias. However, by using imputation and including a wide range of variables plausibly linked to variable missingness - as we have demonstrated here - this bias can be reduced[@Azur2011]. Also as demonstrated here, by exploring variable reporting across times additional potential sources of bias can be identified and then potentially mitigated. This study does not detail imputation best practises see [@Sterne2009a @JSSv045i03; @Azur2011] for further information and [@Abbott:2019:vaccine ;@Abbott:2019:preprint:direct] for case studies in the ETS. Additionally, multiple variables may suffer from misclassification bias, including BCG status which can be assessed via vaccination record, the presence of a scar, or case recall: this may lead to spurious associations[@Fewell2007]. These potential sources of bias require additional verification studies in order to identify and account for them. Finally, our study may be used to inform studies in surveillance data-sets other than the ETS but cannot be directly generalised as we only considered a single data-set. For this reason we conducted our analysis within a highly reproducible framework and hence our approach should be readily applicable to other data sources with little alteration. 
+This study has explored missing data in the ETS - which is an example of a well designed surveillance system - in detail and found that missing data can rarely be considered missing completely at random. We highlighted several key demographic variables as being potential sources of bias, but did not find a generalised structure to these biases across key outcomes. Routine observational data-sets are subject to numerous other potential biases not explored in this study. These sources of bias include: selection bias, recall bias, measurement bias, and unmeasured confounding[@Benchimol2016a]. These sources of bias may be difficult to quantify in a single routine surveillance data-set as they require knowledge of the population in order to identify - except in the instances seen above with spuriously high reporting for some months, or days in a month. This means that studies using routine surveillance data are never likely to be free of bias. However, by using imputation and including a wide range of variables plausibly linked to variable missingness - as we have demonstrated here - this bias can be reduced[@Azur2011]. Also as demonstrated here, by exploring variable reporting across times additional potential sources of bias can be identified and then potentially mitigated. This study does not detail imputation best practices see [@Sterne2009a @JSSv045i03; @Azur2011] for further information and [@Abbott:2019:vaccine ;@Abbott:2019:preprint:direct] for case studies in the ETS. Additionally, multiple variables may suffer from misclassification bias, including BCG status which can be assessed via vaccination record, the presence of a scar, or case recall: this may lead to spurious associations[@Fewell2007]. These potential sources of bias require additional verification studies in order to identify and account for them. Finally, our study may be used to inform studies in surveillance data-sets other than the ETS but cannot be directly generalised as we only considered a single data-set. For this reason we conducted our analysis within a highly reproducible framework and hence our approach should be readily applicable to other data sources with little alteration. 
 
-Missing data in the ETS was highly complex with changing completeness over time and associations with multiple demographic factors. The launch of the web-based ETS system was linked to reduced missing data, followed by improved completeness over subsequent years for multiple outcomes but for most outcomes this improvement then stalled. An updated data collection system may be able to reduce missing data - and MAR missingness - further. The nature of the associations could not be generalised over the outcomes considered with it being clear that individual mechanisms led to each. However, for all outcomes considered - that were well powered - there was evidence of associations with demographic variables. This indicates that missingness is likely to be not MCAR and hence must be accounted for in any analysis, ideally using multiple imputation[@JSSv045i03; @Azur2011]. This means that complete case analysis should not be used on its own for this data source - or other similar surveillance data. Whilst many of the variables we considered may often be considered in analysis models - and hence included in imputation - this may not be the case. Therefore, considerable care should be taken when specifying imputation models with other potentially informative variables also being included. Our findings highlight the need for those involved with data collection to also be involved with downstream analysis. Data issues that could lead to bias could then be readily identified by those with the required domain knowledge. This approach may not be feasible in widely studied data-sets, an alternative would be that data collectors share fully imputed data - using all available variables - rather than raw data with missing values. This would allow those best placed to understand the potential sources of bias to mitigate for them and leave downstream users to conduct analysis without having to account further for missingness.
+Missing data in the ETS was highly complex with changing completeness over time and associations with multiple demographic factors. The launch of the web-based ETS system was linked to reduced missing data, followed by improved completeness over subsequent years for multiple outcomes but for most outcomes this improvement then stalled. An updated data collection system may be able to reduce missing data - and MAR missingness - further. The nature of the associations could not be generalised over the outcomes considered with it being clear that individual mechanisms led to each. However, for all outcomes considered - that were well powered - there was evidence of associations with demographic variables. This indicates that missingness is likely to be not MCAR and hence must be accounted for in any analysis, ideally using multiple imputation[@JSSv045i03; @Azur2011]. This means that complete case analysis is unlikely to be the best option for analyses using this data source - or other similar surveillance data. However, it may be preferable when missing data is MNAR but is not conditional on the outcome being considered[@10.1093/ije/dyz032]. Whilst many of the variables we considered may often be considered in analysis models - and hence included in imputation - this may not be the case. Therefore, considerable care should be taken when specifying imputation models with other potentially informative variables also being included. Our findings highlight the need for those involved with data collection to also be involved with downstream analysis. Data issues that could lead to bias could then be readily identified by those with the required domain knowledge. This approach may not be feasible in widely studied data-sets, an alternative would be that data collectors share fully imputed data - using all available variables - rather than raw data with missing values. This would allow those best placed to understand the potential sources of bias to mitigate for them and leave downstream users to conduct analysis without having to account further for missingness.
 
-Whilst this analysis was able to identify multiple potential sources of bias for key outcomes it did not quantify the impact that these may have on analyses using these outcomes. Several studies have made use of the ETS - using imputation to adjust for biases due to missing data - but to our knowledge none have explicitly focused on the impact that biases due to missing data may have had[@Abbott:2019:vaccine ;@Abbott:2019:preprint:direct]. A case study focussing on the impact of missing data on study outcomes could be used to highlight the impact of improperly accounting for missing data in surveillance data-sets. This analysis only used a single surveillance data-set - in order for the findings to be more easily generalised to other data-sets it could be repeated in additional surveillance data. For this reason this analysis has been structured as an R package (https://doi.org/10.5281/zenodo.3492200). 
+Whilst this analysis was able to identify multiple potential sources of bias for key outcomes it did not quantify the impact that these may have on analyses using these outcomes. Several studies have made use of the ETS - using imputation to adjust for biases due to missing data - but to our knowledge none have explicitly focused on the impact that biases due to missing data may have had[@Abbott:2019:vaccine ;@Abbott:2019:preprint:direct]. A case study focusing on the impact of missing data on study outcomes could be used to highlight the impact of improperly accounting for missing data in surveillance data-sets. This analysis only used a single surveillance data-set - in order for the findings to be more easily generalised to other data-sets it could be repeated in additional surveillance data. For this reason this analysis has been structured as an R package (https://doi.org/10.5281/zenodo.3492200). 
 
 
 **Acknowledgements**
@@ -435,7 +453,7 @@ Sam Abbott, Hannah Christensen, Ellen Brooks-Pollock
 
 ## Data completeness
 
-```{r plot-missing-struct, fig.cap = prettypublisher::pretty_supfigref("plot-missing-struct", "Summary plot of missing data in the extract of the ETS data used in this thesis. Due to the large size of the dataset, the data has been sub-sampled with only 20\\% of the data shown in this figure. Notifications have been ordered by date of notification from left to right. The following subset of variables are shown: year (year), sex (sex), age (age), PHE Centre (phec), Occupation (occat), Ethnic group (ethgrp), UK birth status (ukborn), Time since entry (timesinceent), date of symptom onset (symptonset), date of diagnosis (datediag), started treatment (startedtreat), date of starting treatment (starttreatdate), treatment end date (txenddate), pulmonary or extra-pulmonary TB (pulmextrapulm), culture (culture), sputum smear status (sputsmear), drug resistance (anyres), previous diagnosis (prevdiag), BCG status(bcgvacc), Year of BCG vaccination (bcgvaccyr), overall outcome (overalloutcome), cause of death (tomdeathrelate), socio-economic status quintiles (natquintile), and date of death (dateofdeath). Nested variables have been accounted for (i.e date of death has had an entry added for cases that are known to have not died)."), out.width = "60%", out.extra = ""}
+```{r plot-missing-struct, fig.cap = prettypublisher::pretty_supfigref("plot-missing-struct", "Summary plot of missing data in the ETS. Due to the large size of the dataset, the data has been sub-sampled with only 20\\% of the data shown in this figure. Notifications have been ordered by date of notification from left to right. The following subset of variables are shown: year (year), sex (sex), age (age), PHE Centre (phec), Occupation (occat), Ethnic group (ethgrp), UK birth status (ukborn), Time since entry (timesinceent), date of symptom onset (symptonset), date of diagnosis (datediag), started treatment (startedtreat), date of starting treatment (starttreatdate), treatment end date (txenddate), pulmonary or extra-pulmonary TB (pulmextrapulm), culture (culture), sputum smear status (sputsmear), drug resistance (anyres), previous diagnosis (prevdiag), BCG status(bcgvacc), Year of BCG vaccination (bcgvaccyr), overall outcome (overalloutcome), cause of death (tomdeathrelate), socio-economic status quintiles (natquintile), and date of death (dateofdeath)."), out.width = "60%", out.extra = ""}
 show_figure("plot-missing-struct")
 ```
 
@@ -446,23 +464,18 @@ show_figure("plot-missing-struct")
 
 ```{r bcgvaccyr-miss}
 ETSMissing::pull_results(results, "bcgvaccyr") %>% 
+  strip_wald() %>% 
   knitr::kable(
-        caption = prettypublisher::pretty_suptabref("bcgvaccyr-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for year of BCG vaccination as an outcome, adjusted for: year, sex, age (grouped 
-                                as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived 
-                                quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all 
-                                explanatory variables. The model indicates that year of BCG vaccination is missing at random for the variables considered."))
+        caption = prettypublisher::pretty_suptabref("bcgvaccyr-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for year of BCG vaccination as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables."))
 ```
 
 ### Date of diagnosis
 
 ```{r datediag-miss}
 ETSMissing::pull_results(results, "datediag") %>% 
+  strip_wald() %>% 
   knitr::kable(
-        caption = prettypublisher::pretty_suptabref("datediag-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of diagnosis onset as an 
-                                outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status 
-                                (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010 onwards were included as socio-economic 
-                                status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for all explanatory variables. The model indicates that 
-                                date of diagnosis is missing at random for the variables for all variables considered, except for sex."))
+        caption = prettypublisher::pretty_suptabref("datediag-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of diagnosis onset as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables."))
 ```
 
 
@@ -470,25 +483,17 @@ ETSMissing::pull_results(results, "datediag") %>%
 
 ```{r starttreatdate-miss}
 ETSMissing::pull_results(results, "starttreatdate") %>% 
+  strip_wald() %>% 
   knitr::kable(
-      caption =  prettypublisher::pretty_suptabref("starttreatdate-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of starting
-                               treatment as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth
-                               status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications
-                               from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios
-                               shown are adjusted for all explanatory variables. There is little evidence that the missing data for the date of starting treatment
-                               is associated with any variable considered, except for year of notification."))
+      caption =  prettypublisher::pretty_suptabref("starttreatdate-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of starting treatment as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables."))
 ```
 
 
 ```{r txenddate-miss}
 ETSMissing::pull_results(results, "txenddate") %>% 
+  strip_wald() %>% 
   knitr::kable(
-        caption = prettypublisher::pretty_suptabref("txenddate-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of starting treatment
-                                as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and
-                                socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Notifications from 2010
-                                onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are
-                                adjusted for all explanatory variables. There is little evidence that the missing data for the date of starting treatment is
-                                associated with any variable considered, except for year of notification."))
+        caption = prettypublisher::pretty_suptabref("txenddate-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of starting treatment as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables."))
 ```
 
 ### Date of death
@@ -496,11 +501,9 @@ ETSMissing::pull_results(results, "txenddate") %>%
 
 ```{r dateofdeath-miss}
 ETSMissing::pull_results(results, "dateofdeath") %>% 
+  strip_wald() %>% 
   knitr::kable(
-        caption = prettypublisher::pretty_suptabref("dateofdeath-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of death as an outcome, adjusted for: year, sex, age (grouped as 
-                                0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived 
-                                quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios shown are adjusted for 
-                                all explanatory variables. The model indicates that there is some evidence that date of death is missing at random for ethnic group, with weaker evidence for all other variables."))
+        caption = prettypublisher::pretty_suptabref("dateofdeath-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for date of death as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables."))
 ```
 
 ### Cause of death
@@ -508,12 +511,9 @@ ETSMissing::pull_results(results, "dateofdeath") %>%
 
 ```{r tomdeathrealat-miss}
 ETSMissing::pull_results(results, "tomdeathrelat") %>% 
+  strip_wald() %>% 
   knitr::kable(
-        caption = prettypublisher::pretty_suptabref("tomdeathrealat-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for cause of death as an outcome, adjusted for: year, 
-                                sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates 
-                                the most deprived quintile. Notifications from 2010 onwards were included as socio-economic status was not collected before this. Complete case analysis was used. Odds ratios 
-                                shown are adjusted for all explanatory variables. The model indicates that cause of death is missing at random for ethnic group and UK birth status, with little evidence for any 
-                                other variables"))
+        caption = prettypublisher::pretty_suptabref("tomdeathrealat-miss", "Results from a logistic regression model with data completeness (Complete/Missing) for cause of death as an outcome, adjusted for: year, sex, age (grouped as 0-14 year olds, 15-65 year olds and 65+), ethnic group, UK birth status and socio-economic status (national quintiles). For socio-economic group 1 indicates the most deprived quintile. Odds ratios shown are adjusted for all explanatory variables."))
 ```
 
 
