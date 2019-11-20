@@ -45,11 +45,12 @@ indicating the presence of potential bias.
 
 Missingness in outcomes was associated with multiple demographic
 variables. These associations could not be generalised, preventing a
-systematic approach to dealing with missingness. The identified
-associations may induce bias, meaning that complete case analysis should
-not be used for this data source - or other similar surveillance data.
-Our findings should be used motivate the use of imputation and to inform
-the specification of imputation models for similar surveillance data.
+systematic approach to dealing with missingness and indicating that
+domain knowledge is required. The identified associations may induce
+bias, meaning that multiple imputation may be beneficial for analyse
+using this data source - or other similar surveillance data. Our
+findings should be used to motivate the use of imputation and to inform
+the specification of imputation models that include auxiliary variables.
 
 ## Keywords
 
